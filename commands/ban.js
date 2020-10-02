@@ -2,10 +2,10 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'ban',
     aliases: ['차단', '밴', 'ㅠ무', 'ckeks', 'qos'],
-    description: '유저를 차단해요. (int Team 멤버만 사용 가능)',
+    description: '유저를 차단해요. (봇 관리자만 사용 가능)',
     usage: 'i.ban <유저 멘션> [차단 이유]',
-    run: async (client, message, args) => {
-        if (!message.member.roles.cache.has('761464991340953621')) return message.channel.send('int Team 멤버만 사용할 수 있어요.');
+    run: async (client, message, args, ops) => {
+        if (!message.member.roles.cache.has(ops.adminRole)) return message.channel.send('봇 관리자만 사용할 수 있어요.');
         if (!message.mentions.users.first()) return message.channel.send('차단할 유저를 멘션해주세요');
         if (!message.guild.member(message.mentions.users.first())) return message.channel.send('이 유저는 서버에 없는 것 같아요.');
         if (!message.guild.member(message.mentions.users.first()).bannable) return message.channel.send('이 유저는 제가 치딘할 수 없어요.');

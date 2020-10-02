@@ -2,10 +2,10 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'kick',
     aliases: ['추방', '킥', 'ㅏㅑ차', 'zlr', 'cnqkd'],
-    description: '유저를 추방해요. (int Team 멤버만 사용 가능)',
+    description: '유저를 추방해요. (봇 관리자만 사용 가능)',
     usage: 'i.kick <유저 멘션> [추방 이유]',
-    run: async (client, message, args) => {
-        if (!message.member.roles.cache.has('761464991340953621')) return message.channel.send('int Team 멤버만 사용할 수 있어요.');
+    run: async (client, message, args, ops) => {
+        if (!message.member.roles.cache.has(ops.adminRole)) return message.channel.send('봇 관리자만 사용할 수 있어요.');
         if (!message.mentions.users.first()) return message.channel.send('추방할 유저를 멘션해주세요');
         if (!message.guild.member(message.mentions.users.first())) return message.channel.send('이 유저는 서버에 없는 것 같아요.');
         if (!message.guild.member(message.mentions.users.first()).kickable) return message.channel.send('이 유저는 제가 추방할 수 없어요.');

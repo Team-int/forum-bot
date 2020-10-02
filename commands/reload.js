@@ -4,8 +4,8 @@ module.exports = {
     aliases: ['리로드', 'ㄹㄹㄷ', 'ㄱ디ㅐㅁㅇ', 'flfhem', 'ffe'],
     description: '모든 명령어를 리로드해요. (개발자만 사용 가능)',
     usage: 'i.reload',
-    run: async (client, message, args) => {
-        if (!['687866011013218349', '647736678815105037'].includes(message.author.id)) return message.channel.send(`${client.user.username} 개발자만 사용할 수 있어요.`);
+    run: async (client, message, args, ops) => {
+        if (!ops.devs.includes(message.author.id)) return message.channel.send(`${client.user.username} 개발자만 사용할 수 있어요.`);
         const embed = new Discord.MessageEmbed()
             .setTitle(`리로드 중...`)
             .setColor('RANDOM')

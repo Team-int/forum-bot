@@ -2,10 +2,10 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'notice',
     aliases: ['공지', 'rhdwl', 'ㅜㅐ샻ㄷ'],
-    description: '공지를 보내요. (int Team 멤버만 가능)\n일반 공지: Alarm 역할 멘션\n중요 공지: everyone 멘션',
+    description: '공지를 보내요. (봇 관리자만 가능)\n일반 공지: Alarm 역할 멘션\n중요 공지: everyone 멘션',
     usage: 'i.notice <일반|중요> <공지 내용>',
-    run: async (client, message, args) => {
-        if (!message.member.roles.cache.has('761464991340953621')) return message.channel.send('int Team 멤버만 사용할 수 있어요.');
+    run: async (client, message, args, ops) => {
+        if (!message.member.roles.cache.has(ops.adminRole)) return message.channel.send('봇 관리자만 사용할 수 있어요.');
         if (args[1] != '일반' && args[1] != '중요') return message.channel.send('공지 타입을 입력해주세요.');
         if (!args[2]) return message.channel.send('공지 내용을 입력해주세요.');
         const embed = new Discord.MessageEmbed()
@@ -26,12 +26,12 @@ module.exports = {
         });
         collector.on('end', async collected => {
             if (collected.first().emoji.name == '✅') {
-                client.channels.cache.get('761479235029303296').send(args[1] == '중요' ? client.guilds.cache.get('758562685070737438').roles.everyone.toString() : client.guilds.cache.get('758562685070737438').roles.cache.get('761453114074202173').toString(), {
+                client.channels.cache.get(ops.noticeChannel).send(args[1] == '중요' ? client.guilds.cache.get(ops.guildId).roles.everyone.toString() : client.guilds.cache.get(ops.guildId).roles.cache.get(ops.alarmRole).toString(), {
                     embed: new Discord.MessageEmbed()
                     .setTitle(`${message.guild.name} 공지`)
                     .setDescription(args.slice(2).join(' '))
                     .setColor('RANDOM')
-                    .setFooter(message.author.id, message.author.displayAvatarURL())
+                    .setFooter(message.author.tag, message.author.displayAvatarURL())
                     .setTimestamp()
                 });
                 embed.setTitle('공지를 보냈어요.')

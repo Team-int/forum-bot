@@ -2,10 +2,10 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'unban',
     aliases: ['언밴', '차단해제', 'ㅕㅜㅠ무', 'djsqos', 'ckeksgowp'],
-    description: '멤버의 차단을 해제해요. (int Team 멤버만 가능)',
+    description: '멤버의 차단을 해제해요. (봇 관리자만 가능)',
     usage: 'i.unban <유저 id>',
-    run: async (client, message, args) => {
-        if (!message.member.roles.cache.has('761464991340953621')) return message.channel.send('int Team 멤버만 사용할 수 있어요.');
+    run: async (client, message, args, ops) => {
+        if (!message.member.roles.cache.has(ops.adminRole)) return message.channel.send('봇 관리자만 사용할 수 있어요.');
         if (!args[1]) return message.channel.send('차단 해제할 유저의 id를 입력해주세요.');
         if (!(await message.guild.fetchBans()).has(args[1])) return message.channel.send('이 유저는 차단되어있지 않아요.');
         let info = (await message.guild.fetchBans()).get(args[1])

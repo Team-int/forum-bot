@@ -4,7 +4,7 @@ module.exports = {
     aliases: ['도움', '도움말', 'ㅗ디ㅔ', 'ehdna', 'ehdnaakf'],
     description: '봇의 도움말을 볼 수 있어요.',
     usage: 'i.help [명령어 이름]',
-    run: async (client, message, args) => {
+    run: async (client, message, args, ops) => {
         if (args[1]) {
             let cmd = client.commands.get(args[1]);
             if (!cmd) {
