@@ -13,6 +13,7 @@ module.exports = {
 const Discord = require('discord.js');
 const fs = require('fs');
 const util = require('util');
+const axios = require('axios').default;
 const os = require('os');
 const dotenv = require('dotenv');
 const http = require('http');

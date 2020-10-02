@@ -1,7 +1,16 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const { Bot } = require('djs-handler');
+const axios = require('axios').default;
 const ops = require('./config.json');
+const server = require('http').createServer((req, res) => {
+    res.writeHead(200);
+    res.end('hello world');
+});
+server.listen(3000);
+setInterval(() => {
+    axios.get('https://intmanager.herokuapp.com').then();
+}, 120000);
 const client = new Bot(process.env.TOKEN, {
     typing: true,
     prefix: 'i.',
