@@ -7,7 +7,7 @@ const server = require('http').createServer((req, res) => {
     res.writeHead(200);
     res.end('hello world');
 });
-server.listen(3000);
+server.listen(process.env.PORT);
 setInterval(() => {
     axios.get('https://intmanager.herokuapp.com').then();
 }, 120000);
