@@ -9,7 +9,7 @@ const server = require('http').createServer((req, res) => {
 });
 server.listen(process.env.PORT);
 setInterval(() => {
-    axios.get('https://intmanager.herokuapp.com').then();
+    axios.get('https://int-manager.herokuapp.com').then();
 }, 120000);
 const client = new Bot(process.env.TOKEN, {
     typing: true,
