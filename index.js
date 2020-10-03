@@ -161,7 +161,7 @@ client.on('ready', () => {
                 break;
             case 5:
                 client.user.setPresence({
-                    status: 'offline'
+                    status: 'invisible'
                 });
         }
     }, 10000);
