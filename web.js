@@ -15,8 +15,9 @@ module.exports = {
                     res.writeHead(400);
                     res.end('Invalid token');
                 } else {
-                    res.writeHead(200);
-                    res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+                    res.writeHead(200, {
+                        'Content-Type': 'text/html; charset=UTF-8'
+                    });
                     fs.readFile('./assets/html/verify.html', 'utf8', (err, data) => {
                         res.end(data
                             .replace(/{tag}/gi, client.verifyQueue.get(parsed.query.token).tag.replace(/</gi, '&lt;').replace(/>/gi, '&gt;'))
@@ -48,8 +49,9 @@ module.exports = {
                             } else {
                                 client.guilds.cache.get(ops.guildId).member(client.verifyQueue.get(post.token)).roles.add(ops.userRole);
                                 client.verifyQueue.delete(post.token);
-                                res.writeHead(200);
-                                res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+                                res.writeHead(200, {
+                                    'Content-Type': 'text/html; charset=UTF-8'
+                                });
                                 fs.readFile('./assets/html/done.html', 'utf8', (err, data) => {
                                     res.end(data);
                                 });
@@ -58,8 +60,9 @@ module.exports = {
                     }
                 });
             } else if (parsed.pathname == '/style.css') {
-                res.writeHead(200);
-                res.setHeader('Content-Type', 'text/css; charset=UTF-8');
+                res.writeHead(200, {
+                    'Content-Type': 'text/css; charset=UTF-8'
+                });
                 fs.readFile('./assets/css/style.css', 'utf8', (err, data) => {
                     res.end(data);
                 });
