@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>int Team 인증</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="int Team 인증">
-        <meta name="description" content="int Team 인증을 완료하고 활동 권한을 얻어보세요.">
-        <meta name="theme-color" content="#000000">
-        <link rel="stylesheet" href="/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap">
-        <link rel="icon" href="https://cdn.discordapp.com/avatars/761397185249542144/05db659b605539faa8bb3593b47011ad.png">
-        <script>
-            function getParam(sname) {
-                let params = location.search.substr(location.search.indexOf("?") + 1);
-                let sval = "";
-                params = params.split("&");
-                for(let i = 0; i < params.length; i++) {
-                    temp = params[i].split("=");
-                    if ([temp[0]] == sname) {
-                        sval = temp[1];
-                    }
+
+<head>
+    <meta charset="UTF-8">
+    <title>int Team 인증</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="int Team 인증">
+    <meta name="description" content="int Team 인증을 완료하고 활동 권한을 얻어보세요.">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap">
+    <link rel="icon" href="https://cdn.discordapp.com/avatars/761397185249542144/05db659b605539faa8bb3593b47011ad.png">
+    <script>
+        function getParam(sname) {
+            let params = location.search.substr(location.search.indexOf("?") + 1);
+            let sval = "";
+            params = params.split("&");
+            for (let i = 0; i < params.length; i++) {
+                temp = params[i].split("=");
+                if ([temp[0]] == sname) {
+                    sval = temp[1];
                 }
-                return sval;
             }
-            window.addEventListener('load', () => {
-                document.querySelector('#tkn').setAttribute('value', getParam('token'));
+            return sval;
+        }
+        function onloadCallback() {
+            grecaptcha.render('recaptcha', {
+                sitekey: '6LczINMZAAAAAJozMOYM3P25Ql58hyaBqPjXseCK',
+                theme: 'dark',
+                callback: callback
             });
-            function onloadCallback() {
-                grecaptcha.render('recaptcha', {
-                    sitekey: '6LczINMZAAAAAJozMOYM3P25Ql58hyaBqPjXseCK',
-                    theme: 'dark',
-                    callback: callback
-                });
-            }
-            function callback() {
-                document.querySelector('#form').submit();
-            }
-        </script>
-        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-    </head>
-    <body>
+        }
+        function callback() {
+            document.querySelector('#tkn').setAttribute('value', getParam('token'));
+            document.querySelector('#form').submit();
+        }
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+</head>
+
+<body>
+    <div id="main">
+
         <h1>int Team 인증하기</h1>
         <p>{tag}님 환영합니다!</p>
         <p>int Team 규칙에 동의하신다면 아래 reCAPTCHA를 풀어주세요.</p>
@@ -47,5 +50,7 @@
             <input type="hidden" name="token" value="" id="tkn">
             <div id="recaptcha"></div>
         </form>
-    </body>
+    </div>
+</body>
+
 </html>
