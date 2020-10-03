@@ -9,7 +9,7 @@ module.exports = {
             let parsed = url.parse(req.url, true);
             if (parsed.pathname == '/') {
                 res.writeHead(200, {
-                    'Strict-Transport-Security': 'max-age=86400; includeSubDomains; preload'
+                    'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
                 });
                 res.end('hello world');
             } else if (parsed.pathname == '/verify') {
@@ -19,7 +19,7 @@ module.exports = {
                 } else {
                     res.writeHead(200, {
                         'Content-Type': 'text/html; charset=UTF-8',
-                        'Strict-Transport-Security': 'max-age=86400; includeSubDomains; preload'
+                        'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
                     });
                     fs.readFile('./assets/html/verify.html', 'utf8', (err, data) => {
                         res.end(data
@@ -53,7 +53,7 @@ module.exports = {
                                 client.verifyQueue.delete(post.token);
                                 res.writeHead(200, {
                                     'Content-Type': 'text/html; charset=UTF-8',
-                                    'Strict-Transport-Security': 'max-age=86400; includeSubDomains; preload'
+                                    'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
                                 });
                                 fs.readFile('./assets/html/done.html', 'utf8', (err, data) => {
                                     res.end(data);
@@ -65,7 +65,7 @@ module.exports = {
             } else if (parsed.pathname == '/style.css') {
                 res.writeHead(200, {
                     'Content-Type': 'text/css; charset=UTF-8',
-                    'Strict-Transport-Security': 'max-age=86400; includeSubDomains; preload'
+                    'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
                 });
                 fs.readFile('./assets/css/style.css', 'utf8', (err, data) => {
                     res.end(data);
@@ -73,14 +73,14 @@ module.exports = {
             } else if (parsed.pathname == '/inticon.png') {
                 res.writeHead(200, {
                     'Content-Type': 'image/png',
-                    'Strict-Transport-Security': 'max-age=86400; includeSubDomains; preload'
+                    'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
                 });
                 fs.readFile('./assets/image/inticon.png', (err, data) => {
                     res.end(data);
                 });
             } else {
                 res.writeHead(404, {
-                    'Strict-Transport-Security': 'max-age=86400; includeSubDomains; preload'
+                    'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
                 });
                 res.end('404 Not Found')
             }
