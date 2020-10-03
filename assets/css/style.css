@@ -17,4 +17,5 @@ body::before {
 
   #main {
     position: relative; z-index: 2;
+    color: white;
   }
