@@ -54,8 +54,8 @@ body::before {
 }
 
 .dot {
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     background-color: white;
     border-radius: 100%;
     margin: 2px;
@@ -64,193 +64,82 @@ body::before {
     -ms-animation-fill-mode: both;
     animation-fill-mode: both;
     display: inline-block;
+    vertical-align: middle;
 }
 
 #dot1 {
-    animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -webkit-animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -moz-animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -o-animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -ms-animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+    animation: loading 1s -.6s ease infinite;
+    -webkit-animation: loading 1s -.6s ease infinite;
+    -moz-animation: loading 1s -.6s ease infinite;
+    -o-animation: loading 1s -.6s ease infinite;
+    -ms-animation: loading 1s -.6s ease infinite;
 }
 
 #dot2 {
-    animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -webkit-animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -moz-animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -o-animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -ms-animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+    animation: loading 1s -.4s ease infinite;
+    -webkit-animation: loading 1s -.4s ease infinite;
+    -moz-animation: loading 1s -.4s ease infinite;
+    -o-animation: loading 1s -.4s ease infinite;
+    -ms-animation: loading 1s -.4s ease infinite;
 }
 
 #dot3 {
-    animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -webkit-animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -moz-animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -o-animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    -ms-animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+    animation: loading 1s -.2s ease infinite;
+    -webkit-animation: loading 1s -.2s ease infinite;
+    -moz-animation: loading 1s -.2s ease infinite;
+    -o-animation: loading 1s -.2s ease infinite;
+    -ms-animation: loading 1s -.2s ease infinite;
 }
 
-@keyframes scale {
+#dot4 {
+    animation: loading 1s 0s ease infinite;
+    -webkit-animation: loading 1s 0s ease infinite;
+    -moz-animation: loading 1s 0s ease infinite;
+    -o-animation: loading 1s 0s ease infinite;
+    -ms-animation: loading 1s 0s ease infinite;
+}
+
+@keyframes loading {
     0% {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-        -ms-filter: none;
-        filter: none;
+        transform: translateY(0);
     }
-    45% {
-        -webkit-transform: scale(0.1);
-        -moz-transform: scale(0.1);
-        -o-transform: scale(0.1);
-        -ms-transform: scale(0.1);
-        transform: scale(0.1);
-        opacity: 0.7;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-        filter: alpha(opacity=70);
-    }
-    80% {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-        -ms-filter: none;
-        filter: none;
+    50% {
+        transform: translateY(10px);
     }
 }
 
-@-webkit-keyframes scale {
+@-webkit-keyframes loading {
     0% {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-        -ms-filter: none;
-        filter: none;
+        transform: translateY(0);
     }
-    45% {
-        -webkit-transform: scale(0.1);
-        -moz-transform: scale(0.1);
-        -o-transform: scale(0.1);
-        -ms-transform: scale(0.1);
-        transform: scale(0.1);
-        opacity: 0.7;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-        filter: alpha(opacity=70);
-    }
-    80% {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-        -ms-filter: none;
-        filter: none;
+    50% {
+        transform: translateY(10px);
     }
 }
 
-@-moz-keyframes scale {
+@-moz-keyframes loading {
     0% {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-        -ms-filter: none;
-        filter: none;
+        transform: translateY(0);
     }
-    45% {
-        -webkit-transform: scale(0.1);
-        -moz-transform: scale(0.1);
-        -o-transform: scale(0.1);
-        -ms-transform: scale(0.1);
-        transform: scale(0.1);
-        opacity: 0.7;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-        filter: alpha(opacity=70);
-    }
-    80% {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-        -ms-filter: none;
-        filter: none;
+    50% {
+        transform: translateY(10px);
     }
 }
 
-@-o-keyframes scale {
+@-o-keyframes loading {
     0% {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-        -ms-filter: none;
-        filter: none;
+        transform: translateY(0);
     }
-    45% {
-        -webkit-transform: scale(0.1);
-        -moz-transform: scale(0.1);
-        -o-transform: scale(0.1);
-        -ms-transform: scale(0.1);
-        transform: scale(0.1);
-        opacity: 0.7;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-        filter: alpha(opacity=70);
-    }
-    80% {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-        -ms-filter: none;
-        filter: none;
+    50% {
+        transform: translateY(10px);
     }
 }
 
-@-ms-keyframes scale {
+@-ms-keyframes loading {
     0% {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-        -ms-filter: none;
-        filter: none;
+        transform: translateY(0);
     }
-    45% {
-        -webkit-transform: scale(0.1);
-        -moz-transform: scale(0.1);
-        -o-transform: scale(0.1);
-        -ms-transform: scale(0.1);
-        transform: scale(0.1);
-        opacity: 0.7;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-        filter: alpha(opacity=70);
-    }
-    80% {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-        -ms-filter: none;
-        filter: none;
+    50% {
+        transform: translateY(10px);
     }
 }
