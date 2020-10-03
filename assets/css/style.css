@@ -51,8 +51,6 @@ body::before {
     position: relative;
     z-index: 2;
     color: white;
-    width: 100%;
-    height: 100%;
 }
 
 .dot {
