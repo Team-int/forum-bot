@@ -119,6 +119,7 @@ client.on('ready', () => {
                     type: 'PLAYING'
                 }
             });
+            break;
         case 1:
             client.user.setPresence({
                 status: 'online',
@@ -127,6 +128,7 @@ client.on('ready', () => {
                     type: 'PLAYING'
                 }
             });
+            break;
         case 2:
             client.user.setPresence({
                 status: 'online',
@@ -135,6 +137,7 @@ client.on('ready', () => {
                     type: 'PLAYING'
                 }
             });
+            break;
         case 3:
             client.user.setPresence({
                 status: 'online',
@@ -143,6 +146,7 @@ client.on('ready', () => {
                     type: 'PLAYING'
                 }
             });
+            break;
         case 4:
             client.user.setPresence({
                 status: 'online',
@@ -152,5 +156,6 @@ client.on('ready', () => {
                     url: 'https://twitch.tv/int'
                 }
             });
+            break;
     }
 });
