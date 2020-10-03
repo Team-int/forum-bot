@@ -1,4 +1,8 @@
-body {
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+ }
+ 
+ body {
     background: url('https://source.unsplash.com/1920x1080/?nature') no-repeat center;
     background-size: cover;
     font-family: 'Noto Sans KR', sans-serif;
@@ -13,9 +17,9 @@ body::before {
     position: absolute; z-index: 1;
     top: 0; right: 0; bottom: 0; left: 0;
     background-color: rgba(0,0,0,.7);
-  }
+}
 
-  #main {
+#main {
     position: relative; z-index: 2;
     color: white;
-  }
+}
