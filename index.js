@@ -11,17 +11,17 @@ const client = new Bot(process.env.TOKEN, {
 });
 client.verifyQueue = new Discord.Collection();
 client.config('./commands/');
-function tokenGen (client) {
-    let chars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'q','w','e','r','t','y','u','i','o','p', 'a', 's', 'd','f','g','h','j','k','l', 'z','x','c','v','b','n','m','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M','Q','W','E','R','T','Y','U','I','O','P', '']
+function tokenGen(client) {
+    let chars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '']
     let token = [];
     for (var i = 0; i < 100; i++) {
         token.push(chars[Math.floor(Math.random() * chars.length)]);
     }
-    while(true) {
+    while (true) {
         if (!client.verifyQueue.find(x => x.token == token.join(''))) break;
         token = [];
         for (var i = 0; i < 100; i++) {
-          token.push(chars[Math.floor(Math.random() * chars.length)]);
+            token.push(chars[Math.floor(Math.random() * chars.length)]);
         }
     }
     return token.join('');
@@ -110,52 +110,55 @@ client.on('messageUpdate', async (_old, message) => {
 });
 client.on('ready', () => {
     require('./web.js').start(client, ops);
-    switch(Math.floor(Math.random() * 5)) {
-        case 0:
-            client.user.setPresence({
-                status: 'online',
-                activity: {
-                    name: `int 관리`,
-                    type: 'PLAYING'
-                }
-            });
-            break;
-        case 1:
-            client.user.setPresence({
-                status: 'online',
-                activity: {
-                    name: `이 메시지는 10초마다 바뀝니다!`,
-                    type: 'PLAYING'
-                }
-            });
-            break;
-        case 2:
-            client.user.setPresence({
-                status: 'online',
-                activity: {
-                    name: `${client.guilds.cache.get(ops.guildId).members.cache.filter(x => !x.user.bot).size}명의 멤버와 함께하는 int입니다!`,
-                    type: 'PLAYING'
-                }
-            });
-            break;
-        case 3:
-            client.user.setPresence({
-                status: 'online',
-                activity: {
-                    name: `i.help를 보내 물어보세요!`,
-                    type: 'PLAYING'
-                }
-            });
-            break;
-        case 4:
-            client.user.setPresence({
-                status: 'online',
-                activity: {
-                    name: `int`,
-                    type: 'STREAMING',
-                    url: 'https://twitch.tv/int'
-                }
-            });
-            break;
-    }
+    setInterval(() => {
+
+        switch (Math.floor(Math.random() * 5)) {
+            case 0:
+                client.user.setPresence({
+                    status: 'online',
+                    activity: {
+                        name: `int 관리`,
+                        type: 'PLAYING'
+                    }
+                });
+                break;
+            case 1:
+                client.user.setPresence({
+                    status: 'online',
+                    activity: {
+                        name: `이 메시지는 10초마다 바뀝니다!`,
+                        type: 'PLAYING'
+                    }
+                });
+                break;
+            case 2:
+                client.user.setPresence({
+                    status: 'online',
+                    activity: {
+                        name: `${client.guilds.cache.get(ops.guildId).members.cache.filter(x => !x.user.bot).size}명의 멤버와 함께하는 int입니다!`,
+                        type: 'PLAYING'
+                    }
+                });
+                break;
+            case 3:
+                client.user.setPresence({
+                    status: 'online',
+                    activity: {
+                        name: `i.help를 보내 물어보세요!`,
+                        type: 'PLAYING'
+                    }
+                });
+                break;
+            case 4:
+                client.user.setPresence({
+                    status: 'online',
+                    activity: {
+                        name: `int`,
+                        type: 'STREAMING',
+                        url: 'https://twitch.tv/int'
+                    }
+                });
+                break;
+        }
+    }, 10000);
 });
