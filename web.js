@@ -11,7 +11,7 @@ module.exports = {
                 res.writeHead(200);
                 res.end('hello world');
             } else if (parsed.pathname == '/verify') {
-                if (!parsed.query.token || !client.verifyQueue.get(parsed.query.token)) {
+                if (!parsed.query || !parsed.query.token || !client.verifyQueue.get(parsed.query.token)) {
                     res.writeHead(400);
                     res.end('Invalid token');
                 } else {
