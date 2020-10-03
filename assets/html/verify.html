@@ -24,7 +24,7 @@
                 return sval;
             }
             window.addEventListener('load', () => {
-                document.querySelector('#token').setAttribute('value', getParam('token'));
+                document.querySelector('#tkn').setAttribute('value', getParam('token'));
             });
             function onloadCallback() {
                 grecaptcha.render('recaptcha', {
@@ -45,7 +45,7 @@
         <p>{tag}님 환영합니다!</p>
         <p>int Team 규칙에 동의하신다면 아래 reCAPTCHA를 풀어주세요.</p>
         <form action="/subm" method="post" id="form">
-            <input type="hidden" name="token" value="" id="token">
+            <input type="hidden" name="token" value="" id="tkn">
             <div id="recaptcha"></div>
         </form>
     </body>
