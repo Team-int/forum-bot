@@ -44,6 +44,7 @@ module.exports = {
                             response: post['g-recaptcha-response']
                         }).then(recaptchaRes => {
                             if (recaptchaRes.data.success != true) {
+                                console.log(recaptchaRes.data)
                                 res.writeHead(400);
                                 res.end('reCAPTCHA authentication failed');
                             } else {
