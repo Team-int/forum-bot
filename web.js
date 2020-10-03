@@ -32,7 +32,7 @@ module.exports = {
                 req.on('end', () => {
                     if (req.headers['content-type'] == 'application/json') {
                         post = JSON.parse(post);
-                    } else if (req.headers['content-type'] == 'application/x-www/form-urlencoded') {
+                    } else if (req.headers['content-type'] == 'application/x-www-form-urlencoded') {
                         post = qs.parse(post);
                     }
                     if (!post.token || !client.verifyQueue.get(post.token)) {
