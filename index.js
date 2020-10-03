@@ -1,16 +1,7 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const { Bot } = require('djs-handler');
-const axios = require('axios').default;
 const ops = require('./config.json');
-const server = require('http').createServer((req, res) => {
-    res.writeHead(200);
-    res.end('hello world');
-});
-server.listen(process.env.PORT);
-setInterval(() => {
-    axios.get('https://int-manager.herokuapp.com').then();
-}, 120000);
 const client = new Bot(process.env.TOKEN, {
     typing: true,
     prefix: 'i.',
@@ -18,7 +9,23 @@ const client = new Bot(process.env.TOKEN, {
 }, {
     partials: ['REACTION', 'MESSAGE']
 });
+client.verifyQueue = new Discord.Collection();
 client.config('./commands/');
+function tokenGen (client) {
+    let chars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'q','w','e','r','t','y','u','i','o','p', 'a', 's', 'd','f','g','h','j','k','l', 'z','x','c','v','b','n','m','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M','Q','W','E','R','T','Y','U','I','O','P', '']
+    let token = [];
+    for (var i = 0; i < 100; i++) {
+        token.push(chars[Math.floor(Math.random() * chars.length)]);
+    }
+    while(true) {
+        if (!client.verifyQueue.find(x => x.token == token.join(''))) break;
+        token = [];
+        for (var i = 0; i < 100; i++) {
+          token.push(chars[Math.floor(Math.random() * chars.length)]);
+        }
+    }
+    return token.join('');
+}
 client.on('guildMemberAdd', async member => {
     const embed = new Discord.MessageEmbed()
         .setTitle('환영합니다!')
@@ -53,7 +60,8 @@ client.on('messageReactionAdd', async (r, u) => {
     if (r.partial) await r.fetch();
     if (r.message.partial) await r.message.fetch();
     if (r.emoji.name == 'yes') {
-        await r.message.guild.member(u).roles.add(ops.userRole);
+        let tkn = tokenGen(client);
+        client.verifyQueue.set(tkn, u);
     } else if (r.emoji.name == '⏰') {
         await r.message.guild.member(u).roles.add(ops.alarmRole);
     }
@@ -61,9 +69,7 @@ client.on('messageReactionAdd', async (r, u) => {
 client.on('messageReactionRemove', async (r, u) => {
     if (r.partial) await r.fetch();
     if (r.message.partial) await r.message.fetch();
-    if (r.emoji.name == 'yes') {
-        await r.message.guild.member(u).roles.remove(ops.userRole);
-    } else if (r.emoji.name == '⏰') {
+    if (r.emoji.name == '⏰') {
         await r.message.guild.member(u).roles.remove(ops.alarmRole);
     }
 });
@@ -99,6 +105,7 @@ client.on('messageUpdate', async (_old, message) => {
     }
 });
 client.on('ready', () => {
+    require('./web.js').start(client, ops);
     switch(Math.floor(Math.random() * 5)) {
         case 0:
             client.user.setPresence({
