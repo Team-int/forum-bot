@@ -61,20 +61,28 @@ client.on('messageReactionAdd', async (r, u) => {
     if (r.partial) await r.fetch();
     if (r.message.partial) await r.message.fetch();
     if (r.emoji.name == 'yes') {
+        if (r.message.id != ops.verifyMessage) return;
         r.users.remove(u.id);
         if (r.message.guild.member(u).roles.cache.has(ops.userRole)) return;
         let tkn = tokenGen(client);
         client.verifyQueue.set(tkn, u);
         u.send(`아래 링크를 눌러 인증해주세요.\nhttps://int-manager.herokuapp.com/verify?token=${tkn}`)
     } else if (r.emoji.name == '⏰') {
+        if (r.message.id != ops.roleMessage) return;
         await r.message.guild.member(u).roles.add(ops.alarmRole);
+    } else if (r.emoji.name == '💻') {
+        if (r.message.id != ops.roleMessage) return;
+        await r.message.guild.member(u).roles.add(ops.teamAlarmRole);
     }
 });
 client.on('messageReactionRemove', async (r, u) => {
     if (r.partial) await r.fetch();
     if (r.message.partial) await r.message.fetch();
+    if (r.message.id != ops.roleMessage) return;
     if (r.emoji.name == '⏰') {
         await r.message.guild.member(u).roles.remove(ops.alarmRole);
+    } else if (r.emoji.name == '💻') {
+        await r.message.guild.member(u).roles.remove(ops.teamAlarmRole);
     }
 });
 client.on('message', message => {
