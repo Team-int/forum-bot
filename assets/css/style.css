@@ -1,5 +1,5 @@
 body {
-    background: url('https://source.unsplash.com/1920ㅌ1080/?nature') no-repeat center;
+    background: url('https://source.unsplash.com/1920x1080/?nature') no-repeat center;
     background-size: cover;
     font-family: 'Noto Sans KR', sans-serif;
     display: flex;
@@ -7,3 +7,10 @@ body {
     align-items: center;
     height: 100vh;
 }
+
+body::before {
+    content: "";
+    position: absolute; z-index: 1;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background-color: rgba(0,0,0,.7);
+  }
