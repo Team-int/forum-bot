@@ -39,10 +39,7 @@ module.exports = {
                         res.writeHead(400);
                         res.end('Invalid token');
                     } else {
-                        axios.post('https://www.google.com/recaptcha/api/siteverify', {
-                            secret: process.env.RECAPTCHA,
-                            response: post['g-recaptcha-response']
-                        }).then(recaptchaRes => {
+                        axios.get(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA}&response=${post['g-recaptcha-response']}`).then(recaptchaRes => {
                             if (recaptchaRes.data.success != true) {
                                 console.log(recaptchaRes.data)
                                 res.writeHead(400);
