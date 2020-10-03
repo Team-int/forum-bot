@@ -30,7 +30,7 @@ client.on('guildMemberAdd', async member => {
     const embed = new Discord.MessageEmbed()
         .setTitle('환영합니다!')
         .setColor('RANDOM')
-        .setDescription(`${member.user}님, ${member.guild.name}에 오신 것을 환영합니다!`)
+        .setDescription(`${member.user}님, ${member.guild.name}에 오신 것을 환영합니다!\n먼저 ${client.channels.cache.get(ops.ruleChannel)}에서 규칙을 읽고 인증해주세요!`)
         .setThumbnail(member.user.displayAvatarURL())
         .setFooter(member.user.tag, member.user.displayAvatarURL())
         .setTimestamp()
