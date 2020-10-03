@@ -37,6 +37,7 @@ client.on('guildMemberAdd', async member => {
     if (!member.user.bot) await client.channels.cache.get(ops.greetChannel).send({
         embed: embed
     });
+    if (member.user.bot) await member.roles.add('751403263030722621');
     client.channels.cache.get(ops.counter.all).setName(`모든 유저 수: ${member.guild.memberCount}`);
     client.channels.cache.get(ops.counter.user).setName(`유저 수: ${member.guild.members.cache.filter(x => !x.user.bot).size}`);
     client.channels.cache.get(ops.counter.bot).setName(`봇 수: ${member.guild.members.cache.filter(x => x.user.bot).size}`);
