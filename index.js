@@ -112,7 +112,7 @@ client.on('ready', () => {
     require('./web.js').start(client, ops);
     setInterval(() => {
 
-        switch (Math.floor(Math.random() * 5)) {
+        switch (Math.floor(Math.random() * 6)) {
             case 0:
                 client.user.setPresence({
                     status: 'online',
@@ -159,6 +159,10 @@ client.on('ready', () => {
                     }
                 });
                 break;
+            case 5:
+                client.user.setPresence({
+                    status: 'offline'
+                });
         }
     }, 10000);
 });
