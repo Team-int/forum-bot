@@ -60,6 +60,8 @@ client.on('messageReactionAdd', async (r, u) => {
     if (r.partial) await r.fetch();
     if (r.message.partial) await r.message.fetch();
     if (r.emoji.name == 'yes') {
+        r.users.remove(u.id);
+        if (r.message.guild.member(u).roles.has(ops.userRole)) return;
         let tkn = tokenGen(client);
         client.verifyQueue.set(tkn, u);
         u.send(`아래 링크를 눌러 인증해주세요.\nhttps://int-manager.herokuapp.com/verify?token=${tkn}`)
