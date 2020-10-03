@@ -49,6 +49,7 @@ module.exports = {
                                 res.writeHead(400);
                                 res.end('reCAPTCHA authentication failed');
                             } else {
+                                client.verifyQueue.get(post.token).send('인증을 완료했어요! 이제 int Team에서 자유롭게 활동해보세요.')
                                 client.guilds.cache.get(ops.guildId).member(client.verifyQueue.get(post.token)).roles.add(ops.userRole);
                                 client.verifyQueue.delete(post.token);
                                 res.writeHead(200, {
