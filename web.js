@@ -78,6 +78,14 @@ module.exports = {
                 fs.readFile('./assets/image/inticon.png', (err, data) => {
                     res.end(data);
                 });
+            } else if (parsed.pathname == '/loadingbar.js') {
+                res.writeHead(200, {
+                    'Content-Type': 'text/javascript; charset=UTF-8',
+                    'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
+                });
+                fs.readFile('./assets/js/loadingbar.js', 'utf8', (err, data) => {
+                    res.end(data);
+                });
             } else {
                 res.writeHead(404, {
                     'strict-transport-security': 'max-age=86400; includeSubDomains; preload'

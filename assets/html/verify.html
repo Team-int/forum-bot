@@ -46,10 +46,16 @@
             document.querySelector('#form').submit();
         }
     </script>
+    <script src="/loadingbar.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 </head>
 
 <body>
+    <div id="loadingbar">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
     <div id="main">
 
         <h1>int Team 인증하기</h1>
