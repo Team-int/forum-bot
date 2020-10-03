@@ -21,6 +21,7 @@ module.exports = {
                     fs.readFile('./assets/html/verify.html', 'utf8', (err, data) => {
                         res.end(data
                             .replace(/{tag}/gi, client.verifyQueue.get(parsed.query.token).tag.replace(/</gi, '&lt;').replace(/>/gi, '&gt;'))
+                            .replace(/{user_profile}/gi, lient.verifyQueue.get(parsed.query.token).displayAvatarURL())
                         );
                     });
                 }

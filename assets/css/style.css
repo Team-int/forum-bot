@@ -27,3 +27,9 @@ body::before {
     z-index: 2;
     color: white;
 }
+
+#userinfo {
+    display: grid;
+    grid-template-columns: auto auto;
+    width: auto;
+}
