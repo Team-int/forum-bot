@@ -11,6 +11,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap">
         <link rel="icon" href="https://cdn.discordapp.com/avatars/761397185249542144/05db659b605539faa8bb3593b47011ad.png">
         <script>
+            window.addEventListener('load', () => {
+                document.querySelector('#token').setAttribute('value', getParam('token'));
+            });
             function getParam(sname) {
                 let params = location.search.substr(location.search.indexOf("?") + 1);
                 let sval = "";
@@ -29,7 +32,6 @@
                 });
             }
             function callback() {
-                document.querySelector('#token').setAttribute('value', getParam('token'));
                 document.querySelector('#form').submit();
             }
         </script>
