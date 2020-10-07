@@ -62,7 +62,7 @@ client.on('messageReactionAdd', async (r, u) => {
     if (r.message.partial) await r.message.fetch();
     if (r.emoji.name == 'yes') {
         if (r.message.id != ops.verifyMessage) return;
-        if (r.message.author.id == client.user.id) return;
+        if (u.id == client.user.id) return;
         r.users.remove(u.id);
         if (r.message.guild.member(u).roles.cache.has(ops.userRole)) return;
         let tkn = tokenGen(client);
