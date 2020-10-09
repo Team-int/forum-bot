@@ -175,6 +175,7 @@ client.on('messageReactionAdd', async (r, u) => {
             embed: embed
         });
         await r.message.channel.setName(`닫힌-${r.message.channel.name}`);
+        console.log(r.message.channel.name)
         await r.message.channel.overwritePermissions([
             {
                 id: r.message.channel.name.split('-')[2],
