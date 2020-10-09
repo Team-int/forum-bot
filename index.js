@@ -174,7 +174,7 @@ client.on('messageReactionAdd', async (r, u) => {
         let m = await r.message.channel.send(`${u} ${client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole)}`, {
             embed: embed
         });
-        console.log(r.message.channel.name)
+        await r.message.channel.setName(`닫힌-${r.message.channel.name}`);
         await r.message.channel.overwritePermissions([
             {
                 id: client.guilds.cache.get(ops.guildId).roles.everyone.id,
