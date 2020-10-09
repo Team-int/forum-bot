@@ -427,7 +427,6 @@ client.on('rateLimit', data => {
     client.channels.cache.get('758554125759152210').send(`ratelimit\ntimeout: ${data.timeout}ms\nlimit: ${data.limit}`)
 })
 client.on('ready', () => {
-    require('./web.js').start(client, ops);
     setInterval(() => {
 
         switch (Math.floor(Math.random() * 5)) {
@@ -480,4 +479,5 @@ client.on('ready', () => {
         }
     }, 10000);
 });
+require('./web.js').start(client, ops);
 client.login(process.env.TOKEN);
