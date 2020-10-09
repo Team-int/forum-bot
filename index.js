@@ -8,6 +8,8 @@ const client = new Discord.Client({
     partials: ['MESSAGE', 'REACTION']
 });
 client.verifyQueue = new Discord.Collection();
+client.commands = new Discord.Collection();
+client.aliases = new Discord.Collection();
 table.setHeading('Command', 'Load Status');
 fs.readdir('./commands/', (err, list) => {
     for (let file of list) {
