@@ -174,9 +174,46 @@ client.on('messageReactionAdd', async (r, u) => {
         let m = await r.message.channel.send(`${u} ${client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole)}`, {
             embed: embed
         });
-        await r.message.channel.setName(`닫힌-${r.message.channel.name}`);
         console.log(r.message.channel.name)
         await r.message.channel.overwritePermissions([
+            {
+                id: client.guilds.cache.get(ops.guildId).roles.everyone.id,
+                deny: [
+                    'ADD_REACTIONS',
+                    'ATTACH_FILES',
+                    'CREATE_INSTANT_INVITE',
+                    'EMBED_LINKS',
+                    'MANAGE_CHANNELS',
+                    'MANAGE_MESSAGES',
+                    'MANAGE_WEBHOOKS',
+                    'MANAGE_ROLES',
+                    'MENTION_EVERYONE',
+                    'READ_MESSAGE_HISTORY',
+                    'SEND_MESSAGES',
+                    'SEND_TTS_MESSAGES',
+                    'USE_EXTERNAL_EMOJIS',
+                    'VIEW_CHANNEL'
+                ]
+            },
+            {
+                id: ops.guildAdminRole,
+                allow: [
+                    'ADD_REACTIONS',
+                    'ATTACH_FILES',
+                    'CREATE_INSTANT_INVITE',
+                    'EMBED_LINKS',
+                    'MANAGE_CHANNELS',
+                    'MANAGE_MESSAGES',
+                    'MANAGE_WEBHOOKS',
+                    'MANAGE_ROLES',
+                    'MENTION_EVERYONE',
+                    'READ_MESSAGE_HISTORY',
+                    'SEND_MESSAGES',
+                    'SEND_TTS_MESSAGES',
+                    'USE_EXTERNAL_EMOJIS',
+                    'VIEW_CHANNEL'
+                ]
+            },
             {
                 id: r.message.channel.name.split('-')[2],
                 allow: [
@@ -215,6 +252,44 @@ client.on('messageReactionAdd', async (r, u) => {
         });
         await r.message.channel.setName(r.message.channel.name.substr(3));
         await r.message.channel.overwritePermissions([
+            {
+                id: client.guilds.cache.get(ops.guildId).roles.everyone.id,
+                deny: [
+                    'ADD_REACTIONS',
+                    'ATTACH_FILES',
+                    'CREATE_INSTANT_INVITE',
+                    'EMBED_LINKS',
+                    'MANAGE_CHANNELS',
+                    'MANAGE_MESSAGES',
+                    'MANAGE_WEBHOOKS',
+                    'MANAGE_ROLES',
+                    'MENTION_EVERYONE',
+                    'READ_MESSAGE_HISTORY',
+                    'SEND_MESSAGES',
+                    'SEND_TTS_MESSAGES',
+                    'USE_EXTERNAL_EMOJIS',
+                    'VIEW_CHANNEL'
+                ]
+            },
+            {
+                id: ops.guildAdminRole,
+                allow: [
+                    'ADD_REACTIONS',
+                    'ATTACH_FILES',
+                    'CREATE_INSTANT_INVITE',
+                    'EMBED_LINKS',
+                    'MANAGE_CHANNELS',
+                    'MANAGE_MESSAGES',
+                    'MANAGE_WEBHOOKS',
+                    'MANAGE_ROLES',
+                    'MENTION_EVERYONE',
+                    'READ_MESSAGE_HISTORY',
+                    'SEND_MESSAGES',
+                    'SEND_TTS_MESSAGES',
+                    'USE_EXTERNAL_EMOJIS',
+                    'VIEW_CHANNEL'
+                ]
+            },
             {
                 id: r.message.channel.name.split('-')[1],
                 allow: [
