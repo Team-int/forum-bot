@@ -175,6 +175,7 @@ client.on('messageReactionAdd', async (r, u) => {
             embed: embed
         });
         await r.message.channel.setName(`닫힌-${r.message.channel.name}`);
+        console.log(r.message.channel.name)
         await r.message.channel.overwritePermissions([
             {
                 id: client.guilds.cache.get(ops.guildId).roles.everyone.id,
@@ -251,7 +252,6 @@ client.on('messageReactionAdd', async (r, u) => {
             embed: embed
         });
         await r.message.channel.setName(r.message.channel.name.substr(3));
-        console.log(r.message.channel.name)
         await r.message.channel.overwritePermissions([
             {
                 id: client.guilds.cache.get(ops.guildId).roles.everyone.id,
