@@ -216,7 +216,7 @@ client.on('messageReactionAdd', async (r, u) => {
                 ]
             },
             {
-                id: r.message.channel.name.split('-')[2],
+                id: r.message.channel.name.replace('닫힌-티켓-', '').replace('티켓-', '').split('-')[0],
                 allow: [
                     'ADD_REACTIONS',
                     'CREATE_INSTANT_INVITE',
@@ -292,7 +292,7 @@ client.on('messageReactionAdd', async (r, u) => {
                 ]
             },
             {
-                id: r.message.channel.name.split('-')[1],
+                id: r.message.channel.name.replace('닫힌-티켓-', '').replace('티켓-', '').split('-')[0],
                 allow: [
                     'ADD_REACTIONS',
                     'ATTACH_FILES',
