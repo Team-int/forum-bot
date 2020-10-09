@@ -103,7 +103,7 @@ client.on('messageReactionAdd', async (r, u) => {
         if (r.message.guild.member(u).roles.cache.has(ops.userRole)) return;
         let tkn = tokenGen(client);
         client.verifyQueue.set(tkn, u);
-        u.send(`아래 링크를 눌러 인증해주세요.\nhttps://int-manager.azurewebsites.net/verify?token=${tkn}`)
+        u.send(`아래 링크를 눌러 인증해주세요.\nhttps://manager.intteam.co.kr/verify?token=${tkn}`)
     } else if (r.emoji.name == '⏰') {
         if (r.message.id != ops.roleMessage) return;
         await r.message.guild.member(u).roles.add(ops.alarmRole);
