@@ -104,7 +104,7 @@ client.on('message', message => {
 client.on('message', async message => {
     if (message.author.bot) return;
     if (message.member.roles.cache.has(ops.adminRole)) return;
-    if (ops.invites.some(x => message.content.includes(x))) {
+    if (ops.invites.some(x => message.content.includes(x)) && !ops.inviteWLChannels.includes(message.channel.id)) {
         await message.delete();
         message.author.send('초대 링크는 보낼 수 없어요.');
     }
@@ -112,7 +112,7 @@ client.on('message', async message => {
 client.on('messageUpdate', async (_old, message) => {
     if (message.author.bot) return;
     if (message.member.roles.cache.has(ops.adminRole)) return;
-    if (ops.invites.some(x => message.content.includes(x))) {
+    if (ops.invites.some(x => message.content.includes(x)) && !ops.inviteWLChannels.includes(message.channel.id)) {
         await message.delete();
         message.author.send('초대 링크는 보낼 수 없어요.');
     }
