@@ -14,13 +14,33 @@ module.exports = {
         let m = await message.channel.send({
             embed: embed
         });
-        client.reload().then(commands => {
-            embed.setTitle(`리로드 완료!(${commands}개)`)
-                .setColor('RANDOM')
-                .setTimestamp();
-            m.edit({
-                embed: embed
-            });
+        client.commands.clear();
+        client.aliases.clear();
+        const list = fs.readdirSync('./commands/');
+        for (let file of list) {
+            try {
+                delete require.cache[require.resolve(`./${file}`)]
+                let pull = require(`./${file}`);
+                if (pull.name && pull.run && pull.aliases) {
+                    table.addRow(file, '✅');
+                    for (let alias of pull.aliases) {
+                        client.aliases.set(alias, pull.name);
+                    }
+                    client.commands.set(pull.name, pull);
+                } else {
+                    table.addRow(file, '❌ -> Error');
+                    continue;
+                }
+            } catch (e) {
+                table.addRow(file, `❌ -> ${e}`);
+                continue;
+            }
+        }
+        embed.setTitle(`리로드 완료!(${client.commands.size}개)`)
+            .setColor('RANDOM')
+            .setTimestamp();
+        m.edit({
+            embed: embed
         });
     }
 }
