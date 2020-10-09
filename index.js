@@ -60,6 +60,8 @@ client.on('guildMemberRemove', async member => {
 client.on('messageReactionAdd', async (r, u) => {
     if (r.partial) await r.fetch();
     if (r.message.partial) await r.message.fetch();
+    if (u.id == client.user.id) return;
+    if (u.bot) return r.users.remove(u.id);
     if (r.emoji.name == 'yes') {
         if (r.message.id != ops.verifyMessage) return;
         if (u.id == client.user.id) return;
@@ -74,6 +76,199 @@ client.on('messageReactionAdd', async (r, u) => {
     } else if (r.emoji.name == '💻') {
         if (r.message.id != ops.roleMessage) return;
         await r.message.guild.member(u).roles.add(ops.teamAlarmRole);
+    } else if (r.emoji.name == '🎫') {
+        if (r.message.id != ops.ticketMessage) return;
+        r.users.remove(u.id);
+        client.guilds.cache.get(ops.guildId).channels.create(`티켓-${u.id}-${Math.floor(Math.random() * 10000000)}`, {
+            permissionOverwrites: [
+                {
+                    id: client.guilds.cache.get(ops.guildId).roles.everyone.id,
+                    deny: [
+                        'ADD_REACTIONS',
+                        'ATTACH_FILES',
+                        'CREATE_INSTANT_INVITE',
+                        'EMBED_LINKS',
+                        'MANAGE_CHANNELS',
+                        'MANAGE_MESSAGES',
+                        'MANAGE_WEBHOOKS',
+                        'MANAGE_ROLES',
+                        'MENTION_EVERYONE',
+                        'READ_MESSAGE_HISTORY',
+                        'SEND_MESSAGES',
+                        'SEND_TTS_MESSAGES',
+                        'USE_EXTERNAL_EMOJIS',
+                        'VIEW_CHANNEL'
+                    ]
+                },
+                {
+                    id: ops.guildAdminRole,
+                    allow: [
+                        'ADD_REACTIONS',
+                        'ATTACH_FILES',
+                        'CREATE_INSTANT_INVITE',
+                        'EMBED_LINKS',
+                        'MANAGE_CHANNELS',
+                        'MANAGE_MESSAGES',
+                        'MANAGE_WEBHOOKS',
+                        'MANAGE_ROLES',
+                        'MENTION_EVERYONE',
+                        'READ_MESSAGE_HISTORY',
+                        'SEND_MESSAGES',
+                        'SEND_TTS_MESSAGES',
+                        'USE_EXTERNAL_EMOJIS',
+                        'VIEW_CHANNEL'
+                    ]
+                },
+                {
+                    id: u.id,
+                    allow: [
+                        'ADD_REACTIONS',
+                        'ATTACH_FILES',
+                        'CREATE_INSTANT_INVITE',
+                        'EMBED_LINKS',
+                        'READ_MESSAGE_HISTORY',
+                        'SEND_MESSAGES',
+                        'SEND_TTS_MESSAGES',
+                        'USE_EXTERNAL_EMOJIS',
+                        'VIEW_CHANNEL'
+                    ],
+                    deny: [
+                        'MANAGE_CHANNELS',
+                        'MANAGE_MESSAGES',
+                        'MANAGE_ROLES',
+                        'MANAGE_WEBHOOKS',
+                        'MENTION_EVERYONE'
+                    ]
+                }
+            ]
+        }).then(async tktCh => {
+            const embed = new Discord.MessageEmbed()
+                .setTitle('환영합니다!')
+                .setDescription('관리자가 곧 올 거에요. 조금만 기다려 주세요.')
+                .setColor('RANDOM')
+                .setFooter(u.tag, u.displayAvatarURL())
+                .setTimestamp()
+            let m = await tktCh.send(u.toString(), {
+                embed: embed
+            });
+            const embed2 = new Discord.MessageEmbed()
+                .setTitle('티켓이 열렸어요! 빨리 와주세요!')
+                .addField('티켓 채널', tktCh.toString())
+                .setColor('RANDOM')
+                .setFooter(u.tag, u.displayAvatarURL())
+                .setTimestamp()
+            await client.channels.cache.get(ops.confRoomChannel).send(client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole).toString(), {
+                embed: embed2
+            });
+            await m.react('🔒');
+        });
+    } else if (r.emoji.name == '🔒') {
+        if (!r.message.channel.name.startsWith('티켓-')) return;
+        r.users.remove(u.id);
+        const embed = new Discord.MessageEmbed()
+            .setTitle('티켓이 닫혔어요')
+            .setDescription('아래 반응을 클릭해서 티켓을 다시 열거나 완전히 지울 수 있어요.')
+            .setColor('RANDOM')
+            .setFooter(u.tag, u.displayAvatarURL())
+            .setTimestamp()
+        let m = await r.message.channel.send(`${u} ${client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole)}`, {
+            embed: embed
+        });
+        await r.message.channel.setName(`닫힌-${r.message.channel.name}`);
+        await r.message.channel.overwritePermissions([
+            {
+                id: r.message.channel.name.split('-')[2],
+                allow: [
+                    'ADD_REACTIONS',
+                    'CREATE_INSTANT_INVITE',
+                    'READ_MESSAGE_HISTORY',
+                    'VIEW_CHANNEL'
+                ],
+                deny: [
+                    'MANAGE_CHANNELS',
+                    'MANAGE_MESSAGES',
+                    'MANAGE_ROLES',
+                    'MANAGE_WEBHOOKS',
+                    'MENTION_EVERYONE',
+                    'ATTACH_FILES',
+                    'EMBED_LINKS',
+                    'SEND_MESSAGES',
+                    'SEND_TTS_MESSAGES',
+                    'USE_EXTERNAL_EMOJIS'
+                ]
+            }
+        ]);
+        await m.react('🔓');
+        await m.react('🗑');
+    } else if (r.emoji.name == '🔓') {
+        if (!r.message.channel.name.startsWith('닫힌-티켓-')) return;
+        r.users.remove(u.id);
+        const embed = new Discord.MessageEmbed()
+            .setTitle('티켓이 열렸어요')
+            .setDescription('아래 반응을 클릭해서 티켓을 닫을 수 있어요.')
+            .setColor('RANDOM')
+            .setFooter(u.tag, u.displayAvatarURL())
+            .setTimestamp()
+        let m = await r.message.channel.send(`${u} ${client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole)}`, {
+            embed: embed
+        });
+        await r.message.channel.setName(r.message.channel.name.substr(3));
+        await r.message.channel.overwritePermissions([
+            {
+                id: r.message.channel.name.split('-')[1],
+                allow: [
+                    'ADD_REACTIONS',
+                    'ATTACH_FILES',
+                    'CREATE_INSTANT_INVITE',
+                    'EMBED_LINKS',
+                    'READ_MESSAGE_HISTORY',
+                    'SEND_MESSAGES',
+                    'SEND_TTS_MESSAGES',
+                    'USE_EXTERNAL_EMOJIS',
+                    'VIEW_CHANNEL'
+                ],
+                deny: [
+                    'MANAGE_CHANNELS',
+                    'MANAGE_MESSAGES',
+                    'MANAGE_ROLES',
+                    'MANAGE_WEBHOOKS',
+                    'MENTION_EVERYONE'
+                ]
+            }
+        ]);
+        await m.react('🔒')
+    } else if (r.emoji.name == '🗑') {
+        if (!r.message.channel.name.startsWith('닫힌-티켓-')) return;
+        r.users.remove(u.id);
+        if (!r.message.guild.member(u).roles.cache.has(ops.guildAdminRole)) return r.message.channel.send('티켓 채널 삭제는 관리자만 할 수 있어요.');
+        const embed = new Discord.MessageEmbed()
+        .setTitle('티켓을 완전히 지울까요?')
+        .setDescription('한번 지우면 다시 복구할 수 없어요.')
+        .setColor('RANDOM')
+        .setFooter(u.tag, u.displayAvatarURL())
+        .setTimestamp()
+        let m = await r.message.channel.send({
+            embed: embed
+        });
+        await m.react('✅');
+        await m.react('❌');
+        const filter = (rct, usr) => usr.id == u.id && (rct.emoji.name == '✅' || rct.emoji.name == '❌');
+        const collector = m.createReactionCollector(filter, {
+            max: 1
+        });
+        collector.on('end', collected => {
+            if (collected.first().emoji.name == '✅') {
+                r.message.channel.delete();
+            } else {
+                embed.setTitle('티켓 삭제가 취소되었어요.')
+                .setDescription('위에 있는 삭제 이모지를 클릭해서 티켓을 언제든지 삭제할 수 있어요.')
+                .setColor('RANDOM')
+                .setTimestamp()
+                m.edit({
+                    embed: embed
+                });
+            }
+        });
     }
 });
 client.on('messageReactionRemove', async (r, u) => {
