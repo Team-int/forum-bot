@@ -423,9 +423,6 @@ client.on('messageUpdate', async (_old, message) => {
         message.author.send('초대 링크는 보낼 수 없어요.');
     }
 });
-client.on('rateLimit', data => {
-    client.channels.cache.get('758554125759152210').send(`ratelimit\ntimeout: ${data.timeout}ms\nlimit: ${data.limit}`)
-})
 client.on('ready', () => {
     setInterval(() => {
 
