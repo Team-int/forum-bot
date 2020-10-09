@@ -95,8 +95,5 @@ module.exports = {
             }
         });
         server.listen(process.env.PORT || 3000);
-        setInterval(() => {
-            // axios.get('https://int-manager.herokuapp.com').then();
-        }, 120000);
     }
 }
