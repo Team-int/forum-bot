@@ -27,7 +27,7 @@ module.exports = {
         });
         collector.on('end', async collected => {
             if (collected.first().emoji.name == '✅') {
-                await message.mentions.users.first().send({
+                message.mentions.users.first().send({
                     embed: new Discord.MessageEmbed()
                         .setTitle(`${message.guild.name}에서 추방되었어요`)
                         .setColor('RANDOM')
