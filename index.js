@@ -25,7 +25,7 @@ fs.readdir('./commands/', (err, list) => {
                 table.addRow(file, '❌ -> Error');
                 continue;
             }
-        } catch (e) {
+        } catch (e) { 
             table.addRow(file, `❌ -> ${e}`);
             continue;
         }
