@@ -480,3 +480,4 @@ client.on('ready', () => {
         }
     }, 10000);
 });
+client.login(process.env.TOKEN);
