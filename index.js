@@ -1,16 +1,35 @@
 require('dotenv').config();
 const Discord = require('discord.js');
-const { Bot } = require('djs-handler');
 const ops = require('./config.json');
-const client = new Bot(process.env.TOKEN, {
-    typing: true,
-    prefix: 'i.',
-    ops: require('./config.json')
-}, {
-    partials: ['REACTION', 'MESSAGE']
+const ascii = require('ascii-table');
+const fs = require('fs');
+const table = new ascii();
+const client = new Discord.Client({
+    partials: ['MESSAGE', 'REACTION']
 });
 client.verifyQueue = new Discord.Collection();
-client.config('./commands/');
+table.setHeading('Command', 'Load Status');
+fs.readdir('./commands/', (err, list) => {
+    for (let file of list) {
+        try {
+            let pull = require(`./commands/${file}`);
+            if (pull.name && pull.run && pull.aliases) {
+                table.addRow(file, '✅');
+                for (let alias of pull.aliases) {
+                    client.aliases.set(alias, pull.name);
+                }
+                client.commands.set(pull.name, pull);
+            } else {
+                table.addRow(file, '❌ -> Error');
+                continue;
+            }
+        } catch (e) {
+            table.addRow(file, `❌ -> ${e}`);
+            continue;
+        }
+    }
+    console.log(table.toString());
+});
 function tokenGen(client) {
     let chars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '']
     let token = [];
@@ -26,6 +45,19 @@ function tokenGen(client) {
     }
     return token.join('');
 }
+client.on('message', async message => {
+    if (message.author.bot) return;
+    if (message.channel.type != 'text' && message.channel.type != 'news') return;
+    if (!message.content.startsWith(ops.prefix)) return;
+    message.channel.startTyping(1);
+    let args = message.content.substr(ops.prefix.length).trim().split(' ');
+    if (client.commands.get(args[0])) {
+        client.commands.get(args[0]).run(client, message, args, ops);
+    } else if (client.aliases.get(args[0])) {
+        client.commands.get(client.aliases.get(args[0])).run(client, message, args, ops);
+    }
+    message.channel.stopTyping(true);
+});
 client.on('guildMemberAdd', async member => {
     const embed = new Discord.MessageEmbed()
         .setTitle('환영합니다!')
