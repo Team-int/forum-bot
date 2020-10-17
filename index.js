@@ -128,10 +128,10 @@ function guildChanges(o, n) {
     if (o.systemChannelFlags != n.systemChannelFlags) {
         let arr2 = [];
         for (let i of n.systemChannelFlags.toArray()) {
-            if (!o.systemChannelFlags.toArray().find(i)) arr2.push(`${ops.sysMsg[i]}: ✅ -> ❌`)
+            if (!o.systemChannelFlags.toArray().find(x => x == i)) arr2.push(`${ops.sysMsg[i]}: ✅ -> ❌`)
         }
         for (let i of o.systemChannelFlags.toArray()) {
-            if (!n.systemChannelFlags.toArray().find(i)) arr2.push(`${ops.sysMsg[i]}: ❌ -> ✅`)
+            if (!n.systemChannelFlags.toArray().find(x => x == i)) arr2.push(`${ops.sysMsg[i]}: ❌ -> ✅`)
         }
         arr.push({
             name: '시스템 메세지 내용',
@@ -174,7 +174,7 @@ function roleChanges(o, n) {
         name: '역할 멘션 가능 여부',
         value: `${o.mentionable ? '✅' : '❌'} -> ${n.mentionable ? '✅' : '❌'}`
     });
-    if (o.permissions != n.permissions) {
+    if (o.permissions.toArray() != n.permissions.toArray()) {
         let arr2 = [];
         for (let i of o.permissions.toArray()) {
             if (!n.permissions.toArray().find(x => x == i)) arr2.push(`${ops.rolePerms[i]}: ✅ -> ❌`)
@@ -184,7 +184,7 @@ function roleChanges(o, n) {
         }
         arr.push({
             name: '권한',
-            value: arr2.join('\n')
+            value: arr2.join('\n') || '변경되지 않음'
         });
     }
     return arr;
@@ -221,7 +221,7 @@ function channelChanges(o, n) {
     });
     if (o.bitrate != n.bitrate) arr.push({
         name: '비트레이트',
-        value: `${o.bitrate != undefined ? `${o.bitrate}kbps` : '없음'} -> ${n.bitrate != undefined ? `${n.bitrate}kbps` : '없음'}`
+        value: `${o.bitrate != undefined ? `${o.bitrate / 1000}kbps` : '없음'} -> ${n.bitrate != undefined ? `${n.bitrate/ 1000}kbps` : '없음'}`
     });
     if (o.userLimit != n.userLimit) arr.push({
         name: '유저 수 제한',
