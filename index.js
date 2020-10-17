@@ -177,10 +177,10 @@ function roleChanges(o, n) {
     if (o.permissions != n.permissions) {
         let arr2 = [];
         for (let i of o.permissions.toArray()) {
-            if (!n.permissions.toArray().find(i)) arr2.push(`${ops.rolePerms[i]}: ✅ -> ❌`)
+            if (!n.permissions.toArray().find(x => x == i)) arr2.push(`${ops.rolePerms[i]}: ✅ -> ❌`)
         }
         for (let i of n.permissions.toArray()) {
-            if (!o.permissions.toArray().find(i)) arr2.push(`${ops.rolePerms[i]}: ❌ -> ✅`)
+            if (!o.permissions.toArray().find(x => x == i)) arr2.push(`${ops.rolePerms[i]}: ❌ -> ✅`)
         }
         arr.push({
             name: '권한',
