@@ -20,7 +20,7 @@ function memberChanges(o, n) {
         name: '디스플레이 이름',
         value: `${o.displayName} -> ${n.displayName}`
     });
-    if (o.nickanme != n.nickname) arr.push({
+    if (o.nickname != n.nickname) arr.push({
         name: '서버 내 별명',
         value: `${o.nickname || '없음'} -> ${n.nickname || '없음'}`
     });
