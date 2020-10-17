@@ -748,7 +748,7 @@ client.on('channelUpdate', async (old, _new) => {
     let al = await client.guilds.cache.get(ops.guildId).fetchAuditLogs({
         type: 'CHANNEL_UPDATE'
     });
-    if (channel.type == 'dm') return;
+    if (new.type == 'dm') return;
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
         .setTitle(`채널 설정 변경됨`)
