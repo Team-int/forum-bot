@@ -125,7 +125,7 @@ function guildChanges(o, n) {
         name: '시스템 메세지 채널',
         value: `${o.systemChannel ? `${o.systemChannel}(${o.systemChannel.id})` : `없음`} -> ${n.systemChannel ? `${n.systemChannel}(${n.systemChannel.id})` : `없음`}`
     });
-    if (o.systemChannelFlags != n.systemChannelFlags) {
+    if (o.systemChannelFlags.toArray() != n.systemChannelFlags.toArray()) {
         let arr2 = [];
         for (let i of n.systemChannelFlags.toArray()) {
             if (!o.systemChannelFlags.toArray().find(x => x == i)) arr2.push(`${ops.sysMsg[i]}: ✅ -> ❌`)
