@@ -158,6 +158,7 @@ function guildChanges(o, n) {
         name: '서버 위젯 사용 여부',
         value: `${o.widgetEnabled ? '✅' : '❌'} -> ${n.widgetEnabled ? '✅' : '❌'}`
     });
+    console.log(arr);
     return arr;
 }
 function roleChanges(o, n) {
