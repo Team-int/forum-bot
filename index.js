@@ -838,7 +838,7 @@ client.on('guildMemberUpdate', async (old, _new) => {
     let al2 = await client.guilds.cache.get(ops.guildId).fetchAuditLogs({
         type: 'MEMBER_ROLE_UPDATE'
     });
-    if (al1.entries.first().createdAt > al2.entriies.first().createdAt) {
+    if (al1.entries.first().createdAt > al2.entries.first().createdAt) {
         al = al1;
     } else {
         al = al2;
