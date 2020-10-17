@@ -32,7 +32,7 @@ module.exports = {
                             'Content-Type': 'text/html; charset=UTF-8',
                             'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
                         });
-                        fs.readFile('../assets/html/done.html', 'utf8', (err, data) => {
+                        fs.readFile('./assets/html/done.html', 'utf8', (err, data) => {
                             res.end(data);
                         });
                     }
