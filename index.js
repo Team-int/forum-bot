@@ -36,11 +36,11 @@ function memberChanges(o, n) {
         for (let i of n.roles.cache.array()) {
             if (!o.roles.cache.get(i.id)) arr2.push(`${i}: ❌ -> ✅`)
         }
+        arr.push({
+            name: '역할',
+            value: arr2.join('\n')
+        });
     }
-    arr.push({
-        name: '역할',
-        value: arr2.join('\n')
-    });
     if (o.voice != n.voice) arr.push({
         name: '음성 상태',
         value: `변경됨`
@@ -227,7 +227,7 @@ function channelChanges(o, n) {
         name: '유저 수 제한',
         value: `${o.userLimit != undefined ? (o.userLimit == 0 ? '제한 없음' : `${o.userLimit}명`) : '해당 없음'} -> ${n.userLimit != undefined ? (n.userLimit == 0 ? '제한 없음' : `${n.userLimit}명`) : '해당 없음'}`
     });
-    if (o.permissionOverwrites != n.permissionOverwrites) arr.push({
+    if (o.permissionOverwrites.array() != n.permissionOverwrites.array()) arr.push({
         name: '채널 권한',
         value: '변경됨'
     });
