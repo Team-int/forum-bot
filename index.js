@@ -820,7 +820,7 @@ client.on('guildMemberRemove', async member => {
     let al = await client.guilds.cache.get(ops.guildId).fetchAuditLogs({
         type: 'MEMBER_KICK'
     });
-    if (!al || !al.first() || !al.entries.first() || !al.entries.first().target || al.entries.first().target.id != member.user.id) return;
+    if (!al || !al.entries || !al.entries.first() || !al.entries.first() || !al.entries.first().target || al.entries.first().target.id != member.user.id) return;
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
         .setTitle(`멤버 추방됨`)
