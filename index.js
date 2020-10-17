@@ -133,11 +133,11 @@ function guildChanges(o, n) {
         for (let i of o.systemChannelFlags.toArray()) {
             if (!n.systemChannelFlags.toArray().find(i)) arr2.push(`${ops.sysMsg[i]}: ❌ -> ✅`)
         }
+        arr.push({
+            name: '시스템 메세지 내용',
+            value: arr2.join('\n')
+        });
     }
-    arr.push({
-        name: '시스템 메세지 내용',
-        value: arr2.join('\n')
-    });
     if (o.vanityURLCode != n.vanityURLCode) arr.push({
         name: '커스텀 초대 링크',
         value: `${o.vanityURLCode ? `https://discord.gg/${o.vanityURLCode}` : '없음'} -> ${n.vanityURLCode ? `https://discord.gg/${n.vanityURLCode}` : '없음'}`
@@ -182,11 +182,11 @@ function roleChanges(o, n) {
         for (let i of n.permissions.toArray()) {
             if (!o.permissions.toArray().find(i)) arr2.push(`${ops.rolePerms[i]}: ❌ -> ✅`)
         }
+        arr.push({
+            name: '권한',
+            value: arr2.join('\n')
+        });
     }
-    arr.push({
-        name: '권한',
-        value: arr2.join('\n')
-    });
     return arr;
 }
 function channelChanges(o, n) {
