@@ -78,7 +78,7 @@ module.exports = {
             } else {
                 if (client.paths.get(parsed.pathname)) {
                     if (client.paths.get(parsed.pathname).method == req.method) {
-                        client.paths.get(parsed.pathname).run(client, req, res, parsed);
+                        client.paths.get(parsed.pathname).run(client, req, res, parsed, ops);
                     } else {
                         res.writeHead(405, {
                             'strict-transport-security': 'max-age=86400; includeSubDomains; preload'

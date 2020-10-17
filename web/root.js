@@ -1,7 +1,7 @@
 module.exports = {
     pathname: '/',
     method: 'GET',
-    run:  async (client, req, res, parsed) => {
+    run:  async (client, req, res, parsed, ops) => {
         res.writeHead(200, {
             'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
         });

@@ -4,7 +4,7 @@ const fs = require('fs');
 module.exports = {
     pathname: '/subm',
     method: 'POST',
-    run: async (client, req, res, parsed) => {
+    run: async (client, req, res, parsed, ops) => {
         let post = '';
         req.on('data', data => {
             post += data;

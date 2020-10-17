@@ -2,7 +2,7 @@ const fs = require('fs');
 module.exports = {
     pathname: '/verify',
     method: 'GET',
-    run: async (client, req, res, parsed) => {
+    run: async (client, req, res, parsed, ops) => {
         if (!parsed.query || !parsed.query.token || !client.verifyQueue.get(parsed.query.token)) {
             res.writeHead(400);
             res.end('Invalid token');
