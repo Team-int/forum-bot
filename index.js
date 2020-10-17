@@ -265,7 +265,7 @@ fs.readdir('./web/', (err, list) => {
             let pull = require(`./web/${file}`);
             if (pull.pathname && pull.run && pull.method) {
                 table2.addRow(file, '✅');
-                client.paths.set(pull.name, pull);
+                client.paths.set(pull.pathname, pull);
             } else {
                 table2.addRow(file, '❌ -> Error');
                 continue;
