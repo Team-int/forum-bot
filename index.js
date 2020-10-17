@@ -38,7 +38,7 @@ function memberChanges(o, n) {
         }
         arr.push({
             name: '역할',
-            value: arr2.join('\n')
+            value: arr2.join('\n') || '변경되지 않음'
         });
     }
     if (o.voice != n.voice) arr.push({
@@ -175,7 +175,7 @@ function roleChanges(o, n) {
         name: '역할 멘션 가능 여부',
         value: `${o.mentionable ? '✅' : '❌'} -> ${n.mentionable ? '✅' : '❌'}`
     });
-    if (o.permissions.toArray() != n.permissions.toArray()) {
+    if (o.permissions.bitfield != n.permissions.bitfield) {
         let arr2 = [];
         for (let i of o.permissions.toArray()) {
             if (!n.permissions.toArray().find(x => x == i)) arr2.push(`${ops.rolePerms[i]}: ✅ -> ❌`)
