@@ -3,13 +3,15 @@ const Discord = require('discord.js');
 const ops = require('./config.json');
 const ascii = require('ascii-table');
 const fs = require('fs');
-const table = new ascii();
+const table1 = new ascii();
+const table2 = new ascii();
 const client = new Discord.Client({
     partials: ['MESSAGE', 'REACTION']
 });
 client.verifyQueue = new Discord.Collection();
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
+client.paths = new Discord.Collection();
 function memberChanges(o, n) {
     let arr = [];
     if (o.displayHexColor != n.displayHexColor) arr.push({
@@ -234,27 +236,46 @@ function channelChanges(o, n) {
     });
     return arr;
 }
-table.setHeading('Command', 'Load Status');
+table1.setHeading('Command', 'Load Status');
 fs.readdir('./commands/', (err, list) => {
     for (let file of list) {
         try {
             let pull = require(`./commands/${file}`);
             if (pull.name && pull.run && pull.aliases) {
-                table.addRow(file, '✅');
+                table1.addRow(file, '✅');
                 for (let alias of pull.aliases) {
                     client.aliases.set(alias, pull.name);
                 }
                 client.commands.set(pull.name, pull);
             } else {
-                table.addRow(file, '❌ -> Error');
+                table1.addRow(file, '❌ -> Error');
                 continue;
             }
         } catch (e) { 
-            table.addRow(file, `❌ -> ${e}`); 
+            table1.addRow(file, `❌ -> ${e}`); 
             continue;
         }
     }
-    console.log(table.toString());
+    console.log(table1.toString());
+});
+table2.setHeading('Path', 'Load Status');
+fs.readdir('./web/', (err, list) => {
+    for (let file of list) {
+        try {
+            let pull = require(`./web/${file}`);
+            if (pull.pathname && pull.run && pull.method) {
+                table2.addRow(file, '✅');
+                client.paths.set(pull.name, pull);
+            } else {
+                table2.addRow(file, '❌ -> Error');
+                continue;
+            }
+        } catch (e) { 
+            table2.addRow(file, `❌ -> ${e}`); 
+            continue;
+        }
+    }
+    console.log(table2.toString());
 });
 function tokenGen(client) {
     let chars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '']
@@ -855,6 +876,7 @@ client.on('guildMemberUpdate', async (old, _new) => {
     });
 });
 client.on('ready', () => {
+    client.guilds.cache.get(ops.guildId).members.fetch();
     setInterval(() => {
         switch (Math.floor(Math.random() * 5)) {
             case 0:
