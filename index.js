@@ -831,13 +831,23 @@ client.on('guildMemberRemove', async member => {
     });
 });
 client.on('guildMemberUpdate', async (old, _new) => {
-    let al = await client.guilds.cache.get(ops.guildId).fetchAuditLogs({
+    let al;
+    let al1 = await client.guilds.cache.get(ops.guildId).fetchAuditLogs({
         type: 'MEMBER_UPDATE'
     });
+    let al2 = await client.guilds.cache.get(ops.guildId).fetchAuditLogs({
+        type: 'MEMBER_ROLE_UPDATE'
+    });
+    if (al1.entries.first().createdAt > al2.entriies.first().createdAt) {
+        al = al1;
+    } else {
+        al = al2;
+    }
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
         .setTitle(`멤버 설정 변경됨`)
         .setColor('RANDOM')
+        .addField('멤버', `${_new.user}(${_new.id})`)
         .addFields(memberChanges(old, _new))
         .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
         .setTimestamp()
@@ -845,7 +855,6 @@ client.on('guildMemberUpdate', async (old, _new) => {
 });
 client.on('ready', () => {
     setInterval(() => {
-
         switch (Math.floor(Math.random() * 5)) {
             case 0:
                 client.user.setPresence({
