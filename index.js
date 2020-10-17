@@ -125,7 +125,7 @@ function guildChanges(o, n) {
         name: '시스템 메세지 채널',
         value: `${o.systemChannel ? `${o.systemChannel}(${o.systemChannel.id})` : `없음`} -> ${n.systemChannel ? `${n.systemChannel}(${n.systemChannel.id})` : `없음`}`
     });
-    if (o.systemChannelFlags.toArray() != n.systemChannelFlags.toArray()) {
+    if (o.systemChannelFlags.bitfield != n.systemChannelFlags.bitfield) {
         let arr2 = [];
         for (let i of n.systemChannelFlags.toArray()) {
             if (!o.systemChannelFlags.toArray().find(x => x == i)) arr2.push(`${ops.sysMsg[i]}: ✅ -> ❌`)
@@ -135,7 +135,7 @@ function guildChanges(o, n) {
         }
         arr.push({
             name: '시스템 메세지 내용',
-            value: arr2.join('\n')
+            value: arr2.join('\n') || '변경되지 않음'
         });
     }
     if (o.vanityURLCode != n.vanityURLCode) arr.push({
