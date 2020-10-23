@@ -434,7 +434,7 @@ client.on('messageReactionAdd', async (r, u) => {
                 embed: embed
             });
             const embed2 = new Discord.MessageEmbed()
-                .setTitle('티켓이 열렸어요! 빨리 와주세요!')
+                .setTitle('티켓이 열림 관리자 ')
                 .addField('티켓 채널', tktCh.toString())
                 .setColor('RANDOM')
                 .setFooter(u.tag, u.displayAvatarURL())
