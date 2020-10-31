@@ -880,9 +880,7 @@ client.on('guildMemberUpdate', async (old, _new) => {
     });
 });
 client.on('ready', () => {
-    client.guilds.cache.get(ops.guildId).members.cache.forEach(x => {
-        x.fetch();
-    });
+    client.guilds.cache.get(ops.guildId).members.fetch();
     setInterval(() => {
         switch (Math.floor(Math.random() * 5)) {
             case 0:
