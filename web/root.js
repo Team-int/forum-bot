@@ -1,3 +1,4 @@
+const fs = require('fs');
 module.exports = {
     pathname: '/',
     method: 'GET',
