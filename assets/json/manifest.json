@@ -2,10 +2,10 @@
     "short_name": "int™ Manager",
     "name": "int™ Manager",
     "description": "int™ Manager는 int Team의 관리 봇입니다. ",
-    "start_url": "/",
+    "start_url": "https://manager.intteam.co.kr/",
     "background_color": "#000000",
     "display": "standalone",
-    "scope": "/",
+    "scope": "https://manager.intteam.co.kr/",
     "theme_color": "#000000",
     "lang": "ko-KR",
     "icons": [
