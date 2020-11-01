@@ -23,20 +23,16 @@ module.exports = {
                     'content-type': 'application/x-www-form-urlencoded'
                 }
             }).then(tokenRes => {
-                console.log('tkn');
-                console.log(tokenRes.data);
                 axios.get('https://discord.com/api/users/@me', {
                     headers: {
                         Authorization: `Bearer ${tokenRes.data.access_token}`
                     }
                 }).then(userRes => {
-                    console.log('usr');
                     axios.get('https://discord.com/api/users/@me/guilds', {
                         headers: {
                             Authorization: `${tokenRes.data.token_type} ${tokenRes.data.access_token}`
                         }
                     }).then(async guildRes => {
-                        console.log('gld')
                         if (!guildRes.data.find(x => x.id == ops.guildId)) {
                             res.writeHead(400, {
                                 'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
