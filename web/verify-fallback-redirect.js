@@ -11,7 +11,7 @@ module.exports = {
             });
             res.end('Discord authentication cancled');
         } else {
-            axios.post('https://discord.com/oauth2/token', qs.stringify({
+            axios.post('https://discord.com/api/oauth2/token', qs.stringify({
                 client_id: client.user.id,
                 client_secret: process.env.CLIENT_SECRET,
                 grant_type: 'authorization_code',
