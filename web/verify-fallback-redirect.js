@@ -31,7 +31,7 @@ module.exports = {
                         headers: {
                             Authorization: `${tokenRes.data.token_type} ${tokenRes.data.access_token}`
                         }
-                    }).then(guildRes => {
+                    }).then(async guildRes => {
                         if (!guildRes.data.find(x => x.id == ops.guildId)) {
                             res.writeHead(400, {
                                 'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
