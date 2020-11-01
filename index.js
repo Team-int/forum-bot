@@ -427,7 +427,7 @@ client.on('messageReactionAdd', async (r, u) => {
         }).then(async tktCh => {
             const embed = new Discord.MessageEmbed()
                 .setTitle('환영합니다!')
-                .setDescription('관리자가 곧 올 거에요. 조금만 기다려 주세요.')
+                .setDescription('문의 하실 내용이 무엇인가요?')
                 .setColor('RANDOM')
                 .setFooter(u.tag, u.displayAvatarURL())
                 .setTimestamp()
@@ -435,7 +435,7 @@ client.on('messageReactionAdd', async (r, u) => {
                 embed: embed
             });
             const embed2 = new Discord.MessageEmbed()
-                .setTitle('티켓이 열렸어요! 빨리 와주세요!')
+                .setTitle('티켓이 열렸어요! 관리자는 일하세요!')
                 .addField('티켓 채널', tktCh.toString())
                 .setColor('RANDOM')
                 .setFooter(u.tag, u.displayAvatarURL())
