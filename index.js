@@ -6,7 +6,7 @@ const fs = require('fs');
 const table1 = new ascii();
 const table2 = new ascii();
 const client = new Discord.Client({
-    partials: ['MESSAGE', 'REACTION', 'GUILD_MEMBER']
+    partials: ['MESSAGE', 'REACTION', 'GUILD_MEMBER', 'USER']
 });
 client.verifyQueue = new Discord.Collection();
 client.commands = new Discord.Collection();
@@ -881,6 +881,9 @@ client.on('guildMemberUpdate', async (old, _new) => {
 });
 client.on('ready', () => {
     client.guilds.cache.get(ops.guildId).members.fetch();
+    client.users.cache.forEach(x => {
+        x.fetch();
+    });
     setInterval(() => {
         switch (Math.floor(Math.random() * 5)) {
             case 0:
