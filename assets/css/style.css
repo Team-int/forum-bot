@@ -61,7 +61,6 @@ body::before {
     margin: 2px;
     -moz-animation-fill-mode: both;
     -o-animation-fill-mode: both;
-    -ms-animation-fill-mode: both;
     animation-fill-mode: both;
     display: inline-block;
     vertical-align: middle;
@@ -72,7 +71,6 @@ body::before {
     -webkit-animation: loading 1s -.6s ease infinite;
     -moz-animation: loading 1s -.6s ease infinite;
     -o-animation: loading 1s -.6s ease infinite;
-    -ms-animation: loading 1s -.6s ease infinite;
 }
 
 #dot2 {
@@ -80,7 +78,6 @@ body::before {
     -webkit-animation: loading 1s -.4s ease infinite;
     -moz-animation: loading 1s -.4s ease infinite;
     -o-animation: loading 1s -.4s ease infinite;
-    -ms-animation: loading 1s -.4s ease infinite;
 }
 
 #dot3 {
@@ -88,7 +85,6 @@ body::before {
     -webkit-animation: loading 1s -.2s ease infinite;
     -moz-animation: loading 1s -.2s ease infinite;
     -o-animation: loading 1s -.2s ease infinite;
-    -ms-animation: loading 1s -.2s ease infinite;
 }
 
 #dot4 {
@@ -96,7 +92,6 @@ body::before {
     -webkit-animation: loading 1s 0s ease infinite;
     -moz-animation: loading 1s 0s ease infinite;
     -o-animation: loading 1s 0s ease infinite;
-    -ms-animation: loading 1s 0s ease infinite;
 }
 
 @keyframes loading {
