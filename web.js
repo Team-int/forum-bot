@@ -90,6 +90,22 @@ module.exports = {
                     });
                     res.end('404 Not Found');
                 }
+            } else if (parsed.pathname == '/manifest.json') {
+                res.writeHead(200, {
+                    'content-type': 'application/json; charset=UTF-8',
+                    'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
+                });
+                fs.readFile('./assets/json/manifest.json', 'utf8', (err, data) => {
+                    res.end(data);
+                });
+            } else if (parsed.pathname == '/serviceWorker.js') {
+                res.writeHead(200, {
+                    'content-type': 'text/javascript; charset=UTF-8',
+                    'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
+                });
+                fs.readFile('./assets/json/serviceWorker.js', 'utf8', (err, data) => {
+                    res.end(data);
+                });
             } else {
                 if (req.headers['user-agent'] && (req.headers['user-agent'].includes('MSIE') || req.headers['user-agent'].includes('rv:11.0'))) {
                     res.writeHead(200, {

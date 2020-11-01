@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -22,12 +22,12 @@
     <link rel="shortcut icon" href="/static/image/inticon-512.png" type="image/png">
     <link rel="icon" href="/static/image/inticon-512.png">
     <script src="/static/js/loadingbar.js"></script>
-    <link rel="manifest" href="/static/json/manifest.json">
+    <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/static/image/inticon-512.png">
     <script type="text/javascript">
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/static/js/serviceWorker.js')
+                navigator.serviceWorker.register('/serviceWorker.js')
             });
         }
     </script>
