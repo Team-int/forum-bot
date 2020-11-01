@@ -25,7 +25,7 @@ module.exports = {
                 console.log('tkn')
                 axios.get('https://discord.com/api/users/@me', {
                     headers: {
-                        Authorization: `${tokenRes.data.token_type} ${tokenRes.data.access_token}`
+                        Authorization: `Bearer ${tokenRes.data.access_token}`
                     }
                 }).then(userRes => {
                     console.log('usr')
