@@ -66,6 +66,11 @@ body::before {
     vertical-align: middle;
 }
 
+a a:visited {
+    color: blue;
+    text-decoration-line: none;
+}
+
 #dot1 {
     animation: loading 1s -.6s ease infinite;
     -webkit-animation: loading 1s -.6s ease infinite;
