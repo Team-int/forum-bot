@@ -339,6 +339,7 @@ client.on('guildMemberRemove', async member => {
 client.on('messageReactionAdd', async (r, u) => {
     if (r.partial) await r.fetch();
     if (r.message.partial) await r.message.fetch();
+    console.log('asdf')
     if (u.id == client.user.id) return;
     if (r.emoji.name == 'yes') {
         console.log('a')
