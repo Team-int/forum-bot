@@ -76,7 +76,7 @@ module.exports = {
                     res.end('404 Not Found');
                 }
             } else {
-                if (req.headers['user-agent'].includes('MSIE') || req.headers['user-agent'].includes('rv:11.0')) {
+                if (req.headers['user-agent'] && (req.headers['user-agent'].includes('MSIE') || req.headers['user-agent'].includes('rv:11.0'))) {
                     res.writeHead(200, {
                         'Content-Type': "text/html; charset=UTF-8",
                         'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
