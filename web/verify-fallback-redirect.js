@@ -22,7 +22,7 @@ module.exports = {
                     'content-type': 'application/x-www-form-urlencoded'
                 }
             }).then(tokenRes => {
-                console.log('tkn')
+                console.log('tkn');
                 console.log(tokenRes.data);
                 axios.get('https://discord.com/api/users/@me', {
                     headers: {
