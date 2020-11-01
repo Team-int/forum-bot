@@ -345,6 +345,7 @@ client.on('messageReactionAdd', async (r, u) => {
         if (u.id == client.user.id) return;
         if (u.bot) return r.users.remove(u.id);
         r.users.remove(u.id);
+        console.log(r.message.guild.member(u).displayName)
         if (r.message.guild.member(u).roles.cache.has(ops.userRole)) return;
         console.log('a')
         let tkn = tokenGen(client);
