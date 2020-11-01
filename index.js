@@ -346,6 +346,7 @@ client.on('messageReactionAdd', async (r, u) => {
         if (u.bot) return r.users.remove(u.id);
         r.users.remove(u.id);
         if (r.message.guild.member(u).roles.cache.has(ops.userRole)) return;
+        console.log('a')
         let tkn = tokenGen(client);
         client.verifyQueue.set(tkn, u);
         u.send(`아래 링크를 눌러 인증해주세요.\nhttps://manager.intteam.co.kr/verify?token=${tkn}`)
