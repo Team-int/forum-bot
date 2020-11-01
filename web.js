@@ -103,7 +103,7 @@ module.exports = {
                     'content-type': 'text/javascript; charset=UTF-8',
                     'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
                 });
-                fs.readFile('./assets/json/serviceWorker.js', 'utf8', (err, data) => {
+                fs.readFile('./assets/js/serviceWorker.js', 'utf8', (err, data) => {
                     res.end(data);
                 });
             } else {
