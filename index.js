@@ -339,17 +339,13 @@ client.on('guildMemberRemove', async member => {
 client.on('messageReactionAdd', async (r, u) => {
     if (r.partial) await r.fetch();
     if (r.message.partial) await r.message.fetch();
-    console.log('asdf')
     if (u.id == client.user.id) return;
     if (r.emoji.name == 'yes') {
-        console.log('a')
         if (r.message.id != ops.verifyMessage) return;
         if (u.id == client.user.id) return;
         if (u.bot) return r.users.remove(u.id);
         r.users.remove(u.id);
-        console.log(r.message.guild.member(u).displayName)
         if (r.message.guild.member(u).roles.cache.has(ops.userRole)) return;
-        console.log('b')
         let tkn = tokenGen(client);
         client.verifyQueue.set(tkn, u);
         u.send(`아래 링크를 눌러 인증해주세요.\nhttps://manager.intteam.co.kr/verify?token=${tkn}`)
