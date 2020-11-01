@@ -69,6 +69,21 @@ module.exports = {
                         });
                         res.end(data);
                     });
+                } else if (parsed.pathname.startsWith('/static/json/')) {
+                    fs.readFile(`./assets/json/${path.parse(parsed.pathname).base}`, (err, data) => {
+                        if (err) {
+                            res.writeHead(404, {
+                                'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
+                            });
+                            res.end('404 Not Found');
+                            return;
+                        }
+                        res.writeHead(200, {
+                            'Content-Type': "application/json; charset=UTF-8",
+                            'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
+                        });
+                        res.end(data);
+                    });
                 } else {
                     res.writeHead(404, {
                         'strict-transport-security': 'max-age=86400; includeSubDomains; preload'

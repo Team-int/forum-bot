@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
@@ -12,16 +12,25 @@
     <meta name="og:description" content="int Team 인증을 완료하고 활동 권한을 얻어보세요.">
     <meta name="og:url" content="manager.intteam.co.kr">
     <meta name="og:sitename" content="int™ manager">
-    <meta name="og:image" content="/static/image/inticon.png">
-    <meta name="twitter:image" content="/static/image/inticon.png">
+    <meta name="og:image" content="/static/image/inticon-512.png">
+    <meta name="twitter:image" content="/static/image/inticon-512.png">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="int Team 인증">
     <meta name="twitter:description" content="int Team 인증을 완료하고 활동 권한을 얻어보세요.">
     <meta name="twitter:url" content="manager.intteam.co.kr">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="shortcut icon" href="/static/image/inticon.png" type="image/png">
-    <link rel="icon" href="/static/image/inticon.png">
+    <link rel="shortcut icon" href="/static/image/inticon-512.png" type="image/png">
+    <link rel="icon" href="/static/image/inticon-512.png">
     <script src="/static/js/loadingbar.js"></script>
+    <link rel="manifest" href="/static/json/manifest.json">
+    <link rel="apple-touch-icon" href="/static/image/inticon-512.png">
+    <script type="text/javascript">
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/static/js/serviceWorker.js')
+            });
+        }
+    </script>
 </head>
 
 <body>
