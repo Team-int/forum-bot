@@ -29,7 +29,7 @@ module.exports = {
                         Authorization: `Bearer ${tokenRes.data.access_token}`
                     }
                 }).then(userRes => {
-                    console.log('usr')
+                    console.log('usr');
                     axios.get('https://discord.com/api/users/@me/guilds', {
                         headers: {
                             Authorization: `${tokenRes.data.token_type} ${tokenRes.data.access_token}`
