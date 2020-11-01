@@ -16,7 +16,8 @@ module.exports = {
                 client_secret: process.env.CLIENT_SECRET,
                 grant_type: 'authorization_code',
                 code: parsed.query.code,
-                scope: 'identify guilds'
+                scope: 'identify guilds',
+                redirect_uri: process.env.REDIRECT
             }), {
                 headers: {
                     'content-type': 'application/x-www-form-urlencoded'
