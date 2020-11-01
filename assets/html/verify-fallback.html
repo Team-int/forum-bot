@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>int Team 인증</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="int Team 인증">
+    <meta name="og:title" content="int Team 인증">
+    <meta name="description" content="int Team 인증을 완료하고 활동 권한을 얻어보세요.">
+    <meta name="og:description" content="int Team 인증을 완료하고 활동 권한을 얻어보세요.">
+    <meta name="og:url" content="manager.intteam.co.kr">
+    <meta name="og:sitename" content="int™ manager">
+    <meta name="theme-color" content="#000000">
+    <meta name="og:image" content="/static/image/static/image/inticon.png">
+    <meta name="twitter:image" content="/static/image/static/image/inticon.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="int Team 인증">
+    <meta name="twitter:description" content="int Team 인증을 완료하고 활동 권한을 얻어보세요.">
+    <meta name="twitter:url" content="manager.intteam.co.kr">
+    <link rel="shortcut icon" href="/static/image/static/image/inticon.png" type="image/png">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/image/static/image/inticon.png">
+    <script>
+        function getParam(sname) {
+            let params = location.search.substr(location.search.indexOf("?") + 1);
+            let sval = "";
+            params = params.split("&");
+            for (let i = 0; i < params.length; i++) {
+                temp = params[i].split("=");
+                if ([temp[0]] == sname) {
+                    sval = temp[1];
+                }
+            }
+            return sval;
+        }
+        function onloadCallback() {
+            grecaptcha.render('recaptcha', {
+                sitekey: '6LczINMZAAAAAJozMOYM3P25Ql58hyaBqPjXseCK',
+                theme: 'dark',
+                callback: callback
+            });
+        }
+        function callback() {
+            document.querySelector('#tkn').setAttribute('value', getParam('token'));
+            document.querySelector('#form').submit();
+        }
+    </script>
+    <script src="/static/js/loadingbar.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+</head>
+
+<body>
+    <div id="loadingbar">
+        <div class="dot" id="dot1"></div>
+        <div class="dot" id="dot2"></div>
+        <div class="dot" id="dot3"></div>
+        <div class="dot" id="dot4"></div>
+    </div>
+    <div id="main">
+
+        <h1>int Team 인증하기</h1>
+        <div id="userinfo">
+            <img src="/static/image/inticon.png" alt="avatar" id="user_profile">
+            <p id="user_label">int Team에 오신 것을 환영합니다!</p>
+        </div>
+        <p>int Team 규칙에 동의하신다면 아래 reCAPTCHA를 풀어주세요.</p>
+        <form action="/verify/fallback/login" method="get" id="form">
+            <input type="hidden" name="token" value="" id="tkn">
+            <div id="recaptcha"></div>
+        </form>
+    </div>
+</body>
+
+</html>
+<!--깜짝아 -->
