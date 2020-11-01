@@ -6,7 +6,7 @@ const fs = require('fs');
 const table1 = new ascii();
 const table2 = new ascii();
 const client = new Discord.Client({
-    partials: ['MESSAGE', 'REACTION']
+    partials: ['MESSAGE', 'REACTION', 'GUILD_MEMBER']
 });
 client.verifyQueue = new Discord.Collection();
 client.commands = new Discord.Collection();
@@ -350,11 +350,6 @@ client.on('messageReactionAdd', async (r, u) => {
         console.log('a')
         let tkn = tokenGen(client);
         client.verifyQueue.set(tkn, u);
-        // 일단 여기는 문제가 아니고
-        // 잠만요
-        // 제 커서 따라와주세요
-        // 886줄로 와주세요
-        //ㄷ 네
         u.send(`아래 링크를 눌러 인증해주세요.\nhttps://manager.intteam.co.kr/verify?token=${tkn}`)
     } else if (r.emoji.name == '⏰') {
         if (r.message.id != ops.roleMessage) return;
@@ -883,22 +878,9 @@ client.on('guildMemberUpdate', async (old, _new) => {
     });
 });
 client.on('ready', () => {
-    client.guilds.cache.get(ops.guildId).members.fetch({
-        time: 600e3
+    client.guilds.cache.get(ops.guildId).members.cache.forEach(x => {
+        x.fetch();
     });
-    // @int
-    // 여기서 타임아웃이 발생하거든요
-    // 참고로 600e3 = 600000
-    //흠 저 잘 모름 저 바보임
-    // 그러면
-    // 이럴 때를 대비해서
-    // 토큰 대신 oauth2를 이용하는
-    // fallback method를 해볼까여
-    // 뭔진 모르겠지만여 엌
-    // 지금 방식 대신
-    // 토큰같은거 없이
-    // 디스코드 계정 인증을 이용하는거죠
-    // @int
     setInterval(() => {
         switch (Math.floor(Math.random() * 5)) {
             case 0:
