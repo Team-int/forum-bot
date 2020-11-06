@@ -1,4 +1,4 @@
-const name = 'cache';
+const name = 'cache-v1';
 const cacheFiles = [
     '/static/html/offline.html'
 ]
