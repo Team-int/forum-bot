@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 const ops = require('./config.json');
 const ascii = require('ascii-table');
 const fs = require('fs');
+const axios = require('axios').default;
 const table1 = new ascii();
 const table2 = new ascii();
 const client = new Discord.Client({
@@ -656,6 +657,13 @@ client.on('message', message => {
     }
 });
 client.on('message', async message => {
+    if (message.channel.id == ops.noticeChannel) {
+        axios.post(`https://discord.com/api/channels/${message.channel.id}/messages/${message.id}/crosspost`, {}, {
+            headers: {
+                Authorization: `Bot ${client.token}`
+            }
+        });
+    }
     if (message.author.bot) return;
     if (message.member.roles.cache.has(ops.adminRole)) return;
     if (ops.invites.some(x => message.content.includes(x)) && !ops.inviteWLChannels.includes(message.channel.id)) {
