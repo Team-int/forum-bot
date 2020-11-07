@@ -67,8 +67,8 @@ body::before {
 }
 
 a a:visited {
-    color: blue;
-    text-decoration-line: none;
+    text-decoration: none;
+    color: #45d1fb;
 }
 
 #dot1 {
