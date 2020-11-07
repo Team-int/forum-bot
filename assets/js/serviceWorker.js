@@ -38,6 +38,7 @@ self.addEventListener('notificationclick', e => {
     e.notification.close();
 });
 self.addEventListener('push', e => {
+    console.log(e);
     e.waitUntil(
         self.registration.showNotification('push notification', {
             body: 'notification body',
