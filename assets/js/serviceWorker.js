@@ -46,7 +46,7 @@ self.addEventListener('push', e => {
                 dateOfArrival: Date.now()
             },
             vibrate: [100, 50, 100],
-            badge: '/static/image/inticon-96.png'
+            badge: '/static/image/inticon-without-background.png'
         })
     )
 });
