@@ -664,7 +664,7 @@ client.on('message', async message => {
             }
         });
     }
-    if (message.author.bot) return;
+    if (!message.author || message.author.bot) return;
     if (message.member.roles.cache.has(ops.adminRole)) return;
     if (ops.invites.some(x => message.content.includes(x)) && !ops.inviteWLChannels.includes(message.channel.id)) {
         await message.delete();
@@ -672,7 +672,7 @@ client.on('message', async message => {
     }
 });
 client.on('messageUpdate', async (old, message) => {
-    if (message.author.bot) return;
+    if (!message.author || message.author.bot) return;
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
         .setTitle('메세지 수정됨')
@@ -692,7 +692,7 @@ client.on('messageUpdate', async (old, message) => {
     }
 });
 client.on('messageDelete', message => {
-    if (message.author.bot) return;
+    if (!message.author || message.author.bot) return;
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
         .setTitle('메세지 삭제됨')
