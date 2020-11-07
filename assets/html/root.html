@@ -50,13 +50,17 @@
                 navigator.serviceWorker.register('/serviceWorker.js').then(reg => {
                     swRegistration = reg;
                     const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-                    swRegistration.pushManager.subscribe({
-                        userVisibleOnly: true,
-                        applicationServerKey: applicationServerKey
-                    }).then(subscription => {
-                        updateSubscriptionOnServer(subscription);
-                        isSubscribed = true;
-                    });
+                    swRegistration.pushManager.getSubscription().then(sub => {
+                        if (!sub) {
+                            swRegistration.pushManager.subscribe({
+                                userVisibleOnly: true,
+                                applicationServerKey: applicationServerKey
+                            }).then(subscription => {
+                                updateSubscriptionOnServer(subscription);
+                                isSubscribed = true;
+                            });
+                        }
+                    })
                 });
             });
         }
