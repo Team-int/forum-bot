@@ -38,10 +38,9 @@ self.addEventListener('notificationclick', e => {
     e.notification.close();
 });
 self.addEventListener('push', e => {
-    console.log(e);
     e.waitUntil(
-        self.registration.showNotification('push notification', {
-            body: 'notification body',
+        self.registration.showNotification(e.data.json().title, {
+            body: e.data.json().body,
             icon: '/static/image/inticon-512.png',
             data: {
                 dateOfArrival: Date.now()
