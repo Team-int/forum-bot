@@ -7,7 +7,7 @@ module.exports = {
     run: async (client, message, args, ops) => {
         if (!ops.devs.includes(message.author.id)) return message.channel.send(`${client.user.username} 개발자만 사용할 수 있어요.`)
         webpush.setGCMAPIKey(process.env.GCM_API_KEY);
-        webpush.setVapidDetails('notificatino subject', 'BI600VywPkLZAS9ULBbIO35OiwO8ZVYmDDwajL2_MrypJFoEZrMeeGPFZZevWGfn0wZEzcM4Y3V76lN30daPJTY', process.env.VAPID_PRIVATE_KEY);
+        webpush.setVapidDetails('mailto: mswgen02@gmail.com', 'BI600VywPkLZAS9ULBbIO35OiwO8ZVYmDDwajL2_MrypJFoEZrMeeGPFZZevWGfn0wZEzcM4Y3V76lN30daPJTY', process.env.VAPID_PRIVATE_KEY);
         let sub = require('/home/data/notifications.json').subscriptions;
         sub.forEach(s => {
             webpush.sendNotification(s, 'payload text');
