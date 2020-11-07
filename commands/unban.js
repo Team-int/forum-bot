@@ -37,6 +37,16 @@ module.exports = {
                 await m.edit({
                     embed: embed
                 });
+                webpush.setGCMAPIKey(process.env.GCM_API_KEY);
+                webpush.setVapidDetails('mailto: mswgen02@gmail.com', 'BI600VywPkLZAS9ULBbIO35OiwO8ZVYmDDwajL2_MrypJFoEZrMeeGPFZZevWGfn0wZEzcM4Y3V76lN30daPJTY', process.env.VAPID_PRIVATE_KEY);
+                let sub = require('/home/data/notifications.json').subscriptions;
+                sub.forEach(s => {
+                    webpush.sendNotification(s, JSON.stringify({
+                        title: '멤버 차단 해제됨',
+                        body: `${message.mentions.users.first().tag}(${message.mentions.users.first().id})님이 ${message.guild.name}에서 차단 해제되었어요.`,
+                        icon: '/static/image/inticon-512.png'
+                    }));
+                });
             } else {
                 embed.setTitle('멤버 차단 해제가 취소되었어요.')
                 .setColor('RANDOM')

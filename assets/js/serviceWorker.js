@@ -41,11 +41,12 @@ self.addEventListener('push', e => {
     e.waitUntil(
         self.registration.showNotification(e.data.json().title, {
             body: e.data.json().body,
-            icon: '/static/image/inticon-512.png',
+            icon: e.data.json().icon,
             data: {
                 dateOfArrival: Date.now()
             },
-            vibrate: [100, 50, 100]
+            vibrate: [100, 50, 100],
+            badge: '/static/image/inticon-96.png'
         })
     )
 });

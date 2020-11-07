@@ -10,14 +10,16 @@ module.exports = {
         webpush.setGCMAPIKey(process.env.GCM_API_KEY);
         webpush.setVapidDetails('mailto: mswgen02@gmail.com', 'BI600VywPkLZAS9ULBbIO35OiwO8ZVYmDDwajL2_MrypJFoEZrMeeGPFZZevWGfn0wZEzcM4Y3V76lN30daPJTY', process.env.VAPID_PRIVATE_KEY);
         let sub = require('/home/data/notifications.json').subscriptions;
+        let cnt = 0
         sub.forEach(s => {
+            cnt++;
             webpush.sendNotification(s, JSON.stringify({
                 title: args[1],
                 body: args[2]
             })).then(() => {
-                message.channel.send('성공');
+                message.channel.send(`알림 ${cnt}/${sub.length}: 성공`);
             }).catch(e => {
-                message.channel.send(`Error\n\`\`\`js\n${e}\n\`\`\``);
+                message.channel.send(`알림 ${cnt}/${sub.length}: Error\n\`\`\`js\n${e}\n\`\`\``);
             });
         });
     }
