@@ -27,7 +27,22 @@
     <script type="text/javascript">
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/serviceWorker.js')
+                navigator.serviceWorker.register('/serviceWorker.js').then(async reg => {
+                    if (!Notification.permission) {
+                        await Notification.requestPermission();
+                    }
+                    reg.pushManager.subscribe({
+                        userVisibleOnly: true
+                    }).then(function (sub) {
+                        console.log('Endpoint URL: ', sub.endpoint);
+                    }).catch(function (e) {
+                        if (Notification.permission === 'denied') {
+                            console.warn('Permission for notifications was denied');
+                        } else {
+                            console.error('Unable to subscribe to push', e);
+                        }
+                    });
+                })
             });
         }
     </script>

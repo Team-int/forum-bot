@@ -34,3 +34,18 @@ self.addEventListener('fetch', event => {
         })
     );
 });
+self.addEventListener('notificationclick', e => {
+    e.notification.close();
+});
+self.addEventListener('push', e => {
+    e.waitUntil(
+        self.registration.showNotification('push notification', {
+            body: 'notification body',
+            icon: '/static/image/inticon-512.png',
+            data: {
+                dateOfArrival: Date.now()
+            },
+            vibrate: [100, 50, 100]
+        })
+    )
+});
