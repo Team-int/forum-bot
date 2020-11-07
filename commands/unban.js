@@ -44,7 +44,7 @@ module.exports = {
                 sub.forEach(s => {
                     webpush.sendNotification(s, JSON.stringify({
                         title: '멤버 차단 해제됨',
-                        body: `${message.mentions.users.first().tag}(${message.mentions.users.first().id})님이 ${message.guild.name}에서 차단 해제되었어요.`,
+                        body: `${info.user.tag}(${info.user.id})님이 ${message.guild.name}에서 차단 해제되었어요.`,
                         icon: '/static/image/inticon-512.png'
                     }));
                 });
