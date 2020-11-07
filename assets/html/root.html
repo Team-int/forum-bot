@@ -23,26 +23,41 @@
     <link rel="icon" href="/static/image/inticon-512.png">
     <script src="/static/js/loadingbar.js"></script>
     <link rel="manifest" href="/manifest.json">
+    <script src="/socket.io/socket.io.js"></script>
     <link rel="apple-touch-icon" href="/static/image/inticon-512.png">
     <script type="text/javascript">
+        const socket = io();
+        const applicationServerPublicKey = '';
+        let isSubscribed = false;
+        let swRegistration = null;
+        function urlB64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding)
+                .replace(/\-/g, '+')
+                .replace(/_/g, '/');
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+            for (let i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
+        function updateSubscriptionOnServer(subscription) {
+            socket.emit('notifySubscription', subscription);
+        }
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/serviceWorker.js').then(async reg => {
-                    if (!Notification.permission) {
-                        await Notification.requestPermission();
-                    }
-                    reg.pushManager.subscribe({
-                        userVisibleOnly: true
-                    }).then(function (sub) {
-                        console.log('Endpoint URL: ', sub.endpoint);
-                    }).catch(function (e) {
-                        if (Notification.permission === 'denied') {
-                            console.warn('Permission for notifications was denied');
-                        } else {
-                            console.error('Unable to subscribe to push', e);
-                        }
+                navigator.serviceWorker.register('/serviceWorker.js').then(reg => {
+                    swRegistration = reg;
+                    const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+                    swRegistration.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: applicationServerKey
+                    }).then(subscription => {
+                        updateSubscriptionOnServer(subscription);
+                        isSubscribed = true;
                     });
-                })
+                });
             });
         }
     </script>
