@@ -1,7 +1,7 @@
 const webpush = require('web-push');
 module.exports = {
     name: 'notify',
-    aliases: ['알림', '푸시', '푸시알림', 'push', 'dkffla', 'vntl', 'vntldkffla', 'ㅔㅕ노', 'ㅜㅐ샤료'],
+    aliases: ['알림', '푸시', '푸시알림', 'push', 'dkffla', 'vntl', 'vntldkffla', 'ㅔㅕ노', 'ㅜㅐ샤료', 'notification', 'ㅜㅐ샤럋ㅁ샤ㅐㅜ'],
     description: '푸시 알림을 보내요. (실험 기능, 봇 개발자만 가능)',
     usage: 'i.notify',
     run: async (client, message, args, ops) => {
