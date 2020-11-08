@@ -318,9 +318,9 @@ client.on('guildMemberAdd', async member => {
         embed: embed
     });
     if (member.user.bot) await member.roles.add('751403263030722621');
-    client.channels.cache.get(ops.counter.all).setName(`모든 유저 수: ${member.guild.memberCount}`);
-    client.channels.cache.get(ops.counter.user).setName(`유저 수: ${member.guild.members.cache.filter(x => !x.user.bot).size}`);
-    client.channels.cache.get(ops.counter.bot).setName(`봇 수: ${member.guild.members.cache.filter(x => x.user.bot).size}`);
+    client.channels.cache.get(ops.counter.all).setName(`All Users: ${member.guild.memberCount}`);
+    client.channels.cache.get(ops.counter.user).setName(`Users: ${member.guild.members.cache.filter(x => !x.user.bot).size}`);
+    client.channels.cache.get(ops.counter.bot).setName(`Bots: ${member.guild.members.cache.filter(x => x.user.bot).size}`);
 });
 client.on('guildMemberRemove', async member => {
     const embed = new Discord.MessageEmbed()
@@ -333,9 +333,9 @@ client.on('guildMemberRemove', async member => {
     if (!member.user.bot) await client.channels.cache.get(ops.greetChannel).send({
         embed: embed
     });
-    client.channels.cache.get(ops.counter.all).setName(`모든 유저 수: ${member.guild.memberCount}`);
-    client.channels.cache.get(ops.counter.user).setName(`유저 수: ${member.guild.members.cache.filter(x => !x.user.bot).size}`);
-    client.channels.cache.get(ops.counter.bot).setName(`봇 수: ${member.guild.members.cache.filter(x => x.user.bot).size}`);
+    client.channels.cache.get(ops.counter.all).setName(`All Users: ${member.guild.memberCount}`);
+    client.channels.cache.get(ops.counter.user).setName(`Users: ${member.guild.members.cache.filter(x => !x.user.bot).size}`);
+    client.channels.cache.get(ops.counter.bot).setName(`Bots: ${member.guild.members.cache.filter(x => x.user.bot).size}`);
 });
 client.on('messageReactionAdd', async (r, u) => {
     if (r.partial) await r.fetch();
