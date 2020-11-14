@@ -331,7 +331,7 @@ client.on('messageReactionAdd', async (r, u) => {
         if (r.message.id != ops.roleMessage) return;
         if (u.bot) return r.users.remove(u.id);
         await r.message.guild.member(u).roles.add(ops.alarmRole);
-    } else if (r.emoji.name == 'check') {
+    } else if (r.emoji.name == '💻') {
         if (r.message.id != ops.roleMessage) return;
         if (u.bot) return r.users.remove(u.id);
         await r.message.guild.member(u).roles.add(ops.teamAlarmRole);
