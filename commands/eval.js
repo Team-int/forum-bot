@@ -19,6 +19,7 @@ const dotenv = require('dotenv');
 const http = require('http');
 const qs = require('querystring');
 const url = require('url');
+const webpush = require('web-push');
 
 ${input}`;
         const embed = new Discord.MessageEmbed()
@@ -41,12 +42,7 @@ ${input}`;
             if (output.length >= 1020) {
                 output = `${output.substr(0, 1010)}...`;
             }
-            while (true) {
-                if (!output.includes(process.env.TOKEN)) {
-                    break;
-                }
-                output = output.replace(process.env.TOKEN, 'Secret');
-            }
+            output = output.replace(new RegExp(process.env.TOKEN, 'gi'), 'Secret');
             const embed2 = new Discord.MessageEmbed()
                 .setTitle('Eval result')
                 .setColor(0x00ffff)

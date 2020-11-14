@@ -9,7 +9,7 @@ module.exports = {
         if (!message.member.roles.cache.has(ops.adminRole)) return message.channel.send('봇 관리자만 사용할 수 있어요.');
         if (!message.mentions.users.first()) return message.channel.send('차단할 유저를 멘션해주세요');
         if (!message.guild.member(message.mentions.users.first())) return message.channel.send('이 유저는 서버에 없는 것 같아요.');
-        if (!message.guild.member(message.mentions.users.first()).bannable) return message.channel.send('이 유저는 제가 치딘할 수 없어요.');
+        if (!message.guild.member(message.mentions.users.first()).bannable) return message.channel.send('이 유저는 제가 차딘할 수 없어요.');
         const embed = new Discord.MessageEmbed()
             .setTitle('멤버를 차단할까요?')
             .setColor('RANDOM')
