@@ -616,6 +616,8 @@ client.on('messageReactionRemove', async (r, u) => {
         await r.message.guild.member(u).roles.remove(ops.alarmRole);
     } else if (r.emoji.name == '💻') {
         await r.message.guild.member(u).roles.remove(ops.teamAlarmRole);
+    } else if (r.emoji.name == 'yes') {
+        await r.message.guild.member(u).roles.remove(ops.animeRole);
     }
 });
 client.on('message', message => {
