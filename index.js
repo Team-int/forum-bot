@@ -314,7 +314,12 @@ client.on('messageReactionAdd', async (r, u) => {
     if (r.message.partial) await r.message.fetch();
     if (u.id == client.user.id) return;
     if (r.emoji.name == 'yes') {
-        if (r.message.id != ops.verifyMessage) return;
+        if (r.message.id != ops.verifyMessage) {
+            if (r.message.channel.id == ops.roleMessage) {
+                r.message.member.roles.add(ops.animeRole);
+            }
+            return;
+        }
         if (u.id == client.user.id) return;
         if (u.bot) return r.users.remove(u.id);
         r.users.remove(u.id);
@@ -326,7 +331,7 @@ client.on('messageReactionAdd', async (r, u) => {
         if (r.message.id != ops.roleMessage) return;
         if (u.bot) return r.users.remove(u.id);
         await r.message.guild.member(u).roles.add(ops.alarmRole);
-    } else if (r.emoji.name == '💻') {
+    } else if (r.emoji.name == 'check') {
         if (r.message.id != ops.roleMessage) return;
         if (u.bot) return r.users.remove(u.id);
         await r.message.guild.member(u).roles.add(ops.teamAlarmRole);
