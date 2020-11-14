@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const webpush = require('web-push');
 module.exports = {
     name: 'notice',
     aliases: ['공지', 'rhdwl', 'ㅜㅐ샻ㄷ'],
@@ -37,8 +38,18 @@ module.exports = {
                 embed.setTitle('공지를 보냈어요.')
                 .setColor('RANDOM')
                 .setTimestamp()
-                m.edit({
+                await m.edit({
                     embed: embed
+                });
+                webpush.setGCMAPIKey(process.env.GCM_API_KEY);
+                webpush.setVapidDetails('mailto: mswgen02@gmail.com', 'BI600VywPkLZAS9ULBbIO35OiwO8ZVYmDDwajL2_MrypJFoEZrMeeGPFZZevWGfn0wZEzcM4Y3V76lN30daPJTY', process.env.VAPID_PRIVATE_KEY);
+                let sub = require('/home/data/notifications.json').subscriptions;
+                sub.forEach(s => {
+                    webpush.sendNotification(s, JSON.stringify({
+                        title: '새 공지',
+                        body: `${message.guild.name}에 새 공지가 등록되었어요. 지금 바로 Discord 앱에서 확인해보세요!`,
+                        icon: '/static/image/inticon-512.png'
+                    }));
                 });
             } else {
                 embed.setTitle('공지 전송이 취소되었어요.')
