@@ -637,6 +637,7 @@ client.on('message', message => {
 });
 client.on('message', async message => {
     if (message.channel.id == ops.noticeChannel) {
+        if (message.author.id != client.user.id) return message.delete();
         axios.post(`https://discord.com/api/channels/${message.channel.id}/messages/${message.id}/crosspost`, {}, {
             headers: {
                 Authorization: `Bot ${client.token}`
