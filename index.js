@@ -316,7 +316,7 @@ client.on('messageReactionAdd', async (r, u) => {
     if (r.emoji.name == 'yes') {
         if (r.message.id != ops.verifyMessage) {
             if (r.message.id == ops.roleMessage) {
-                await r.message.member.roles.add(ops.animeRole);
+                await r.message.guild.member(u).roles.add(ops.animeRole);
             }
             return;
         }
