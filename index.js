@@ -342,6 +342,8 @@ client.on('message', async message => {
                 .setFooter(message.author.tag, message.author.displayAvatarURL())
                 .setTimestamp()
             });
+            console.log(sname);
+            console.log(s);
             const filter = (r, u) => (r.emoji.name == '✅' || r.emoji.name == '❌') && u.id == message.author.id;
             const collector = m.createReactionCollector(filter, {
                 max: 1
