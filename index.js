@@ -318,7 +318,7 @@ client.on('message', async message => {
             let cnt = 0;
             let i = 0;
             for (let curlet of curr.split('')) {
-                if (curlet[i] && typed.split('')[i] && curlet[i] == typed.split('')[i]) {
+                if (curlet[i] && typed.split('')[i] && curlet.includes(typed.split('')[i])) {
                     cnt++;
                 }
                 i++;
@@ -335,7 +335,7 @@ client.on('message', async message => {
             msgClone.content = message.content.replace(typed, sname);
             console.log(sname);
             console.log(s);
-            let m = message.channel.send({
+            let m = await message.channel.send({
                 embed: new Discord.MessageEmbed()
                 .setTitle('명령어 자동 수정')
                 .setColor('RANDOM')
@@ -344,6 +344,8 @@ client.on('message', async message => {
                 .setFooter(message.author.tag, message.author.displayAvatarURL())
                 .setTimestamp()
             });
+            await m.react('✅');
+            await m.react('❌');
             const filter = (r, u) => (r.emoji.name == '✅' || r.emoji.name == '❌') && u.id == message.author.id;
             const collector = m.createReactionCollector(filter, {
                 max: 1
