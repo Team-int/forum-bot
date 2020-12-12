@@ -318,7 +318,9 @@ client.on('message', async message => {
             let cnt = 0;
             let i = 0;
             for (let curlet of curr.split('')) {
-                if (curlet[i] == typed.split('')[i]) cnt++;
+                if (curlet[i] == typed.split('')[i]) {
+                    cnt++;
+                }
                 i++;
             }
             if (cnt > s) {
