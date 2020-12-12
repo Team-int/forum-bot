@@ -306,7 +306,7 @@ client.on('message', async message => {
     } else {
         let s = 0;
         let sname = undefined;
-        let typed = args[0].substr(ops.prefix.length);
+        let typed = args[0];
         let valids = [];
         for (let x of client.commands.array()) {
             for (let y of x.aliases) {
