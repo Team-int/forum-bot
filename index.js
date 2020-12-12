@@ -333,6 +333,8 @@ client.on('message', async message => {
             let argsClone = args;
             argsClone[0] = `${ops.prefix}${sname}`;
             msgClone.content = message.content.replace(typed, sname);
+            console.log(sname);
+            console.log(s);
             let m = message.channel.send({
                 embed: new Discord.MessageEmbed()
                 .setTitle('명령어 자동 수정')
@@ -342,8 +344,6 @@ client.on('message', async message => {
                 .setFooter(message.author.tag, message.author.displayAvatarURL())
                 .setTimestamp()
             });
-            console.log(sname);
-            console.log(s);
             const filter = (r, u) => (r.emoji.name == '✅' || r.emoji.name == '❌') && u.id == message.author.id;
             const collector = m.createReactionCollector(filter, {
                 max: 1
