@@ -303,6 +303,54 @@ client.on('message', async message => {
         client.commands.get(args[0]).run(client, message, args, ops);
     } else if (client.aliases.get(args[0])) {
         client.commands.get(client.aliases.get(args[0])).run(client, message, args, ops);
+    } else {
+        let s = 0;
+        let sname = undefined;
+        let typed = args[0].substr(ops.prefix.length);
+        let valids = [];
+        for (let x of client.commands.array()) {
+            for (let y of x.aliases) {
+                valids.push(y);
+            }
+            valids.push(x.name);
+        }
+        for (let curr of valids) {
+            let cnt = 0;
+            let i = 0;
+            for (let curlet of curr.split('')) {
+                if (curlet[i] == typed.split('')[i]) cnt++;
+                i++;
+            }
+            if (cnt > s) {
+                s = cnt;
+                sname = curr;
+            }
+        }
+        if (sname) {
+            let msgClone = message;
+            let argsClone = args;
+            argsClone[0] = `${ops.prefix}${sname}`;
+            msgClone.content = message.content.replace(typed, sname);
+            let m = message.channel.send({
+                embed: new Discord.MessageEmbed()
+                .setTitle('명령어 자동 수정')
+                .setColor('RANDOM')
+                .setDescription('입력한 명령어는 존재하지 않아요.\n대신 아래 명령어를 대신 실행하까요?')
+                .addField('실행할 명령어', msgClone.content)
+                .setFooter(message.author.tag, message.author.displayAvatarURL())
+                .setTimestamp()
+            });
+            const filter = (r, u) => (r.emoji.name == '✅' || r.emoji.name == '❌') && u.id == message.author.id;
+            const collector = m.createReactionCollector(filter, {
+                max: 1
+            });
+            collector.on('end', collected => {
+                m.delete();
+                if (collected.first().emoji.name == '✅') {
+                    (client.commands.get(sname) || client.commands.get(client.aliases.get(sname))).run(client, msgClone, argsClone, ops);
+                }
+            });
+        }
     }
     message.channel.stopTyping(true);
 });
