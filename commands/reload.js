@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const ascii = require('ascii-table');
+const table = new ascii().setHeading('Command', 'Reload Status');
 module.exports = {
     name: 'reload',
     aliases: ['리로드', 'ㄹㄹㄷ', 'ㄱ디ㅐㅁㅇ', 'flfhem', 'ffe'],
