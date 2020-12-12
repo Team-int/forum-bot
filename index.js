@@ -333,8 +333,6 @@ client.on('message', async message => {
             let argsClone = args;
             argsClone[0] = `${ops.prefix}${sname}`;
             msgClone.content = message.content.replace(typed, sname);
-            console.log(sname);
-            console.log(s);
             let m = await message.channel.send({
                 embed: new Discord.MessageEmbed()
                 .setTitle('명령어 자동 수정')
