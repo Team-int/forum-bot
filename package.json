@@ -8,7 +8,8 @@
     "dotenv": "8.2.0",
     "util": "0.12.3",
     "socket.io": "2.3.0",
-    "web-push": "3.4.4"
+    "web-push": "3.4.4",
+    "child_process": "*"
   },
   "description": "int™ manager bot",
   "main": "index.js",
