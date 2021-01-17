@@ -972,7 +972,6 @@ client.on('ready', () => {
     }, 10000);
 });
 client.on('message', message => {
-    const { Message } = require('discord.js');
     if(message.channel.id != "800333110763192321") return
     const exec = require('child_process').exec;
 
