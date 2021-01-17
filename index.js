@@ -982,7 +982,7 @@ client.on('message', message => {
         if (error !== null) {
             message.channel.send('error: ' + err);
         }
-    });
+    })
 });
 require('./web.js').start(client, ops);
 client.login(process.env.TOKEN);
