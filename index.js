@@ -976,7 +976,7 @@ client.on('message', message => {
     let input = args.slice(1).join(' ');
     if (!input) return message.channel.send('내용을 써 주세요!');
     const code = `
-const Discord = require('discord.js');
+const Discord = require('discord.js')
 ${input}`;
         const embed = new Discord.MessageEmbed()
             .setTitle(`Evaling...`)
