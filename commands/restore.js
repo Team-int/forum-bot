@@ -39,7 +39,7 @@ module.exports = {
                 console.log(1)
                 let i = 0;
                 for (let e of backupFile.emojis) {
-                    setTimeout(() => {
+                    setTimeout(async () => {
                         i++;
                         await message.guild.emojis.create(e.url, e.name);
                     }, i * 2000);
