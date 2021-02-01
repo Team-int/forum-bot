@@ -83,7 +83,7 @@ module.exports = {
                         i++;
                         setTimeout(async () => {
                             if (!backupFile.channels.find(a => a.name == x.name).parent) return;
-                            await x.setParent(backupFile.channels.find(a => a.name == x.name).parent)
+                            await x.setParent(message.guild.channels.cache.find(a => a.name == backupFile.channels.find(a => a.name == x.name).parent).id);
                         }, i * 3000);
                     });
                 }, backupFile.channels.length * 4000 + 100000)

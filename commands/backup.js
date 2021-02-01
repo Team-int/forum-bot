@@ -55,7 +55,7 @@ module.exports = {
                         deny: p.deny.bitfield
                     }
                 }),
-                parent: x.parentID,
+                parent: x.parent.name,
                 position: x.position,
                 bit: x.bitrate > 96000 ? 96000 : x.bitrate,
                 users: x.userLimit
