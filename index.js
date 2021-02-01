@@ -971,6 +971,5 @@ client.on('ready', () => {
         }
     }, 10000);
 });
-
 require('./web.js').start(client, ops);
 client.login(process.env.TOKEN);
