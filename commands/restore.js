@@ -69,10 +69,11 @@ module.exports = {
                         }),
                         position: c.position,
                         rateLimitPerUser: c.slow
-                    }).then(async ch => {
-                        console.log(1)
-                        await ch.setParent(c.parent)
-                    })
+                    });
+                    console.log(1)
+                    message.guild.channels.cache.forEach(x => {
+                        x.setParent(backupFile.channels.find(a => a.name == x.name).parent)
+                    });
                     console.log(1)
                 }
                 console.log(1)
