@@ -18,34 +18,33 @@ module.exports = {
         const collector = m.createReactionCollector(filter, {
             max: 1
         });
-        collector.on('end', collected => {
+        collector.on('end', async collected => {
             if (collected.first().emoji.name == '✅') {
-                message.guild.channels.cache.forEach(x => x.delete());
-                message.guild.roles.cache.filter(x => !x.managed && x.id != message.guild.id).forEach(x => x.delete());
+                await message.guild.channels.cache.forEach(async x => await x.delete());
+                await message.guild.roles.cache.filter(x => !x.managed && x.id != message.guild.id).forEach(async x => await x.delete());
                 let backupFile = require('/home/data/backup.json');
-                message.guild.setName(backupFile.name);
-                message.guild.setIcon(backupFile.icon);
-                message.guild.setRegion(backupFile.region);
-                message.guild.setDefaultMessageNotifications(backupFile.notify);
+                await message.guild.setName(backupFile.name);
+                await message.guild.setIcon(backupFile.icon);
+                await message.guild.setRegion(backupFile.region);
+                await message.guild.setDefaultMessageNotifications(backupFile.notify);
                 for (let r of backupFile.roles) {
-                    message.guild.roles.create({data: r});
+                    await message.guild.roles.create({data: r});
                 }
                 for (let e of backupFile.emojis) {
-                    message.guild.emojis.create(e.url, e.name);
+                    await message.guild.emojis.create(e.url, e.name);
                 }
-                message.guild.setVerificationLevel(backupFile.verifyLevel);
-                message.guild.setExplicitContentFilter(backupFile.media);
+                await message.guild.setVerificationLevel(backupFile.verifyLevel);
+                await message.guild.setExplicitContentFilter(backupFile.media);
                 for (let b of backupFile.bans) {
-                    message.guild.members.ban(b);
+                    await message.guild.members.ban(b);
                 }
                 for (let c of backupFile.channels) {
-                    message.guild.channels.create(c.name, {
+                    await message.guild.channels.create(c.name, {
                         type: c.type,
                         topic: c.topic,
                         nsfw: c.nsfw,
                         bitrate: c.bit,
                         userLimit: c.users,
-                        parent: c.parent,
                         permissionOverwrites: c.perms.map(x => {
                             return {
                                 id: message.guild.roles.cache.find(r => r.name == x.name).id,
@@ -55,12 +54,15 @@ module.exports = {
                         }),
                         position: c.position,
                         rateLimitPerUser: c.slow
-                    });
+                    }).then(async ch => {
+                        await ch.setParent(c.parent)
+                    })
                 }
-                message.guild.setAFKChannel(backupFile.afkCh);
-                message.guild.setAFKTimeout(backupFile.afkTime);
-                message.guild.setSystemChannel(backupFile.sysCh);
-                message.guild.setSystemChannelFlags(backupFile.sysMsg);
+                await message.guild.setAFKChannel(backupFile.afkCh);
+                await message.guild.setAFKTimeout(backupFile.afkTime);
+                await message.guild.setSystemChannel(backupFile.sysCh);
+                await message.guild.setSystemChannelFlags(backupFile.sysMsg);
+                message.author.send('서버 복원이 완료되었어요!')
             }
         });
     }
