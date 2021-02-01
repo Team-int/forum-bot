@@ -7,10 +7,10 @@ module.exports = {
     run: async (client, message, args, ops) => {
         // if (!message.member.roles.cache.has(ops.adminRole)) return message.channel.send('봇 관리자만 사용할 수 있어요.');
         const embed = new Discord.MessageEmbed()
-        .setTitle('서버를 복원할까요?')
-        .setColor('RANDOM')
-        .setTimestamp()
-        .setFooter(message.author.tag, message.author.displayAvatarURL());
+            .setTitle('서버를 복원할까요?')
+            .setColor('RANDOM')
+            .setTimestamp()
+            .setFooter(message.author.tag, message.author.displayAvatarURL());
         let m = await message.channel.send(embed);
         await m.react('✅');
         await m.react('❌');
@@ -34,15 +34,15 @@ module.exports = {
                 await message.guild.setDefaultMessageNotifications(backupFile.notify);
                 console.log(1)
                 for (let r of backupFile.roles) {
-                    await message.guild.roles.create({data: r});
+                    await message.guild.roles.create({ data: r });
                 }
                 console.log(1)
                 let i = 0;
                 for (let e of backupFile.emojis) {
+                    i++;
                     setTimeout(async () => {
-                        i++;
                         await message.guild.emojis.create(e.url, e.name);
-                    }, i * 2000);
+                    }, i * 3000);
                 }
                 console.log(1)
                 await message.guild.setVerificationLevel(backupFile.verifyLevel);
@@ -53,23 +53,28 @@ module.exports = {
                     await message.guild.members.ban(b);
                 }
                 console.log(1)
+                i = 0;
                 for (let c of backupFile.channels) {
-                    await message.guild.channels.create(c.name, {
-                        type: c.type,
-                        topic: c.topic,
-                        nsfw: c.nsfw,
-                        bitrate: c.bit,
-                        userLimit: c.users,
-                        permissionOverwrites: c.perms.map(x => {
-                            return {
-                                id: message.guild.roles.cache.find(r => r.name == x.name).id,
-                                allow: x.allow,
-                                deny: x.deny
-                            }
-                        }),
-                        position: c.position,
-                        rateLimitPerUser: c.slow
-                    });
+                    i++;
+                    setTimeout(() => {
+
+                        await message.guild.channels.create(c.name, {
+                            type: c.type,
+                            topic: c.topic,
+                            nsfw: c.nsfw,
+                            bitrate: c.bit,
+                            userLimit: c.users,
+                            permissionOverwrites: c.perms.map(x => {
+                                return {
+                                    id: message.guild.roles.cache.find(r => r.name == x.name).id,
+                                    allow: x.allow,
+                                    deny: x.deny
+                                }
+                            }),
+                            position: c.position,
+                            rateLimitPerUser: c.slow
+                        });
+                    }, i * 3000);
                     console.log(1)
                 }
                 console.log(1)
