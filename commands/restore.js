@@ -92,7 +92,6 @@ module.exports = {
                 await message.guild.setAFKTimeout(backupFile.afkTime);
                 await message.guild.setSystemChannel(backupFile.sysCh);
                 await message.guild.setSystemChannelFlags(backupFile.sysMsg);
-                message.author.send('서버 복원이 완료되었어요!')
             }
         });
     }
