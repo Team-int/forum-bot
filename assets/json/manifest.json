@@ -1,7 +1,7 @@
 {
     "short_name": "int™ Manager",
     "name": "int™ Manager",
-    "description": "int™ Manager는 int Team의 관리 봇입니다. ",
+    "description": "int™ Manager는 Team int의 관리 봇입니다. ",
     "start_url": "/",
     "background_color": "#ffffff",
     "display": "standalone",
