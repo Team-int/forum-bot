@@ -12,8 +12,10 @@ module.exports = {
         .setTimestamp()
         .setFooter(message.author.tag, message.author.displayAvatarURL());
         let m = await message.channel.send(embed);
+        await m.react('✅');
+        await m.react('❌');
         const filter = (r, u) => (r.emoji.name == '✅' || r.emoji.name == '❌') && u.id == message.author.id;
-        const collector = message.channel.createReactionCollector(filter, {
+        const collector = m.createReactionCollector(filter, {
             max: 1
         });
         collector.on('end', collected => {
