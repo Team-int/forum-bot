@@ -5,7 +5,7 @@ module.exports = {
     description: '기존에 백업된 데이터로 서버를 복원해요.',
     usage: 'i.restore',
     run: async (client, message, args, ops) => {
-        if (!message.member.roles.cache.has(ops.adminRole)) return message.channel.send('봇 관리자만 사용할 수 있어요.');
+        // if (!message.member.roles.cache.has(ops.adminRole)) return message.channel.send('봇 관리자만 사용할 수 있어요.');
         const embed = new Discord.MessageEmbed()
         .setTitle('서버를 복원할까요?')
         .setColor('RANDOM')
