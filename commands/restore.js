@@ -37,8 +37,12 @@ module.exports = {
                     await message.guild.roles.create({data: r});
                 }
                 console.log(1)
+                let i = 0;
                 for (let e of backupFile.emojis) {
-                    await message.guild.emojis.create(e.url, e.name);
+                    setTimeout(() => {
+                        i++;
+                        await message.guild.emojis.create(e.url, e.name);
+                    }, i * 2000);
                 }
                 console.log(1)
                 await message.guild.setVerificationLevel(backupFile.verifyLevel);
