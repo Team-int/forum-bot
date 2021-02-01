@@ -50,7 +50,7 @@ module.exports = {
                 nsfw: x.nsfw,
                 perms: x.permissionOverwrites.map(p => {
                     return {
-                        id: p.id,
+                        id: p.id == message.guild.id ? 'everyone' : p.id,
                         allow: p.allow.bitfield,
                         deny: p.deny.bitfield
                     }

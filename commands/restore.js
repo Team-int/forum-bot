@@ -46,7 +46,13 @@ module.exports = {
                         bitrate: c.bit,
                         userLimit: c.users,
                         parent: c.parent,
-                        permissionOverwrites: c.perms,
+                        permissionOverwrites: c.perms.map(x => {
+                            return {
+                                id: x.id == 'everyone' ? message.guild.id : x.id,
+                                allow: x.allow,
+                                deny: x.deny
+                            }
+                        }),
                         position: c.position,
                         rateLimitPerUser: c.slow
                     });
