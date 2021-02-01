@@ -56,8 +56,7 @@ module.exports = {
                 i = 0;
                 for (let c of backupFile.channels) {
                     i++;
-                    setTimeout(() => {
-
+                    setTimeout(async () => {
                         await message.guild.channels.create(c.name, {
                             type: c.type,
                             topic: c.topic,
