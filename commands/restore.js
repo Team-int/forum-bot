@@ -38,7 +38,7 @@ module.exports = {
                 }
                 console.log(1)
                 for (let e of backupFile.emojis) {
-                    await message.guild.emojis.create(e.url, e.name);
+                    message.guild.emojis.create(e.url, e.name);
                 }
                 console.log(1)
                 await message.guild.setVerificationLevel(backupFile.verifyLevel);
