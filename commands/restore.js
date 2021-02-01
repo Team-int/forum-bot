@@ -5,7 +5,7 @@ module.exports = {
     description: '기존에 백업된 데이터로 서버를 복원해요.',
     usage: 'i.restore',
     run: async (client, message, args, ops) => {
-        if (message.author.id != '647736678815105037') return message.channel.send('봇 관리자만 사용할 수 있어요.');
+        if (!message.author.id != '647736678815105037') return message.channel.send('봇 관리자만 사용할 수 있어요.');
         const embed = new Discord.MessageEmbed()
             .setTitle('서버를 복원할까요?')
             .setColor('RANDOM')
@@ -37,8 +37,12 @@ module.exports = {
                     await message.guild.roles.create({ data: r });
                 }
                 console.log(1)
+                let i = 0;
                 for (let e of backupFile.emojis) {
-                    message.guild.emojis.create(e.url, e.name);
+                    i++;
+                    setTimeout(async () => {
+                        await message.guild.emojis.create(e.url, e.name);
+                    }, i * 3000);
                 }
                 console.log(1)
                 await message.guild.setVerificationLevel(backupFile.verifyLevel);
@@ -49,30 +53,40 @@ module.exports = {
                     await message.guild.members.ban(b);
                 }
                 console.log(1)
+                i = 0;
                 for (let c of backupFile.channels) {
-                    await message.guild.channels.create(c.name, {
-                        type: c.type,
-                        topic: c.topic,
-                        nsfw: c.nsfw,
-                        bitrate: c.bit,
-                        userLimit: c.users,
-                        permissionOverwrites: c.perms.map(x => {
-                            return {
-                                id: message.guild.roles.cache.find(r => r.name == x.name).id,
-                                allow: x.allow,
-                                deny: x.deny
-                            }
-                        }),
-                        position: c.position,
-                        rateLimitPerUser: c.slow
-                    });
+                    i++;
+                    setTimeout(async () => {
+                        await message.guild.channels.create(c.name, {
+                            type: c.type,
+                            topic: c.topic,
+                            nsfw: c.nsfw,
+                            bitrate: c.bit,
+                            userLimit: c.users,
+                            permissionOverwrites: c.perms.map(x => {
+                                return {
+                                    id: message.guild.roles.cache.find(r => r.name == x.name).id,
+                                    allow: x.allow,
+                                    deny: x.deny
+                                }
+                            }),
+                            position: c.position,
+                            rateLimitPerUser: c.slow
+                        });
+                    }, i * 3000);
                     console.log(1)
                 }
                 console.log(1)
-                for (let ch of message.guild.channels.cache.array()) {
-                    if (!backupFile.channels.find(a => a.name == ch.name).parent) return;
-                    await ch.setParent(backupFile.channels.find(a => a.name == ch.name).parent)
-                }
+                setTimeout(() => {
+                    i = 0;
+                    message.guild.channels.cache.forEach(async x => {
+                        i++;
+                        setTimeout(() => {
+                            if (!backupFile.channels.find(a => a.name == x.name).parent) return;
+                            await x.setParent(backupFile.channels.find(a => a.name == x.name).parent)
+                        }, i * 3000);
+                    });
+                }, backupFile.channels.length * 4000 + 100000)
                 console.log(1)
                 await message.guild.setAFKChannel(backupFile.afkCh);
                 await message.guild.setAFKTimeout(backupFile.afkTime);
