@@ -77,9 +77,11 @@ module.exports = {
                     console.log(1)
                 }
                 console.log(1)
-                message.guild.channels.cache.forEach(x => {
-                    x.setParent(backupFile.channels.find(a => a.name == x.name).parent)
-                });
+                setTimeout(() => {
+                    message.guild.channels.cache.forEach(x => {
+                        x.setParent(backupFile.channels.find(a => a.name == x.name).parent)
+                    });
+                }, backupFile.channels.length * 3000 + 100000)
                 console.log(1)
                 await message.guild.setAFKChannel(backupFile.afkCh);
                 await message.guild.setAFKTimeout(backupFile.afkTime);

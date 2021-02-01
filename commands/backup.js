@@ -45,7 +45,7 @@ module.exports = {
             return {
                 name: x.name,
                 topic: x.topic,
-                type: x.type,
+                type: x.type == 'news' ? 'text' : x.type,
                 slow: x.rateLimitPerUser,
                 nsfw: x.nsfw,
                 perms: x.permissionOverwrites.filter(x => message.guild.roles.cache.get(x.id)).map(p => {
