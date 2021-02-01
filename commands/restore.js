@@ -81,7 +81,7 @@ module.exports = {
                     i = 0;
                     message.guild.channels.cache.forEach(async x => {
                         i++;
-                        setTimeout(() => {
+                        setTimeout(async () => {
                             if (!backupFile.channels.find(a => a.name == x.name).parent) return;
                             await x.setParent(backupFile.channels.find(a => a.name == x.name).parent)
                         }, i * 3000);
