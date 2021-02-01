@@ -48,7 +48,7 @@ module.exports = {
                         parent: c.parent,
                         permissionOverwrites: c.perms.map(x => {
                             return {
-                                id: x.id == 'everyone' ? message.guild.id : x.id,
+                                id: message.guild.roles.cache.find(r => r.name == x.name).id,
                                 allow: x.allow,
                                 deny: x.deny
                             }

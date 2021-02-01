@@ -48,9 +48,9 @@ module.exports = {
                 type: x.type,
                 slow: x.rateLimitPerUser,
                 nsfw: x.nsfw,
-                perms: x.permissionOverwrites.map(p => {
+                perms: x.permissionOverwrites.filter(x => message.guild.roles.cache.get(x.id)).map(p => {
                     return {
-                        id: p.id == message.guild.id ? 'everyone' : p.id,
+                        name: message.guild.roles.cache.get(p.id).name,
                         allow: p.allow.bitfield,
                         deny: p.deny.bitfield
                     }
