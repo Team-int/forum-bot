@@ -19,7 +19,7 @@ module.exports = {
         collector.on('end', collected => {
             if (collected.first().emoji.name == '✅') {
                 message.guild.channels.cache.forEach(x => x.delete());
-                message.guild.roles.cache.forEach(x => x.delete());
+                message.guild.roles.cache.filter(x => !x.managed && x.id != message.guild.id).forEach(x => x.delete());
                 let backupFile = require('/home/data/backup.json');
                 message.guild.setName(backupFile.name);
                 message.guild.setIcon(backupFile.icon);
