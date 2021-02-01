@@ -57,7 +57,7 @@ module.exports = {
                 }),
                 parent: x.parentID,
                 position: x.position,
-                bit: x.bitrate,
+                bit: x.bitrate > 96000 ? 96000 : x.bitrate,
                 users: x.userLimit
             }
         });
