@@ -21,23 +21,34 @@ module.exports = {
         collector.on('end', async collected => {
             if (collected.first().emoji.name == '✅') {
                 message.guild.channels.cache.forEach(async x => x.delete());
+                console.log(1)
                 message.guild.roles.cache.filter(x => !x.managed && x.id != message.guild.id).forEach(x => x.delete());
+                console.log(1)
                 let backupFile = require('/home/data/backup.json');
                 await message.guild.setName(backupFile.name);
+                console.log(1)
                 await message.guild.setIcon(backupFile.icon);
+                console.log(1)
                 await message.guild.setRegion(backupFile.region);
+                console.log(1)
                 await message.guild.setDefaultMessageNotifications(backupFile.notify);
+                console.log(1)
                 for (let r of backupFile.roles) {
                     await message.guild.roles.create({data: r});
                 }
+                console.log(1)
                 for (let e of backupFile.emojis) {
                     await message.guild.emojis.create(e.url, e.name);
                 }
+                console.log(1)
                 await message.guild.setVerificationLevel(backupFile.verifyLevel);
+                console.log(1)
                 await message.guild.setExplicitContentFilter(backupFile.media);
+                console.log(1)
                 for (let b of backupFile.bans) {
                     await message.guild.members.ban(b);
                 }
+                console.log(1)
                 for (let c of backupFile.channels) {
                     await message.guild.channels.create(c.name, {
                         type: c.type,
@@ -55,9 +66,12 @@ module.exports = {
                         position: c.position,
                         rateLimitPerUser: c.slow
                     }).then(async ch => {
+                        console.log(1)
                         await ch.setParent(c.parent)
                     })
+                    console.log(1)
                 }
+                console.log(1)
                 await message.guild.setAFKChannel(backupFile.afkCh);
                 await message.guild.setAFKTimeout(backupFile.afkTime);
                 await message.guild.setSystemChannel(backupFile.sysCh);
