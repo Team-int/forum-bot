@@ -1,4 +1,5 @@
 const http = require('http');
+const https = require('https');
 const axios = require('axios').default;
 const url = require('url');
 const fs = require('fs');
@@ -8,7 +9,19 @@ module.exports = {
     start: (client, ops) => {
         const server = http.createServer((req, res) => {
             let parsed = url.parse(req.url, true);
-            if (parsed.pathname.startsWith('/static/')) {
+            if (parsed.pathname.startsWith('/.well-known/acme-challenge/')) {
+                fs.readFile(`./.well-known/acme-challenge/${path.parse(parsed.pathname).base}`, 'utf8', (err, data) => {
+                    if (err) {
+                        res.writeHead(404, {
+                            // 'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
+                        });
+                        res.end('404 Not Found');
+                        return;
+                    }
+                    res.writeHead(200);
+                    res.end(data);
+                });
+            } else if (parsed.pathname.startsWith('/static/')) {
                 if (parsed.pathname.startsWith('/static/html/')) {
                     fs.readFile(`./assets/html/${path.parse(parsed.pathname).base}`, 'utf8', (err, data) => {
                         if (err) {
@@ -134,7 +147,7 @@ module.exports = {
                 }
             }
         });
-        server.listen(process.env.PORT || 3000);
+        server.listen(8080);
         const io = require('socket.io')(server);
         io.on('connection', socket => {
             socket.on('notifySubscription', data => {
