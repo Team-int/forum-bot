@@ -52,7 +52,7 @@ module.exports = {
                 });
                 webpush.setGCMAPIKey(process.env.GCM_API_KEY);
                 webpush.setVapidDetails('mailto: mswgen02@gmail.com', 'BI600VywPkLZAS9ULBbIO35OiwO8ZVYmDDwajL2_MrypJFoEZrMeeGPFZZevWGfn0wZEzcM4Y3V76lN30daPJTY', process.env.VAPID_PRIVATE_KEY);
-                let sub = require('/home/data/notifications.json').subscriptions;
+                let sub = require('/home/azureuser/intmanager/data/notifications.json').subscriptions;
                 sub.forEach(s => {
                     webpush.sendNotification(s, JSON.stringify({
                         title: '멤버 뮤트됨',
