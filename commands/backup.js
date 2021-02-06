@@ -13,7 +13,7 @@ module.exports = {
         .setTimestamp()
         .setFooter(message.author.tag, message.author.displayAvatarURL())
         );
-        let backupFile = require('/home/data/backup.json');
+        let backupFile = require('/home/azureuser/intmanager/data/backup.json');
         backupFile.name = client.guilds.cache.get('750705387124031510').name;
         backupFile.icon = client.guilds.cache.get('750705387124031510').iconURL({ format: 'png' });
         backupFile.region = client.guilds.cache.get('750705387124031510').region;
@@ -61,7 +61,7 @@ module.exports = {
                 users: x.userLimit
             }
         });
-        fs.writeFileSync('/home/data/backup.json', JSON.stringify(backupFile));
+        fs.writeFileSync('/home/azureuser/intmanager/data/backup.json', JSON.stringify(backupFile));
         await m.edit(new Discord.MessageEmbed()
         .setTitle('서버 백업이 완료되었어요')
         .setColor('RANDOM')

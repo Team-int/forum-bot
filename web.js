@@ -138,9 +138,9 @@ module.exports = {
         const io = require('socket.io')(server);
         io.on('connection', socket => {
             socket.on('notifySubscription', data => {
-                let dbFile = require('/home/data/notifications.json');
+                let dbFile = require('/home/azureuser/intmanager/data/notifications.json');
                 dbFile.subscriptions.push(data);
-                fs.writeFile('/home/data/notifications.json', JSON.stringify(dbFile), () => {});
+                fs.writeFile('/home/azureuser/intmanager/data/notifications.json', JSON.stringify(dbFile), () => {});
             });
         });
     }
