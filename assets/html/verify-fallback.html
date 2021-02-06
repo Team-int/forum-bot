@@ -44,9 +44,11 @@
         }
         function onloadCallback() {
             grecaptcha.render('recaptcha', {
-                sitekey: '6LcHNkwaAAAAAAyGj2uHmA2ioApaaEFqaAqJD955',
+                sitekey: '6Lf8Z0waAAAAACfQKkVX0dCQSolKPmg0qRabX7mT',
                 theme: 'dark',
-                callback: callback
+                callback: callback,
+                size: 'invisible',
+                badge: 'inline'
             });
         }
         function callback() {
@@ -75,7 +77,7 @@
         <p>Team int 규칙에 동의하신다면 아래 reCAPTCHA를 풀어주세요.</p>
         <form action="/verify/fallback/login" method="get" id="form">
             <input type="hidden" name="token" value="" id="tkn">
-            <div id="recaptcha"></div>
+            <button id="recaptcha">인증하기</button>
         </form>
     </div>
 </body>
