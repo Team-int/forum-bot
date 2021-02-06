@@ -7,21 +7,12 @@ const qs = require('querystring');
 const path = require('path');
 module.exports = {
     start: (client, ops) => {
-        const server = http.createServer((req, res) => {
+        const httpsServer = https.createServer({
+            cert: fs.readFileSync('/etc/letsencrypt/live/manager.intteam.co.kr/fullchain.pem'),
+            key: fs.readFileSync('/etc/letsencrypt/live/manager.intteam.co.kr/privkey.pem')
+        }, (req, res) => {
             let parsed = url.parse(req.url, true);
-            if (parsed.pathname.startsWith('/.well-known/acme-challenge/')) {
-                fs.readFile(`./.well-known/acme-challenge/${path.parse(parsed.pathname).base}`, 'utf8', (err, data) => {
-                    if (err) {
-                        res.writeHead(404, {
-                            // 'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
-                        });
-                        res.end('404 Not Found');
-                        return;
-                    }
-                    res.writeHead(200);
-                    res.end(data);
-                });
-            } else if (parsed.pathname.startsWith('/static/')) {
+            if (parsed.pathname.startsWith('/static/')) {
                 if (parsed.pathname.startsWith('/static/html/')) {
                     fs.readFile(`./assets/html/${path.parse(parsed.pathname).base}`, 'utf8', (err, data) => {
                         if (err) {
@@ -147,8 +138,29 @@ module.exports = {
                 }
             }
         });
-        server.listen(8080);
-        const io = require('socket.io')(server);
+        const httpServer = http.createServer((req, res) => {
+            if (parsed.pathname.startsWith('/.well-known/acme-challenge/')) {
+                fs.readFile(`./.well-known/acme-challenge/${path.parse(parsed.pathname).base}`, 'utf8', (err, data) => {
+                    if (err) {
+                        res.writeHead(404, {
+                            // 'strict-transport-security': 'max-age=86400; includeSubDomains; preload'
+                        });
+                        res.end('404 Not Found');
+                        return;
+                    }
+                    res.writeHead(200);
+                    res.end(data);
+                });
+            } else {
+                res.writeHead(302, {
+                    'Location': `https://${req.headers.host}${req.url}`
+                });
+                res.end();
+            }
+        });
+        httpsServer.listen(8443);
+        httpServer.listen(8080);
+        const io = require('socket.io')(httpsServer);
         io.on('connection', socket => {
             socket.on('notifySubscription', data => {
                 let dbFile = require('/home/azureuser/intmanager/data/notifications.json');
