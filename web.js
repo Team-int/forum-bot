@@ -139,6 +139,7 @@ module.exports = {
             }
         });
         const httpServer = http.createServer((req, res) => {
+            let parsed = url.parse(req.url, true);
             if (parsed.pathname.startsWith('/.well-known/acme-challenge/')) {
                 fs.readFile(`./.well-known/acme-challenge/${path.parse(parsed.pathname).base}`, 'utf8', (err, data) => {
                     if (err) {
