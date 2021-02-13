@@ -5,7 +5,7 @@ const fs = require('fs');
 const qs = require('querystring');
 const path = require('path');
 module.exports = {
-    start: (client, ops) => {
+    start: async (client, ops) => {
         const httpServer = http2.createServer((req, res) => {
             let parsed = url.parse(req.url, true);
             if (parsed.pathname.startsWith('/.well-known/acme-challenge/')) {
