@@ -29,6 +29,9 @@ module.exports = {
                 res.end();
             }
         });
+        httpServer.listen(8080, () => {
+            console.log('http server started');
+        })
         const httpsServer = https.createServer({
             cert: fs.readFileSync('/etc/letsencrypt/live/manager.intteam.co.kr/fullchain.pem'),
             key: fs.readFileSync('/etc/letsencrypt/live/manager.intteam.co.kr/privkey.pem')
@@ -160,8 +163,9 @@ module.exports = {
                 }
             }
         });
-        httpServer.listen(8080);
-        httpsServer.listen(8443);
+        httpsServer.listen(8443, () => {
+            console.log('https server started');
+        });
         const io = require('socket.io')(httpsServer);
         io.on('connection', socket => {
             socket.on('notifySubscription', data => {
