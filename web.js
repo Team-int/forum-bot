@@ -1,5 +1,4 @@
-const http = require('http');
-const https = require('https');
+const http2 = require('http2');
 const axios = require('axios').default;
 const url = require('url');
 const fs = require('fs');
@@ -7,7 +6,7 @@ const qs = require('querystring');
 const path = require('path');
 module.exports = {
     start: (client, ops) => {
-        const httpsServer = https.createServer({
+        const httpsServer = http2.createSecureServer({
             cert: fs.readFileSync('/etc/letsencrypt/live/manager.intteam.co.kr/fullchain.pem'),
             key: fs.readFileSync('/etc/letsencrypt/live/manager.intteam.co.kr/privkey.pem')
         }, (req, res) => {
@@ -138,7 +137,7 @@ module.exports = {
                 }
             }
         });
-        const httpServer = http.createServer((req, res) => {
+        const httpServer = http2.createServer((req, res) => {
             let parsed = url.parse(req.url, true);
             if (parsed.pathname.startsWith('/.well-known/acme-challenge/')) {
                 fs.readFile(`./.well-known/acme-challenge/${path.parse(parsed.pathname).base}`, 'utf8', (err, data) => {
