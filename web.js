@@ -28,7 +28,6 @@ module.exports = {
                 res.end();
             }
         });
-        httpServer.listen(8080);
         const httpsServer = http2.createSecureServer({
             cert: fs.readFileSync('/etc/letsencrypt/live/manager.intteam.co.kr/fullchain.pem'),
             key: fs.readFileSync('/etc/letsencrypt/live/manager.intteam.co.kr/privkey.pem')
@@ -160,6 +159,7 @@ module.exports = {
                 }
             }
         });
+        httpServer.listen(8080);
         httpsServer.listen(8443);
         const io = require('socket.io')(httpsServer);
         io.on('connection', socket => {
