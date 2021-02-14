@@ -1,15 +1,15 @@
 const Discord = require('discord.js');
 const webpush = require('web-push');
-const fs = require('fs');
 module.exports = {
     name: 'call',
     aliases: ['ghcnf', 'qnfmrl', 'ㅊ미ㅣ', '호출', '부르기'],
-    description: '관리자를 불러요.\n이 명령어를 사용하면 관리자에게 푸시 알림이 전송되기 때문에 중요한 상황이고 멘션이나 DM을 받지 않을 경우에만 이용해주세요.',
+    description: '관리자를 불러요.(팀원만 사용 가능)\n이 명령어를 사용하면 관리자에게 푸시 알림이 전송되기 때문에 중요한 상황이고 멘션이나 DM을 받지 않을 경우에만 이용해주세요.',
     usage: 'i.call <int|CSH|mswgen> [호출 이유]',
     run: async (client, message, args, ops) => {
         if (!args[1] && args[1] != 'int' && args[1] != 'CSH' && args[1] != 'mswgen') return message.channel.send('호출할 대상을 입력해주세요.');
         if (ops.callTarget[message.author.id] == args[1]) return message.channel.send('자기 자신은 호출할 수 없어요.');
-        if (client.callQueue.get(message.author.id)) return message.channel.send('조금 있다가 다시 해보세요.');
+        if (message.member.roles.cache.has(ops.teamRole)) return message.channel.send('팀원만 사용할 수 있어요.')
+        if (!client.callQueue.get(message.author.id)) return message.channel.send('조금 있다가 다시 해보세요.');
         const embed = new Discord.MessageEmbed()
             .setTitle('관리자를 호출할까요?')
             .setColor('RANDOM')
@@ -68,7 +68,6 @@ module.exports = {
                     collector2.stop();
                     m.reactions.removeAll();
                     collector3.stop();
-                    if (client.callQueue.get(message.author.id)) client.callQueue.delete(message.author.id);
                     embed.setTitle('호출 정지됨')
                             .setDescription('30분이 지나서 호출이 정지되었어요')
                             .setColor('RANDOM')
@@ -78,7 +77,7 @@ module.exports = {
                 }, 1800000);
                 setTimeout(() => {
                     client.callQueue.delete(message.author.id);
-                }, 1800000);
+                }, 600000);
                 collector2.on('end', collected2 => {
                     if (collected2.first()) {
                         m.reactions.removeAll();
