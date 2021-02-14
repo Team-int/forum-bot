@@ -13,7 +13,7 @@ module.exports = {
             statFile.anal[message.author.id].time += new Date() - statFile.curr.find(x => x.id == message.author.id).startTime;
             const embed = new Discord.MessageEmbed()
             .setTitle('퇴근')
-            .setColor('RANDOM')
+            .setColor('RED')
             .addField('유저', message.author.toString())
             .addField('이유', args[1] ? args.slice(1).join(' ') : '없음')
             .addField('시각', new Date().toLocaleString('ko-kr', {timeZone: 'Asia/Seoul'}))
@@ -29,7 +29,7 @@ module.exports = {
             statFile.anal[message.author.id].count++;
             const embed = new Discord.MessageEmbed()
             .setTitle('출근')
-            .setColor('RANDOM')
+            .setColor('GREEN')
             .addField('유저', message.author.toString())
             .addField('이유', args[1] ? args.slice(1).join(' ') : '없음')
             .addField('시각', new Date().toLocaleString('ko-kr', {timeZone: 'Asia/Seoul'}))
