@@ -363,6 +363,18 @@ client.on('guildMemberAdd', async member => {
     if (member.user.bot) return await member.roles.add('751403263030722621');
     defaultVerifyQueue.set(member.user.id, member.user.id)
 });
+client.on('guildMemberRemove', async member => {
+    const embed = new Discord.MessageEmbed()
+        .setTitle('멤버 퇴장')
+        .setColor('RANDOM')
+        .setDescription(`${member.user.tag}님이 ${member.guild.name}에서 나갔어요`)
+        .setThumbnail(member.user.displayAvatarURL())
+        .setFooter(member.user.tag, member.user.displayAvatarURL())
+        .setTimestamp()
+    if (!member.user.bot) await client.channels.cache.get(ops.greetChannel).send({
+        embed: embed
+    });
+});
 client.on('raw', data => {
     data = JSON.parse(data);
     if (data.t != 'GUILD_MEMBER_UPDATE') return;
