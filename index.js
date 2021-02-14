@@ -358,9 +358,26 @@ client.on('message', async message => {
     }
     message.channel.stopTyping(true);
 });
+let defaultVerifyQueue = new Discord.Collection();
 client.on('guildMemberAdd', async member => {
-    if (member.user.bot) await member.roles.add('751403263030722621');
+    if (member.user.bot) return await member.roles.add('751403263030722621');
+    defaultVerifyQueue.set(member.user.id, member.user.id)
 });
+client.on('raw', data => {
+    data = JSON.parse(data);
+    if (data.t != 'GUILD_MEMBER_UPDATE') return;
+    if (defaultVerifyQueue.some(data.d.user.id) && !data.d.pending) {
+        defaultVerifyQueue.delete(data.d.user.id);
+        const embed = new Discord.MessageEmbed()
+        .setTitle('환영합니다!')
+        .setColor('RANDOM')
+        .setDescription(`<@${data.d.user.id}>님, ${client.guilds.cache.get(data.d.guild_id).name}에 오신 것을 환영합니다!\n먼저 ${client.channels.cache.get(ops.ruleChannel)}에서 규칙을 읽고 인증해주세요!`)
+        .setThumbnail(client.users.cache.get(data.d.user.id).displayAvatarURL())
+        .setFooter(client.users.cache.get(data.d.user.id).tag, client.users.cache.get(data.d.user.id).displayAvatarURL())
+        .setTimestamp()
+        client.channels.cache.get(ops.welcomeChannel).send(embed);
+    }
+})
 client.on('messageReactionAdd', async (r, u) => {
     if (r.partial) await r.fetch();
     if (r.message.partial) await r.message.fetch();
