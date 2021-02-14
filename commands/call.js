@@ -8,8 +8,8 @@ module.exports = {
     run: async (client, message, args, ops) => {
         if (!args[1] && args[1] != 'int' && args[1] != 'CSH' && args[1] != 'mswgen') return message.channel.send('호출할 대상을 입력해주세요.');
         if (ops.callTarget[message.author.id] == args[1]) return message.channel.send('자기 자신은 호출할 수 없어요.');
-        if (message.member.roles.cache.has(ops.teamRole)) return message.channel.send('팀원만 사용할 수 있어요.')
-        if (!client.callQueue.get(message.author.id)) return message.channel.send('조금 있다가 다시 해보세요.');
+        if (!message.member.roles.cache.has(ops.teamRole)) return message.channel.send('팀원만 사용할 수 있어요.')
+        if (client.callQueue.get(message.author.id)) return message.channel.send('조금 있다가 다시 해보세요.');
         const embed = new Discord.MessageEmbed()
             .setTitle('관리자를 호출할까요?')
             .setColor('RANDOM')
