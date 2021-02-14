@@ -50,7 +50,7 @@ module.exports = {
                     for (let sub of callFile.subscriptions) {
                         webpush.sendNotification(sub, JSON.stringify({
                             title: '호출됨',
-                            body: `${message.author.tag}(${message.author.id})님이 ${message.channel.name}에서 ${args[1]} 님을 호출했어요.\호출 이유: ${args.slice(2).join(' ') || '없음'}`,
+                            body: `${message.author.tag}(${message.author.id})님이 ${message.channel.name}에서 ${args[1]} 님을 호출했어요.\n호출 이유: ${args.slice(2).join(' ') || '없음'}`,
                             icon: '/static/image/inticon-512.png'
                         }))
                     }
