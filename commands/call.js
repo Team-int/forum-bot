@@ -76,6 +76,9 @@ module.exports = {
                             .setTimestamp();
                         m.edit(embed);
                 }, 1800000);
+                setTimeout(() => {
+                    client.callQueue.delete(message.author.id);
+                }, 1800000);
                 collector2.on('end', collected2 => {
                     if (collected2.first()) {
                         m.reactions.removeAll();
@@ -88,7 +91,6 @@ module.exports = {
                             .setFooter(message.author.tag, message.author.displayAvatarURL())
                             .setTimestamp();
                         m.edit(embed);
-                        client.callQueue.delete(message.author.id);
                     }
                 });
                 collector3.on('end', collected3 => {
@@ -103,7 +105,6 @@ module.exports = {
                             .setFooter(message.author.tag, message.author.displayAvatarURL())
                             .setTimestamp();
                         m.edit(embed);
-                        client.callQueue.delete(message.author.id);
                     }
                 })
             } else {

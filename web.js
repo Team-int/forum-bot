@@ -1,5 +1,4 @@
 const http2 = require('http2');
-const https = require('https');
 const http = require('http');
 const axios = require('axios').default;
 const url = require('url');
@@ -32,7 +31,7 @@ module.exports = {
         httpServer.listen(8080, () => {
             console.log('http server started');
         })
-        const httpsServer = https.createServer({
+        const httpsServer = http2.createSecureServer({
             cert: fs.readFileSync('/etc/letsencrypt/live/manager.intteam.co.kr/fullchain.pem'),
             key: fs.readFileSync('/etc/letsencrypt/live/manager.intteam.co.kr/privkey.pem')
         }, (req, res) => {
