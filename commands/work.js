@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 const fs = require('fs');
 module.exports = {
     name: 'work',
@@ -10,13 +11,33 @@ module.exports = {
         if (!statFile.anal[message.author.id]) statFile.anal[message.author.id] = {count: 0, time: 0};
         if (statFile.curr.find(x => x.id == message.author.id)) {
             statFile.anal[message.author.id].time += new Date() - statFile.curr.find(x => x.id == message.author.id).startTime;
-            client.channels.cache.get(ops.workChannel).send(`유저: ${message.author}\n출퇴여부: 퇴근\n이유: ${args[1] ? args.slice(1).join(' ') : '없음'}\n시각: ${new Date().toLocaleString('ko-kr', {timeZone: 'Asia/Seoul'})}\n총 출근 횟수: ${statFile.anal[message.author.id].count}/2회\n총 일한 시간: ${Math.floor(statFile.anal[message.author.id].time / 86400000)}일 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 86400000) * 86400000) / 3600000)).toString().split('.')[0]))}시간 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 3600000) * 3600000) / 60000)).toString().split('.')[0]))}분 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 60000) * 60000) / 1000)).toString().split('.')[0]))}초 ${statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 1000) * 1000}ms`);
+            const embed = new Discord.MessageEmbed()
+            .setTitle('퇴근')
+            .setColor('RANDOM')
+            .addField('유저', message.author.toString())
+            .addField('이유', args[1] ? args.slice(1).join(' ') : '없음')
+            .addField('시각', new Date().toLocaleString('ko-kr', {timeZone: 'Asia/Seoul'}))
+            .addField('총 출근 횟수', `${statFile.anal[message.author.id].count}/2회`)
+            .addField('총 일한 시간', `${Math.floor(statFile.anal[message.author.id].time / 86400000)}일 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 86400000) * 86400000) / 3600000)).toString().split('.')[0]))}시간 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 3600000) * 3600000) / 60000)).toString().split('.')[0]))}분 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 60000) * 60000) / 1000)).toString().split('.')[0]))}초 ${statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 1000) * 1000}ms`)
+            .setFooter(message.author.tag, message.author.displayAvatarURL())
+            .setTimestamp()
+            client.channels.cache.get(ops.workChannel).send(embed);
             message.react('✅');
             statFile.curr.splice(statFile.curr.indexOf(statFile.curr.find(x => x.id == message.author.id)), 1);
             fs.writeFileSync('/home/azureuser/intmanager/data/work.json', JSON.stringify(statFile));
         } else {
             statFile.anal[message.author.id].count++;
-            client.channels.cache.get(ops.workChannel).send(`유저: ${message.author}\n출퇴여부: 출근\n이유: ${args[1] ? args.slice(1).join(' ') : '없음'}\n시각: ${new Date().toLocaleString('ko-kr', {timeZone: 'Asia/Seoul'})}\n총 출근 횟수: ${statFile.anal[message.author.id].count}/2회\n총 일한 시간: ${Math.floor(statFile.anal[message.author.id].time / 86400000)}일 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 86400000) * 86400000) / 3600000)).toString().split('.')[0]))}시간 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 3600000) * 3600000) / 60000)).toString().split('.')[0]))}분 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 60000) * 60000) / 1000)).toString().split('.')[0]))}초 ${statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 1000) * 1000}ms`);
+            const embed = new Discord.MessageEmbed()
+            .setTitle('출근')
+            .setColor('RANDOM')
+            .addField('유저', message.author.toString())
+            .addField('이유', args[1] ? args.slice(1).join(' ') : '없음')
+            .addField('시각', new Date().toLocaleString('ko-kr', {timeZone: 'Asia/Seoul'}))
+            .addField('총 출근 횟수', `${statFile.anal[message.author.id].count}/2회`)
+            .addField('총 일한 시간', `${Math.floor(statFile.anal[message.author.id].time / 86400000)}일 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 86400000) * 86400000) / 3600000)).toString().split('.')[0]))}시간 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 3600000) * 3600000) / 60000)).toString().split('.')[0]))}분 ${Math.floor(parseInt(Math.floor((Math.floor(statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 60000) * 60000) / 1000)).toString().split('.')[0]))}초 ${statFile.anal[message.author.id].time - Math.floor(statFile.anal[message.author.id].time / 1000) * 1000}ms`)
+            .setFooter(message.author.tag, message.author.displayAvatarURL())
+            .setTimestamp()
+            client.channels.cache.get(ops.workChannel).send(embed);
             message.react('✅');
             statFile.curr.push({
                 id: message.author.id,
