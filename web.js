@@ -173,6 +173,24 @@ module.exports = {
                 dbFile.subscriptions.push(data);
                 fs.writeFile('/home/azureuser/intmanager/data/notifications.json', JSON.stringify(dbFile), () => {});
             });
+            socket.on('callNotifySubscription-int', data => {
+                console.log('a')
+                let dbFile = require('/home/azureuser/intmanager/data/callint.json');
+                dbFile.subscriptions.push(data);
+                fs.writeFile('/home/azureuser/intmanager/data/callint.json', JSON.stringify(dbFile), () => {});
+            });
+            socket.on('callNotifySubscription-CSH', data => {
+                console.log('b')
+                let dbFile = require('/home/azureuser/intmanager/data/callCSH.json');
+                dbFile.subscriptions.push(data);
+                fs.writeFile('/home/azureuser/intmanager/data/callCSH.json', JSON.stringify(dbFile), () => {});
+            });
+            socket.on('callNotifySubscription-mswgen', data => {
+                console.log('c')
+                let dbFile = require('/home/azureuser/intmanager/data/callmswgen.json');
+                dbFile.subscriptions.push(data);
+                fs.writeFile('/home/azureuser/intmanager/data/callmswgen.json', JSON.stringify(dbFile), () => {});
+            });
         });
     }
 }

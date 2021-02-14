@@ -13,6 +13,7 @@ client.verifyQueue = new Discord.Collection();
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.paths = new Discord.Collection();
+client.callQueue = new Discord.Collection();
 function memberChanges(o, n) {
     let arr = [];
     if (o.displayHexColor != n.displayHexColor) arr.push({
