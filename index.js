@@ -294,6 +294,14 @@ function tokenGen(client) {
     }
     return token.join('');
 }
+setInterval(() => {
+    let date = new Date();
+    if (date.getDay() == 0 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() <= 3) {
+        let workStat = require('/home/azureuser/intmanager/data/work.json');
+        workStat.anal = {};
+        fs.writeFileSync('/home/azureuser/intmanager/data/work.json', JSON.stringify(workStat));
+    }
+}, 2000);
 client.on('message', async message => {
     if (message.author.bot) return;
     if (message.channel.type != 'text' && message.channel.type != 'news') return;
