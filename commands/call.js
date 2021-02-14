@@ -60,7 +60,7 @@ module.exports = {
                 const collector2 = m.createReactionCollector(filter2, {
                     max: 1
                 });
-                const filter3 = m => ops.callTarget[m.author.id] ? true : false;
+                const filter3 = m => ops.callTarget[m.author.id] == args[1];
                 const collector3 = m.channel.createMessageCollector(filter3, {
                     max: 1
                 });
