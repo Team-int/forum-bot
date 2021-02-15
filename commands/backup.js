@@ -9,7 +9,7 @@ module.exports = {
         if (!message.member.roles.cache.has(ops.adminRole)) return message.channel.send('봇 관리자만 사용할 수 있어요.');
         let m = await message.channel.send(new Discord.MessageEmbed()
         .setTitle('서버 백업 중...')
-        .setColor('RANDOM')
+        .setColor('#ff9900')
         .setTimestamp()
         .setFooter(message.author.tag, message.author.displayAvatarURL())
         );
@@ -64,7 +64,7 @@ module.exports = {
         fs.writeFileSync('/home/azureuser/intmanager/data/backup.json', JSON.stringify(backupFile));
         await m.edit(new Discord.MessageEmbed()
         .setTitle('서버 백업이 완료되었어요')
-        .setColor('RANDOM')
+        .setColor('GREEN')
         .setTimestamp()
         .setFooter(message.author.tag, message.author.displayAvatarURL())
         )
