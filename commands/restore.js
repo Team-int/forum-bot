@@ -8,7 +8,7 @@ module.exports = {
         if (message.author.id != '647736678815105037') return message.channel.send('봇 관리자만 사용할 수 있어요.');
         const embed = new Discord.MessageEmbed()
             .setTitle('서버를 복원할까요?')
-            .setColor('RANDOM')
+            .setColor('RED')
             .setTimestamp()
             .setFooter(message.author.tag, message.author.displayAvatarURL());
         let m = await message.channel.send(embed);

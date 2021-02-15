@@ -12,7 +12,7 @@ module.exports = {
         if (!message.guild.member(message.mentions.users.first()).bannable) return message.channel.send('이 유저는 제가 차딘할 수 없어요.');
         const embed = new Discord.MessageEmbed()
             .setTitle('멤버를 차단할까요?')
-            .setColor('RANDOM')
+            .setColor('RED')
             .addField('차단할 멤버', message.mentions.users.first().toString())
             .addField('차단 이유', args.slice(2).join(' ') || '없음')
             .setFooter(message.author.tag, message.author.displayAvatarURL())
@@ -31,7 +31,7 @@ module.exports = {
                 message.mentions.users.first().send({
                     embed: new Discord.MessageEmbed()
                         .setTitle(`${message.guild.name}에서 차단되었어요`)
-                        .setColor('RANDOM')
+                        .setColor('RED')
                         .addField('차단 이유', args.slice(2).join(' ') || '없음')
                         .addField('차단한 유저', message.author.tag)
                         .setFooter(message.author.tag, message.author.displayAvatarURL())
@@ -41,7 +41,7 @@ module.exports = {
                     reason: args.slice(2).join(' ')
                 });
                 embed.setTitle('멤버가 차단되었어요')
-                    .setColor('RANDOM')
+                    .setColor('RED')
                     .spliceFields(0, 1, {
                         name: '차단한 멤버',
                         value: message.mentions.users.first().toString()
@@ -62,7 +62,7 @@ module.exports = {
                 });
             } else {
                 embed.setTitle('멤버 차단이 취소되었어요')
-                    .setColor('RANDOM')
+                    .setColor('GREEN')
                     .setTimestamp()
                 await m.edit({
                     embed: embed

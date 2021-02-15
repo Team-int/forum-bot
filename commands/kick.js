@@ -11,7 +11,7 @@ module.exports = {
         if (!message.guild.member(message.mentions.users.first()).kickable) return message.channel.send('이 유저는 제가 추방할 수 없어요.');
         const embed = new Discord.MessageEmbed()
             .setTitle('멤버를 추방할까요?')
-            .setColor('RANDOM')
+            .setColor('#ffff00')
             .addField('추방할 멤버', message.mentions.users.first().toString())
             .addField('추방 이유', args.slice(2).join(' ') || '없음')
             .setFooter(message.author.tag, message.author.displayAvatarURL())
@@ -30,7 +30,7 @@ module.exports = {
                 message.mentions.users.first().send({
                     embed: new Discord.MessageEmbed()
                         .setTitle(`${message.guild.name}에서 추방되었어요`)
-                        .setColor('RANDOM')
+                        .setColor('RED')
                         .addField('추방 이유', args.slice(2).join(' ') || '없음')
                         .addField('추방한 유저', message.author.tag)
                         .setFooter(message.author.tag, message.author.displayAvatarURL())
@@ -38,7 +38,7 @@ module.exports = {
                 });
                 await message.guild.member(message.mentions.users.first()).kick(args.slice(2).join(' '));
                 embed.setTitle('멤버가 추방되었어요')
-                    .setColor('RANDOM')
+                    .setColor('RED')
                     .spliceFields(0, 1, {
                         name: '추방한 멤버',
                         value: message.mentions.users.first().toString()
@@ -49,7 +49,7 @@ module.exports = {
                 });
             } else {
                 embed.setTitle('멤버 추방이 취소되었어요')
-                    .setColor('RANDOM')
+                    .setColor('GREEN')
                     .setTimestamp()
                 await m.edit({
                     embed: embed
