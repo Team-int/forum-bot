@@ -13,7 +13,7 @@ module.exports = {
         if (message.guild.member(message.mentions.users.first()).roles.cache.has(ops.mutedRole)) return message.channel.send('이 유저는 이미 뮤트되어있어요.');
         const embed = new Discord.MessageEmbed()
             .setTitle('멤버를 뮤트할까요?')
-            .setColor('RANDOM')
+            .setColor('#ffff00')
             .addField('뮤트할 멤버', message.mentions.users.first().toString())
             .addField('뮤트 이유', args.slice(2).join(' ') || '없음')
             .setFooter(message.author.tag, message.author.displayAvatarURL())
@@ -32,7 +32,7 @@ module.exports = {
                 message.mentions.users.first().send({
                     embed: new Discord.MessageEmbed()
                         .setTitle(`${message.guild.name}에서 뮤트되었어요`)
-                        .setColor('RANDOM')
+                        .setColor('RED')
                         .addField('뮤트 이유', args.slice(2).join(' ') || '없음')
                         .addField('뮤트한 유저', message.author.tag)
                         .setFooter(message.author.tag, message.author.displayAvatarURL())
@@ -41,7 +41,7 @@ module.exports = {
                 await message.guild.member(message.mentions.users.first()).roles.add(ops.mutedRole)
                 await message.guild.member(message.mentions.users.first()).roles.remove(ops.userRole)
                 embed.setTitle('멤버가 뮤트되었어요')
-                    .setColor('RANDOM')
+                    .setColor('RED')
                     .spliceFields(0, 1, {
                         name: '뮤트한 멤버',
                         value: message.mentions.users.first().toString()
@@ -62,7 +62,7 @@ module.exports = {
                 });
             } else {
                 embed.setTitle('멤버 뮤트가 취소되었어요')
-                    .setColor('RANDOM')
+                    .setColor('GREEN')
                     .setTimestamp()
                 await m.edit({
                     embed: embed
