@@ -297,9 +297,9 @@ function tokenGen(client) {
 setInterval(() => {
     let date = new Date();
     if (date.getDay() == 0 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() <= 3) {
-        let workStat = require('/home/azureuser/intmanager/data/work.json');
+        let workStat = require('data/work.json');
         workStat.anal = {};
-        fs.writeFileSync('/home/azureuser/intmanager/data/work.json', JSON.stringify(workStat));
+        fs.writeFileSync('data/work.json', JSON.stringify(workStat));
     }
 }, 2000);
 client.on('message', async message => {
@@ -950,7 +950,7 @@ client.on('ready', () => {
                 client.user.setPresence({
                     status: 'online',
                     activity: {
-                        name: `int 관리`,
+                        name: `Endint 관리`,
                         type: 'PLAYING'
                     }
                 });
@@ -968,7 +968,7 @@ client.on('ready', () => {
                 client.user.setPresence({
                     status: 'online',
                     activity: {
-                        name: `${client.guilds.cache.get(ops.guildId).members.cache.filter(x => !x.user.bot).size}명의 멤버와 함께하는 int입니다!`,
+                        name: `${client.guilds.cache.get(ops.guildId).members.cache.filter(x => !x.user.bot).size}명의 멤버와 함께하는 Endint입니다!`,
                         type: 'PLAYING'
                     }
                 });
@@ -986,9 +986,9 @@ client.on('ready', () => {
                 client.user.setPresence({
                     status: 'online',
                     activity: {
-                        name: `int`,
+                        name: `Endint`,
                         type: 'STREAMING',
-                        url: 'https://twitch.tv/int'
+                        url: 'https://twitch.tv/Endint'
                     }
                 });
                 break;
