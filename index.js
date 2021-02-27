@@ -226,7 +226,7 @@ function channelChanges(o, n) {
     });
     if (o.bitrate != n.bitrate) arr.push({
         name: '비트레이트',
-        value: `${o.bitrate != undefined ? `${o.bitrate / 1000}kbps` : '없음'} -> ${n.bitrate != undefined ? `${n.bitrate/ 1000}kbps` : '없음'}`
+        value: `${o.bitrate != undefined ? `${o.bitrate / 1000}kbps` : '없음'} -> ${n.bitrate != undefined ? `${n.bitrate / 1000}kbps` : '없음'}`
     });
     if (o.userLimit != n.userLimit) arr.push({
         name: '유저 수 제한',
@@ -253,8 +253,8 @@ fs.readdir('./commands/', (err, list) => {
                 table1.addRow(file, '❌ -> Error');
                 continue;
             }
-        } catch (e) { 
-            table1.addRow(file, `❌ -> ${e}`); 
+        } catch (e) {
+            table1.addRow(file, `❌ -> ${e}`);
             continue;
         }
     }
@@ -272,8 +272,8 @@ fs.readdir('./web/', (err, list) => {
                 table2.addRow(file, '❌ -> Error');
                 continue;
             }
-        } catch (e) { 
-            table2.addRow(file, `❌ -> ${e}`); 
+        } catch (e) {
+            table2.addRow(file, `❌ -> ${e}`);
             continue;
         }
     }
@@ -344,12 +344,12 @@ client.on('message', async message => {
             msgClone.content = message.content.replace(typed, sname);
             let m = await message.channel.send({
                 embed: new Discord.MessageEmbed()
-                .setTitle('명령어 자동 수정')
-                .setColor('RANDOM')
-                .setDescription('입력한 명령어는 존재하지 않아요.\n대신 아래 명령어를 대신 실행하까요?')
-                .addField('실행할 명령어', msgClone.content)
-                .setFooter(message.author.tag, message.author.displayAvatarURL())
-                .setTimestamp()
+                    .setTitle('명령어 자동 수정')
+                    .setColor('RANDOM')
+                    .setDescription('입력한 명령어는 존재하지 않아요.\n대신 아래 명령어를 대신 실행하까요?')
+                    .addField('실행할 명령어', msgClone.content)
+                    .setFooter(message.author.tag, message.author.displayAvatarURL())
+                    .setTimestamp()
             });
             await m.react('✅');
             await m.react('❌');
@@ -654,11 +654,11 @@ client.on('messageReactionAdd', async (r, u) => {
         r.users.remove(u.id);
         if (!r.message.guild.member(u).roles.cache.has(ops.guildAdminRole)) return r.message.channel.send('티켓 채널 삭제는 관리자만 할 수 있어요.');
         const embed = new Discord.MessageEmbed()
-        .setTitle('티켓을 완전히 지울까요?')
-        .setDescription('한번 지우면 다시 복구할 수 없어요.')
-        .setColor('RANDOM')
-        .setFooter(u.tag, u.displayAvatarURL())
-        .setTimestamp()
+            .setTitle('티켓을 완전히 지울까요?')
+            .setDescription('한번 지우면 다시 복구할 수 없어요.')
+            .setColor('RANDOM')
+            .setFooter(u.tag, u.displayAvatarURL())
+            .setTimestamp()
         let m = await r.message.channel.send({
             embed: embed
         });
@@ -673,9 +673,9 @@ client.on('messageReactionAdd', async (r, u) => {
                 r.message.channel.delete();
             } else {
                 embed.setTitle('티켓 삭제가 취소되었어요.')
-                .setDescription('위에 있는 삭제 이모지를 클릭해서 티켓을 언제든지 삭제할 수 있어요.')
-                .setColor('RANDOM')
-                .setTimestamp()
+                    .setDescription('위에 있는 삭제 이모지를 클릭해서 티켓을 언제든지 삭제할 수 있어요.')
+                    .setColor('RANDOM')
+                    .setTimestamp()
                 m.edit({
                     embed: embed
                 });
@@ -693,6 +693,52 @@ client.on('messageReactionRemove', async (r, u) => {
         await r.message.guild.member(u).roles.remove(ops.teamAlarmRole);
     } else if (r.emoji.name == 'yes') {
         await r.message.guild.member(u).roles.remove(ops.animeRole);
+    }
+});
+client.on('message', message => {
+    if (!message.system) return;
+    if (message.channel.id != message.guild.systemChannelID) return;
+    switch (message.type) {
+        case 'USER_PREMIUM_GUILD_SUBSCRIPTION':
+            message.delete();
+            client.channels.cache.get(ops.noticeChannel).send(message.author.toString(), new Discord.MessageEmbed()
+                .setTitle(`새 부스트`)
+                .setColor('RANDOM')
+                .setDescription(`${message.author}님이 방금 이 서버를 부스트했어요!`)
+                .setFooter(message.author.tag, message.author.displayAvatarURL())
+                .setTimestamp()
+            );
+            break;
+        case 'USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1':
+            message.delete();
+            client.channels.cache.get(ops.noticeChannel).send(message.author.toString(), new Discord.MessageEmbed()
+                .setTitle(`새 부스트`)
+                .setColor('RANDOM')
+                .setDescription(`${message.author}님이 방금 이 서버를 부스트했어요! 이제 이 서버의 부스트 레벨은 **1레벨**이에요!`)
+                .setFooter(message.author.tag, message.author.displayAvatarURL())
+                .setTimestamp()
+            );
+            break;
+        case 'USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2':
+            message.delete();
+            client.channels.cache.get(ops.noticeChannel).send(message.author.toString(), new Discord.MessageEmbed()
+                .setTitle(`새 부스트`)
+                .setColor('RANDOM')
+                .setDescription(`${message.author}님이 방금 이 서버를 부스트했어요! 이제 이 서버의 부스트 레벨은 **2레벨**이에요!`)
+                .setFooter(message.author.tag, message.author.displayAvatarURL())
+                .setTimestamp()
+            );
+            break;
+        case 'USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3':
+            message.delete();
+            client.channels.cache.get(ops.noticeChannel).send(message.author.toString(), new Discord.MessageEmbed()
+                .setTitle(`새 부스트`)
+                .setColor('RANDOM')
+                .setDescription(`${message.author}님이 방금 이 서버를 부스트했어요! 이제 이 서버의 부스트 레벨은 **3레벨**이에요!`)
+                .setFooter(message.author.tag, message.author.displayAvatarURL())
+                .setTimestamp()
+            );
+            break;
     }
 });
 client.on('message', message => {
@@ -730,15 +776,15 @@ client.on('messageUpdate', async (old, message) => {
     if (!message.author || message.author.bot) return;
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle('메세지 수정됨')
-        .setColor('RANDOM')
-        .addField('새 메세지', message.content ? (message.content.length > 1024 ? `${message.content.substr(0, 1021)}...` : message.content) : '내용 없음')
-        .addField('기존 메세지', old.content ? (old.content.length > 1024 ? `${old.content.substr(0, 1021)}...` : old.content) : '내용 없음')
-        .addField('메세지 링크', message.url)
-        .addField('유저', `${message.author.toString()}(${message.author.id})`)
-        .addField('채널', `${message.channel.toString()}(${message.channel.id})`)
-        .setFooter(message.author.tag, message.author.displayAvatarURL())
-        .setTimestamp()
+            .setTitle('메세지 수정됨')
+            .setColor('RANDOM')
+            .addField('새 메세지', message.content ? (message.content.length > 1024 ? `${message.content.substr(0, 1021)}...` : message.content) : '내용 없음')
+            .addField('기존 메세지', old.content ? (old.content.length > 1024 ? `${old.content.substr(0, 1021)}...` : old.content) : '내용 없음')
+            .addField('메세지 링크', message.url)
+            .addField('유저', `${message.author.toString()}(${message.author.id})`)
+            .addField('채널', `${message.channel.toString()}(${message.channel.id})`)
+            .setFooter(message.author.tag, message.author.displayAvatarURL())
+            .setTimestamp()
     });
     if (message.member.roles.cache.has(ops.adminRole)) return;
     if (ops.invites.some(x => message.content.includes(x)) && !ops.inviteWLChannels.includes(message.channel.id)) {
@@ -750,14 +796,14 @@ client.on('messageDelete', message => {
     if (!message.author || message.author.bot) return;
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle('메세지 삭제됨')
-        .setColor('RANDOM')
-        .addField('메세지 내용', message.content ? (message.content.length > 1024 ? `${message.content.substr(0, 1021)}...` : message.content) : '내용 없음')
-        .addField('메세지 id', message.id)
-        .addField('유저', `${message.author}(${message.author.id})`)
-        .addField('채널', `${message.channel}(${message.channel.id})`)
-        .setFooter(message.author.tag, message.author.displayAvatarURL())
-        .setTimestamp()
+            .setTitle('메세지 삭제됨')
+            .setColor('RANDOM')
+            .addField('메세지 내용', message.content ? (message.content.length > 1024 ? `${message.content.substr(0, 1021)}...` : message.content) : '내용 없음')
+            .addField('메세지 id', message.id)
+            .addField('유저', `${message.author}(${message.author.id})`)
+            .addField('채널', `${message.channel}(${message.channel.id})`)
+            .setFooter(message.author.tag, message.author.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('messageDeleteBulk', async messages => {
@@ -766,11 +812,11 @@ client.on('messageDeleteBulk', async messages => {
     });
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`메세지 ${messages.size}개 삭제됨`)
-        .setColor('RANDOM')
-        .addField('채널', `${messages.first().channel}(${messages.first().channel.id})`)
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`메세지 ${messages.size}개 삭제됨`)
+            .setColor('RANDOM')
+            .addField('채널', `${messages.first().channel}(${messages.first().channel.id})`)
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('channelCreate', async channel => {
@@ -780,12 +826,12 @@ client.on('channelCreate', async channel => {
     });
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`채널 생성됨`)
-        .setColor('RANDOM')
-        .addField('채널', `${channel}(${channel.id})`)
-        .addField('채널 타입', ops.channels[channel.type])
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`채널 생성됨`)
+            .setColor('RANDOM')
+            .addField('채널', `${channel}(${channel.id})`)
+            .addField('채널 타입', ops.channels[channel.type])
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('channelDelete', async channel => {
@@ -795,12 +841,12 @@ client.on('channelDelete', async channel => {
     });
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`채널 삭제됨`)
-        .setColor('RANDOM')
-        .addField('채널', `${channel.name}(${channel.id})`)
-        .addField('채널 타입', ops.channels[channel.type])
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`채널 삭제됨`)
+            .setColor('RANDOM')
+            .addField('채널', `${channel.name}(${channel.id})`)
+            .addField('채널 타입', ops.channels[channel.type])
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('guildBanAdd', async (guild, user) => {
@@ -809,11 +855,11 @@ client.on('guildBanAdd', async (guild, user) => {
     });
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`멤버 차단됨`)
-        .setColor('RANDOM')
-        .addField('차단된 유저', `${user.tag || '알 수 없는 유저'}(${user.id})`)
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`멤버 차단됨`)
+            .setColor('RANDOM')
+            .addField('차단된 유저', `${user.tag || '알 수 없는 유저'}(${user.id})`)
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('guildBanRemove', async (guild, user) => {
@@ -822,11 +868,11 @@ client.on('guildBanRemove', async (guild, user) => {
     });
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`멤버 차단 해제됨`)
-        .setColor('RANDOM')
-        .addField('차단 해제된 유저', `${user.tag || '알 수 없는 유저'}(${user.id})`)
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`멤버 차단 해제됨`)
+            .setColor('RANDOM')
+            .addField('차단 해제된 유저', `${user.tag || '알 수 없는 유저'}(${user.id})`)
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('channelUpdate', async (old, _new) => {
@@ -836,12 +882,12 @@ client.on('channelUpdate', async (old, _new) => {
     if (_new.type == 'dm') return;
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`채널 설정 변경됨`)
-        .setColor('RANDOM')
-        .addField('채널', `${_new}(${_new.id})`)
-        .addFields(channelChanges(old, _new))
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`채널 설정 변경됨`)
+            .setColor('RANDOM')
+            .addField('채널', `${_new}(${_new.id})`)
+            .addFields(channelChanges(old, _new))
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('roleCreate', async role => {
@@ -850,15 +896,15 @@ client.on('roleCreate', async role => {
     });
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`역할 생성됨`)
-        .setColor('RANDOM')
-        .addField('역할', `${role}(${role.id})`)
-        .addField('역할 색', role.hexColor)
-        .addField('역할 호이스팅 여부', role.hoist ? '✅' : '❌')
-        .addField('역할 멘션 가능 여부', role.mentionable ? '✅' : '❌')
-        .addField('권한', role.permissions.toArray().map(x => ops.rolePerms[x]).join('\n'))
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`역할 생성됨`)
+            .setColor('RANDOM')
+            .addField('역할', `${role}(${role.id})`)
+            .addField('역할 색', role.hexColor)
+            .addField('역할 호이스팅 여부', role.hoist ? '✅' : '❌')
+            .addField('역할 멘션 가능 여부', role.mentionable ? '✅' : '❌')
+            .addField('권한', role.permissions.toArray().map(x => ops.rolePerms[x]).join('\n'))
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('roleUpdate', async (old, _new) => {
@@ -867,12 +913,12 @@ client.on('roleUpdate', async (old, _new) => {
     });
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`역할 수정됨`)
-        .setColor('RANDOM')
-        .addField('역할', `${_new}(${_new.id})`)
-        .addFields(roleChanges(old, _new))
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`역할 수정됨`)
+            .setColor('RANDOM')
+            .addField('역할', `${_new}(${_new.id})`)
+            .addFields(roleChanges(old, _new))
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('roleDelete', async role => {
@@ -881,11 +927,11 @@ client.on('roleDelete', async role => {
     });
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`역할 삭제됨`)
-        .setColor('RANDOM')
-        .addField('역할', `${role.name}(${role.id})`)
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`역할 삭제됨`)
+            .setColor('RANDOM')
+            .addField('역할', `${role.name}(${role.id})`)
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('guildUpdate', async (old, _new) => {
@@ -894,11 +940,11 @@ client.on('guildUpdate', async (old, _new) => {
     });
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`서버 설정 변경됨`)
-        .setColor('RANDOM')
-        .addFields(guildChanges(old, _new))
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`서버 설정 변경됨`)
+            .setColor('RANDOM')
+            .addFields(guildChanges(old, _new))
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('guildMemberRemove', async member => {
@@ -908,11 +954,11 @@ client.on('guildMemberRemove', async member => {
     if (!al || !al.entries || !al.entries.first() || !al.entries.first() || !al.entries.first().target || al.entries.first().target.id != member.user.id) return;
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`멤버 추방됨`)
-        .setColor('RANDOM')
-        .addField('추방된 유저', `${member.user.tag}(${member.user.id})`)
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`멤버 추방됨`)
+            .setColor('RANDOM')
+            .addField('추방된 유저', `${member.user.tag}(${member.user.id})`)
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('guildMemberUpdate', async (old, _new) => {
@@ -930,12 +976,12 @@ client.on('guildMemberUpdate', async (old, _new) => {
     }
     client.channels.cache.get(ops.logChannel).send({
         embed: new Discord.MessageEmbed()
-        .setTitle(`멤버 설정 변경됨`)
-        .setColor('RANDOM')
-        .addField('멤버', `${_new.user}(${_new.id})`)
-        .addFields(memberChanges(old, _new))
-        .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
-        .setTimestamp()
+            .setTitle(`멤버 설정 변경됨`)
+            .setColor('RANDOM')
+            .addField('멤버', `${_new.user}(${_new.id})`)
+            .addFields(memberChanges(old, _new))
+            .setFooter(al.entries.first().executor.tag, al.entries.first().executor.displayAvatarURL())
+            .setTimestamp()
     });
 });
 client.on('ready', () => {
@@ -1000,12 +1046,12 @@ client.on('raw', data => {
     if (defaultVerifyQueue.get(data.d.user.id) && !data.d.is_pending) {
         defaultVerifyQueue.delete(data.d.user.id);
         const embed = new Discord.MessageEmbed()
-        .setTitle('환영합니다!')
-        .setColor('RANDOM')
-        .setDescription(`<@${data.d.user.id}>님, ${client.guilds.cache.get(data.d.guild_id).name}에 오신 것을 환영합니다!\n먼저 ${client.channels.cache.get(ops.ruleChannel)}에서 규칙을 읽고 인증해주세요!`)
-        .setThumbnail(client.users.cache.get(data.d.user.id).displayAvatarURL())
-        .setFooter(client.users.cache.get(data.d.user.id).tag, client.users.cache.get(data.d.user.id).displayAvatarURL())
-        .setTimestamp()
+            .setTitle('환영합니다!')
+            .setColor('RANDOM')
+            .setDescription(`<@${data.d.user.id}>님, ${client.guilds.cache.get(data.d.guild_id).name}에 오신 것을 환영합니다!\n먼저 ${client.channels.cache.get(ops.ruleChannel)}에서 규칙을 읽고 인증해주세요!`)
+            .setThumbnail(client.users.cache.get(data.d.user.id).displayAvatarURL())
+            .setFooter(client.users.cache.get(data.d.user.id).tag, client.users.cache.get(data.d.user.id).displayAvatarURL())
+            .setTimestamp()
         client.channels.cache.get(ops.welcomeChannel).send(embed);
     }
 });
