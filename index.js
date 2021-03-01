@@ -996,7 +996,7 @@ client.on('ready', () => {
                 client.user.setPresence({
                     status: 'online',
                     activity: {
-                        name: `Endint 관리`,
+                        name: `int 관리`,
                         type: 'PLAYING'
                     }
                 });
@@ -1014,7 +1014,7 @@ client.on('ready', () => {
                 client.user.setPresence({
                     status: 'online',
                     activity: {
-                        name: `${client.guilds.cache.get(ops.guildId).members.cache.filter(x => !x.user.bot).size}명의 멤버와 함께하는 Endint입니다!`,
+                        name: `${client.guilds.cache.get(ops.guildId).members.cache.filter(x => !x.user.bot).size}명의 멤버와 함께하는 int입니다!`,
                         type: 'PLAYING'
                     }
                 });
@@ -1032,9 +1032,9 @@ client.on('ready', () => {
                 client.user.setPresence({
                     status: 'online',
                     activity: {
-                        name: `Endint`,
+                        name: `int`,
                         type: 'STREAMING',
-                        url: 'https://twitch.tv/Endint'
+                        url: 'https://twitch.tv/int'
                     }
                 });
                 break;
