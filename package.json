@@ -1,5 +1,5 @@
 {
-  "name": "endintmanager",
+  "name": "intmanager",
   "version": "1.0.0",
   "dependencies": {
     "ascii-table": "0.0.9",
@@ -8,9 +8,10 @@
     "dotenv": "8.2.0",
     "socket.io": "2.4.0",
     "util": "0.12.3",
+    "discord-backup": "^2.4.1",
     "web-push": "3.4.4"
   },
-  "description": "endint™ manager bot",
+  "description": "int™ manager bot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
