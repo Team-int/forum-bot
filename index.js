@@ -122,7 +122,7 @@ client.on('message', async message => {
             let m = await message.channel.send({
                 embed: new Discord.MessageEmbed()
                     .setTitle('명령어 자동 수정')
-                    .setColor('RANDOM')
+                    .setColor('GREEN')
                     .setDescription('입력한 명령어는 존재하지 않아요.\n대신 아래 명령어를 대신 실행하까요?')
                     .addField('실행할 명령어', msgClone.content)
                     .setFooter(message.author.tag, message.author.displayAvatarURL())
@@ -241,7 +241,7 @@ client.on('messageReactionAdd', async (r, u) => {
             const embed = new Discord.MessageEmbed()
                 .setTitle('환영합니다!')
                 .setDescription('문의 하실 내용이 무엇인가요?')
-                .setColor('RANDOM')
+                .setColor('GREEN')
                 .setFooter(u.tag, u.displayAvatarURL())
                 .setTimestamp()
             let m = await tktCh.send(u.toString(), {
@@ -250,7 +250,7 @@ client.on('messageReactionAdd', async (r, u) => {
             const embed2 = new Discord.MessageEmbed()
                 .setTitle('티켓이 열렸어요! 관리자는 일하세요!')
                 .addField('티켓 채널', tktCh.toString())
-                .setColor('RANDOM')
+                .setColor('YELLOW')
                 .setFooter(u.tag, u.displayAvatarURL())
                 .setTimestamp()
             await client.channels.cache.get(ops.confRoomChannel).send(client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole).toString(), {
@@ -264,7 +264,7 @@ client.on('messageReactionAdd', async (r, u) => {
         const embed = new Discord.MessageEmbed()
             .setTitle('티켓이 닫혔어요')
             .setDescription('아래 반응을 클릭해서 티켓을 다시 열거나 완전히 지울 수 있어요.')
-            .setColor('RANDOM')
+            .setColor('RED')
             .setFooter(u.tag, u.displayAvatarURL())
             .setTimestamp()
         let m = await r.message.channel.send(`${u} ${client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole)}`, {
@@ -341,7 +341,7 @@ client.on('messageReactionAdd', async (r, u) => {
         const embed = new Discord.MessageEmbed()
             .setTitle('티켓이 열렸어요')
             .setDescription('아래 반응을 클릭해서 티켓을 닫을 수 있어요.')
-            .setColor('RANDOM')
+            .setColor('GREEN')
             .setFooter(u.tag, u.displayAvatarURL())
             .setTimestamp()
         let m = await r.message.channel.send(`${u} ${client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole)}`, {
@@ -417,7 +417,7 @@ client.on('messageReactionAdd', async (r, u) => {
         const embed = new Discord.MessageEmbed()
             .setTitle('티켓을 완전히 지울까요?')
             .setDescription('한번 지우면 다시 복구할 수 없어요.')
-            .setColor('RANDOM')
+            .setColor('RED')
             .setFooter(u.tag, u.displayAvatarURL())
             .setTimestamp()
         let m = await r.message.channel.send({
