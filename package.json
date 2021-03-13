@@ -1,5 +1,5 @@
 {
-  "name": "endintmanager",
+  "name": "intmanager",
   "version": "1.0.0",
   "dependencies": {
     "ascii-table": "0.0.9",
@@ -10,7 +10,7 @@
     "util": "0.12.3",
     "web-push": "3.4.4"
   },
-  "description": "endint™ manager bot",
+  "description": "int™ manager bot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Team-Union/EndintManager.git"
+    "url": "git+https://github.com/team-int/Forum-bot.git"
   },
   "author": "intteam",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Team-Union/EndintManager/issues"
+    "url": "https://github.com/team-int/Forum-bot/issues"
   },
-  "homepage": "https://github.com/Team-Union/EndintManager#readme"
+  "homepage": "https://github.com/team-int/Forum-bot#readme"
 }
