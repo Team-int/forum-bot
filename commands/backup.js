@@ -10,26 +10,93 @@ module.exports = {
       return message.channel.send("봇 관리자만 사용할 수 있어요.");
     let m = await message.channel.send(
       new Discord.MessageEmbed()
-        .setTitle("데이터 저장중...")
-        .setColor("YELLOW")
+        .setTitle("서버 백업 중...")
+        .setColor("#ff9900")
         .setTimestamp()
         .setFooter(message.author.tag, message.author.displayAvatarURL())
     );
-    // Create the backup
-    backup.create(message.guild, {
-        jsonBeautify: true
-    }).then((backupData) => {
-        // And send informations to the backup owner
-        message.author.send(`백업 코드 까먹을 까봐 디엠으로 전해드렸어요. 백업 코드 : ${backupData.id}`);
-    m.edit(
+    let backupFile = require("data/backup.json");
+    backupFile.name = client.guilds.cache.get("750705387124031510").name;
+    backupFile.icon = client.guilds.cache
+      .get("750705387124031510")
+      .iconURL({ format: "png" });
+    backupFile.region = client.guilds.cache.get("750705387124031510").region;
+    backupFile.afkCh = client.guilds.cache.get(
+      "750705387124031510"
+    ).afkChannelID;
+    backupFile.afkTime = client.guilds.cache.get(
+      "750705387124031510"
+    ).afkTimeout;
+    backupFile.sysCh = client.guilds.cache.get(
+      "750705387124031510"
+    ).systemChannelID;
+    backupFile.sysMsg = client.guilds.cache.get(
+      "750705387124031510"
+    ).systemChannelFlags;
+    backupFile.notify = client.guilds.cache.get(
+      "750705387124031510"
+    ).defaultMessageNotifications;
+    backupFile.roles = client.guilds.cache
+      .get("750705387124031510")
+      .roles.cache.filter((x) => !x.managed && x.id != x.guild.id)
+      .map((x) => {
+        return {
+          name: x.name,
+          color: x.hexColor,
+          hoist: x.hoist,
+          mentionable: x.mentionable,
+          permissions: x.permissions.bitfield,
+          position: x.position,
+        };
+      });
+    backupFile.emojis = client.guilds.cache
+      .get("750705387124031510")
+      .emojis.cache.map((x) => {
+        return {
+          name: x.name,
+          url: x.url,
+        };
+      });
+    backupFile.verifyLevel = client.guilds.cache.get(
+      "750705387124031510"
+    ).verificationLevel;
+    backupFile.media = client.guilds.cache.get(
+      "750705387124031510"
+    ).explicitContentFilter;
+    backupFile.bans = (
+      await client.guilds.cache.get("750705387124031510").fetchBans()
+    ).map((x) => x.user.id);
+    backupFile.channels = client.guilds.cache
+      .get("750705387124031510")
+      .channels.cache.map((x) => {
+        return {
+          name: x.name,
+          topic: x.topic,
+          type: x.type == "news" ? "text" : x.type,
+          slow: x.rateLimitPerUser,
+          nsfw: x.nsfw,
+          perms: x.permissionOverwrites
+            .filter((x) => message.guild.roles.cache.get(x.id))
+            .map((p) => {
+              return {
+                name: message.guild.roles.cache.get(p.id).name,
+                allow: p.allow.bitfield,
+                deny: p.deny.bitfield,
+              };
+            }),
+          parent: x.parent ? x.parent.name : undefined,
+          position: x.position,
+          bit: x.bitrate > 96000 ? 96000 : x.bitrate,
+          users: x.userLimit,
+        };
+      });
+    fs.writeFileSync("data/backup.json", JSON.stringify(backupFile));
+    await m.edit(
       new Discord.MessageEmbed()
-        .setTitle(":white_check_mark: 백업 완료되었어요!")
-        .setDescription("백업 완료되었어요. 아래 코드를 사용하여 i.복구 <CODE> 입력해서 데이터 이전이 가능해요")
-        .addField("백업 코드", `${backupData.id}`)
+        .setTitle("서버 백업이 완료되었어요")
         .setColor("GREEN")
         .setTimestamp()
-        .setFooter("혹시 몰라서 백업 코드를 DM 으로 전해드렸어요", message.author.displayAvatarURL())
+        .setFooter(message.author.tag, message.author.displayAvatarURL())
     );
-    });
   },
 };
