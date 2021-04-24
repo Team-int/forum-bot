@@ -190,3 +190,11 @@ a {
 #recaptcha:active {
     background-color: #5b6eae;
 }
+
+#grid {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+}

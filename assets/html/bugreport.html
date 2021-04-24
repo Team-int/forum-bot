@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>int™ Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="int™ Manager">
+    <meta name="og:title" content="int™ Manager">
+    <meta name="description" content="Team int에 오신 것을 환영합니다!">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="og:description" content="Team int에 오신 것을 환영합니다!">
+    <meta name="og:url" content="manager.intteam.co.kr">
+    <meta name="og:sitename" content="int™ manager">
+    <meta name="og:image" content="/static/image/inticon-512.png">
+    <meta name="twitter:image" content="/static/image/inticon-512.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="int™ Manager">
+    <meta name="twitter:description" content="Team int에 오신 것을 환영합니다!">
+    <meta name="twitter:url" content="manager.intteam.co.kr">
+    <link rel="shortcut icon" href="/static/image/inticon-512.png" type="image/png">
+    <link rel="icon" href="/static/image/inticon-512.png">
+    <link rel="manifest" href="/manifest.json">
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="apple-touch-icon" href="/static/image/inticon-512.png">
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        #grid {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            margin-left: auto;
+            margin-right: auto;
+            width: 95vw;
+        }
+    </style>
+    <script>
+        function getParam(sname) {
+            let params = location.search.substr(location.search.indexOf("?") + 1);
+            let sval = "";
+            params = params.split("&");
+            for (let i = 0; i < params.length; i++) {
+                temp = params[i].split("=");
+                if ([temp[0]] == sname) {
+                    sval = temp[1];
+                }
+            }
+            return sval;
+        }
+        const socket = io();
+        function onloadCallback() {
+            grecaptcha.render('recaptcha', {
+                sitekey: '6Lf8Z0waAAAAACfQKkVX0dCQSolKPmg0qRabX7mT',
+                theme: 'dark',
+                callback: callback,
+                size: 'invisible',
+                badge: 'inline'
+            });
+        }
+        function callback() {
+            socket.emit('newBug', {
+                token: '{token}',
+                title: document.querySelector('#newtitle').value,
+                text: document.querySelector('#newtext').value
+            });
+            document.querySelector('#newtitle').value = '';
+            document.querySelector('#newtext').value = '';
+        }
+        socket.on('newBugSubmitted', () => alert('버그 제출이 완료되었어요.'));
+        socket.on('bugCommented', () => alert('메세지를 작성했어요.'));
+        socket.on('newBugError', msg => alert(msg));
+        socket.on('bugCommentError', msg => alert(msg));
+    </script>
+</head>
+
+<body>
+    <div id="grid">
+        <h1>Team int 버그 제보하기</h1>
+        <div></div>
+        <p>{nick}</p>
+    </div>
+    <h2>제보한 버그</h2>
+    {reports}
+    <div>
+        <h2>새 버그 제보하기</h2>
+        <div>
+            <input type="text" id="newtitle" placeholder="제목">
+            <textarea placeholder="내용" id="newtext"></textarea>
+            <button id="recaptcha">제출</button>
+        </div>
+    </div>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+    <script>
+        Array.from(document.querySelectorAll('.new-comment-submit')).forEach(x => {
+            x.addEventListener('click', e => {
+                socket.emit('bugComment', {
+                    token: '{token}',
+                    id: x.id.replace('-submit', ''),
+                    text: document.getElementById(x.id.replace('-submit', '')).value
+                });
+                document.getElementById(x.id.replace('-submit', '')).value = '';
+            });
+        });
+    </script>
+</body>
+
+</html>
