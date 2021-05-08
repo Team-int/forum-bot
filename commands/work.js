@@ -18,7 +18,7 @@ module.exports = {
   run: async (client, message, args, ops) => {
     if (!message.member.roles.cache.has(ops.teamRole))
       return message.channel.send("팀원만 사용할 수 있어요.");
-    let statFile = require("data/work.json");
+    let statFile = require("/home/azureuser/intmanager/data/work.json");
     if (!statFile.anal[message.author.id])
       statFile.anal[message.author.id] = { count: 0, time: 0 };
     if (statFile.curr.find((x) => x.id == message.author.id)) {
@@ -97,7 +97,7 @@ module.exports = {
         ),
         1
       );
-      fs.writeFileSync("data/work.json", JSON.stringify(statFile));
+      fs.writeFileSync("/home/azureuser/intmanager/data/work.json", JSON.stringify(statFile));
     } else {
       statFile.anal[message.author.id].count++;
       const embed = new Discord.MessageEmbed()
@@ -170,7 +170,7 @@ module.exports = {
         id: message.author.id,
         startTime: new Date() - 1 + 1,
       });
-      fs.writeFileSync("data/work.json", JSON.stringify(statFile));
+      fs.writeFileSync("/home/azureuser/intmanager/data/work.json", JSON.stringify(statFile));
     }
   },
 };

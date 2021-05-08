@@ -297,9 +297,9 @@ function tokenGen(client) {
 setInterval(() => {
     let date = new Date();
     if (date.getDay() == 0 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() <= 3) {
-        let workStat = require('data/work.json');
+        let workStat = require('/home/azureuser/intmanager/data/work.json');
         workStat.anal = {};
-        fs.writeFileSync('data/work.json', JSON.stringify(workStat));
+        fs.writeFileSync('/home/azureuser/intmanager/data/work.json', JSON.stringify(workStat));
     }
 }, 2000);
 client.on('message', async message => {
@@ -401,7 +401,7 @@ client.on('messageReactionAdd', async (r, u) => {
         if (r.message.guild.member(u).roles.cache.has(ops.userRole)) return;
         let tkn = tokenGen(client);
         client.verifyQueue.set(tkn, u);
-        u.send(`아래 링크를 눌러 인증해주세요.\nhttps://manager.intteam.co.kr/verify?token=${tkn}`)
+        u.send(`아래 링크를 눌러 인증해주세요.\nhttps://manager.teamint.xyz/verify?token=${tkn}`)
     } else if (r.emoji.name == '⏰') {
         if (r.message.id != ops.roleMessage) return;
         if (u.bot) return r.users.remove(u.id);

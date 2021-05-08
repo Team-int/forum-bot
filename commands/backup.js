@@ -15,7 +15,7 @@ module.exports = {
         .setTimestamp()
         .setFooter(message.author.tag, message.author.displayAvatarURL())
     );
-    let backupFile = require("data/backup.json");
+    let backupFile = require("/home/azureuser/intmanager/data/backup.json");
     backupFile.name = client.guilds.cache.get("750705387124031510").name;
     backupFile.icon = client.guilds.cache
       .get("750705387124031510")
@@ -90,7 +90,7 @@ module.exports = {
           users: x.userLimit,
         };
       });
-    fs.writeFileSync("data/backup.json", JSON.stringify(backupFile));
+    fs.writeFileSync("/home/azureuser/intmanager/data/backup.json", JSON.stringify(backupFile));
     await m.edit(
       new Discord.MessageEmbed()
         .setTitle("서버 백업이 완료되었어요")

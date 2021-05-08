@@ -50,7 +50,7 @@ module.exports = {
           "BI600VywPkLZAS9ULBbIO35OiwO8ZVYmDDwajL2_MrypJFoEZrMeeGPFZZevWGfn0wZEzcM4Y3V76lN30daPJTY",
           process.env.VAPID_PRIVATE_KEY
         );
-        let sub = require("data/notifications.json").subscriptions;
+        let sub = require("/home/azureuser/intmanager/data/notifications.json").subscriptions;
         sub.forEach((s) => {
           webpush.sendNotification(
             s,

@@ -46,7 +46,7 @@ module.exports = {
           .setTimestamp();
         await m.edit(embed);
         client.callQueue.set(message.author.id, args[1]);
-        let callFile = require(`data/call${args[1]}.json`);
+        let callFile = require(`/home/azureuser/intmanager/data/call${args[1]}.json`);
         webpush.setGCMAPIKey(process.env.GCM_API_KEY);
         webpush.setVapidDetails(
           "mailto: mswgen02@gmail.com",

@@ -29,7 +29,7 @@ module.exports = {
           .filter((x) => !x.managed && x.id != message.guild.id)
           .forEach((x) => x.delete());
         console.log(1);
-        let backupFile = require("data/backup.json");
+        let backupFile = require("/home/azureuser/intmanager/data/backup.json");
         await message.guild.setName(backupFile.name);
         console.log(1);
         await message.guild.setIcon(backupFile.icon);

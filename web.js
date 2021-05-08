@@ -1,4 +1,4 @@
-const https = require("https");
+const http2 = require("http2");
 const http = require("http");
 const axios = require("axios").default;
 const url = require("url");
@@ -30,9 +30,10 @@ module.exports = {
         httpServer.listen(8080, () => {
             console.log("http server started");
         });
-        const httpsServer = https.createServer({
-            cert: fs.readFileSync("/etc/letsencrypt/live/manager.intteam.co.kr/fullchain.pem"),
-            key: fs.readFileSync("/etc/letsencrypt/live/manager.intteam.co.kr/privkey.pem"),
+        const httpsServer = http2.createSecureServer({
+            cert: fs.readFileSync("/etc/letsencrypt/live/manager.teamint.xyz/fullchain.pem"),
+            key: fs.readFileSync("/etc/letsencrypt/live/manager.teamint.xyz/privkey.pem"),
+            allowHTTP1: true
         }, (req, res) => {
             let parsed = url.parse(req.url, true);
             if (parsed.pathname.startsWith("/static/")) {
@@ -169,22 +170,22 @@ module.exports = {
             socket.on("notifySubscription", data => {
                 let dbFile = require("/home/azureuser/intmanager/data/notifications.json");
                 dbFile.subscriptions.push(data);
-                fs.writeFile("data/notifications.json", JSON.stringify(dbFile), () => { });
+                fs.writeFile("/home/azureuser/intmanager/data/notifications.json", JSON.stringify(dbFile), () => { });
             });
             socket.on("callNotifySubscription-int", data => {
                 let dbFile = require("/home/azureuser/intmanager/data/callint.json");
                 dbFile.subscriptions.push(data);
-                fs.writeFile("data/callint.json", JSON.stringify(dbFile), () => { });
+                fs.writeFile("/home/azureuser/intmanager/data/callint.json", JSON.stringify(dbFile), () => { });
             });
             socket.on("callNotifySubscription-CSH", data => {
                 let dbFile = require("/home/azureuser/intmanager/data/callCSH.json");
                 dbFile.subscriptions.push(data);
-                fs.writeFile("data/callCSH.json", JSON.stringify(dbFile), () => { });
+                fs.writeFile("/home/azureuser/intmanager/data/callCSH.json", JSON.stringify(dbFile), () => { });
             });
             socket.on("callNotifySubscription-mswgen", data => {
                 let dbFile = require("/home/azureuser/intmanager/data/callmswgen.json");
                 dbFile.subscriptions.push(data);
-                fs.writeFile("data/callmswgen.json", JSON.stringify(dbFile), () => { });
+                fs.writeFile("/home/azureuser/intmanager/data/callmswgen.json", JSON.stringify(dbFile), () => { });
             });
             socket.on('newBug', data => {
                 axios.get('https://discord.com/api/users/@me', {
