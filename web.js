@@ -36,7 +36,17 @@ module.exports = {
             allowHTTP1: true
         }, (req, res) => {
             let parsed = url.parse(req.url, true);
-            if (parsed.pathname.startsWith("/static/")) {
+            if (parsed.pathname.startsWith("/.well-known/acme-challenge/")) {
+                fs.readFile(`./.well-known/acme-challenge/${path.parse(parsed.pathname).base}`, "utf8", (err, data) => {
+                    if (err) {
+                        res.writeHead(404);
+                        res.end("404 Not Found");
+                        return;
+                    }
+                    res.writeHead(200);
+                    res.end(data);
+                });
+            } else if (parsed.pathname.startsWith("/static/")) {
                 if (parsed.pathname.startsWith("/static/html/")) {
                     fs.readFile(`./assets/html/${path.parse(parsed.pathname).base}`, "utf8", (err, data) => {
                         if (err) {
