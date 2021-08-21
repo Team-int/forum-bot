@@ -13,20 +13,24 @@
   "description": "int™ manager bot",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "babel-node index.js",
     "format": "yarn prettier --write ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/team-int/Forum-bot.git"
   },
-  "author": "intteam",
+  "author": "Team int Official",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/team-int/Forum-bot/issues"
   },
   "homepage": "https://github.com/team-int/Forum-bot#readme",
   "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/preset-env": "^7.15.0",
     "prettier": "2.3.2"
   }
 }
