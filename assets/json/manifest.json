@@ -1,65 +1,65 @@
 {
-    "short_name": "int™ Manager",
-    "name": "int™ Manager",
-    "description": "int™ Manager는 Team int의 관리 봇입니다. ",
-    "start_url": "/",
-    "background_color": "#000000",
-    "display": "standalone",
-    "theme_color": "#000000",
-    "orientation": "portrait",
-    "lang": "ko-KR",
-    "icons": [
-        {
-            "src": "/static/image/inticon-72.png",
-            "type": "image/png",
-            "sizes": "72x72"
-        },
-        {
-            "src": "/static/image/inticon-96.png",
-            "type": "image/png",
-            "sizes": "96x96"
-        },
-        {
-            "src": "/static/image/inticon-128.png",
-            "type": "image/png",
-            "sizes": "128x128"
-        },
-        {
-            "src": "/static/image/inticon-144.png",
-            "type": "image/png",
-            "sizes": "144x144"
-        },
-        {
-            "src": "/static/image/inticon-160.png",
-            "type": "image/png",
-            "sizes": "160x160"
-        },
-        {
-            "src": "/static/image/inticon-192.png",
-            "type": "image/png",
-            "sizes": "192x192"
-        },
-        {
-            "src": "/static/image/inticon-256.png",
-            "type": "image/png",
-            "sizes": "256x256"
-        },
-        {
-            "src": "/static/image/inticon-320.png",
-            "type": "image/png",
-            "sizes": "320x320"
-        },
-        {
-            "src": "/static/image/inticon-384.png",
-            "type": "image/png",
-            "sizes": "384x384"
-        },
-        {
-            "src": "/static/image/inticon-512.png",
-            "type": "image/png",
-            "sizes": "512x512",
-            "purpose": "maskable"
-        }
-    ],
-    "gcm_sender_id": "954456316150"
+  "short_name": "int™ Manager",
+  "name": "int™ Manager",
+  "description": "int™ Manager는 Team int의 관리 봇입니다. ",
+  "start_url": "/",
+  "background_color": "#000000",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "lang": "ko-KR",
+  "icons": [
+    {
+      "src": "/static/image/inticon-72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/static/image/inticon-96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/static/image/inticon-128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/static/image/inticon-144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/static/image/inticon-160.png",
+      "type": "image/png",
+      "sizes": "160x160"
+    },
+    {
+      "src": "/static/image/inticon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/static/image/inticon-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/static/image/inticon-320.png",
+      "type": "image/png",
+      "sizes": "320x320"
+    },
+    {
+      "src": "/static/image/inticon-384.png",
+      "type": "image/png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "/static/image/inticon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "gcm_sender_id": "954456316150"
 }

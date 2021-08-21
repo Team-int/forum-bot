@@ -10,7 +10,7 @@
     "unknown": "기타"
   },
   "confRoomChannel": "750711245736378530",
-  "devs": [ "647736678815105037", "687866011013218349", "694131960125325374" ],
+  "devs": ["647736678815105037", "687866011013218349", "694131960125325374"],
   "explicitFilterSettings": {
     "DISABLED": "미디어 콘텐츠를 스캔하지 않음",
     "MEMBERS_WITHOUT_ROLES": "역할 없는 멤버의 미디어 콘텐츠 스캔",
@@ -18,8 +18,17 @@
   },
   "guildAdminRole": "766482287343697930",
   "guildId": "750705387124031510",
-  "invites": [ "discord.gg", "discord.com/invite", "discordapp.com/invite", "diko.ml", "invite.gg", "dfic.kro.kr", "top.gg/servers", "disboard.org/servers" ],
-  "inviteWLChannels": [ "761554149912477696", "800393494954901523" ],
+  "invites": [
+    "discord.gg",
+    "discord.com/invite",
+    "discordapp.com/invite",
+    "diko.ml",
+    "invite.gg",
+    "dfic.kro.kr",
+    "top.gg/servers",
+    "disboard.org/servers"
+  ],
+  "inviteWLChannels": ["761554149912477696", "800393494954901523"],
   "logChannel": "751402062998274119",
   "welcomeChannel": "810342301980819496",
   "workChannel": "806324625775525949",

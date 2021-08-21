@@ -1,84 +1,83 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>int™ Manager</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="int™ Manager">
-    <meta name="og:title" content="int™ Manager">
-    <meta name="description" content="Team int에 오신 것을 환영합니다!">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="og:description" content="Team int에 오신 것을 환영합니다!">
-    <meta name="og:url" content="manager.teamint.xyz">
-    <meta name="og:sitename" content="int™ manager">
-    <meta name="og:image" content="/static/image/inticon-512.png">
-    <meta name="twitter:image" content="/static/image/inticon-512.png">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="int™ Manager">
-    <meta name="twitter:description" content="Team int에 오신 것을 환영합니다!">
-    <meta name="twitter:url" content="manager.teamint.xyz">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="shortcut icon" href="/static/image/inticon-512.png" type="image/png">
-    <link rel="icon" href="/static/image/inticon-512.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="int™ Manager" />
+    <meta name="og:title" content="int™ Manager" />
+    <meta name="description" content="Team int에 오신 것을 환영합니다!" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="og:description" content="Team int에 오신 것을 환영합니다!" />
+    <meta name="og:url" content="manager.teamint.xyz" />
+    <meta name="og:sitename" content="int™ manager" />
+    <meta name="og:image" content="/static/image/inticon-512.png" />
+    <meta name="twitter:image" content="/static/image/inticon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="int™ Manager" />
+    <meta name="twitter:description" content="Team int에 오신 것을 환영합니다!" />
+    <meta name="twitter:url" content="manager.teamint.xyz" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="shortcut icon" href="/static/image/inticon-512.png" type="image/png" />
+    <link rel="icon" href="/static/image/inticon-512.png" />
     <script src="/static/js/loadingbar.js"></script>
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json" />
     <script src="/socket.io/socket.io.js"></script>
-    <link rel="apple-touch-icon" href="/static/image/inticon-512.png">
+    <link rel="apple-touch-icon" href="/static/image/inticon-512.png" />
     <script>
-        const socket = io();
-        const applicationServerPublicKey = 'BI600VywPkLZAS9ULBbIO35OiwO8ZVYmDDwajL2_MrypJFoEZrMeeGPFZZevWGfn0wZEzcM4Y3V76lN30daPJTY';
-        let isSubscribed = false;
-        let swRegistration = null;
-        function urlB64ToUint8Array(base64String) {
-            const padding = '='.repeat((4 - base64String.length % 4) % 4);
-            const base64 = (base64String + padding)
-                .replace(/\-/g, '+')
-                .replace(/_/g, '/');
-            const rawData = window.atob(base64);
-            const outputArray = new Uint8Array(rawData.length);
-            for (let i = 0; i < rawData.length; ++i) {
-                outputArray[i] = rawData.charCodeAt(i);
-            }
-            return outputArray;
+      const socket = io()
+      const applicationServerPublicKey =
+        'BI600VywPkLZAS9ULBbIO35OiwO8ZVYmDDwajL2_MrypJFoEZrMeeGPFZZevWGfn0wZEzcM4Y3V76lN30daPJTY'
+      let isSubscribed = false
+      let swRegistration = null
+      function urlB64ToUint8Array(base64String) {
+        const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
+        const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/')
+        const rawData = window.atob(base64)
+        const outputArray = new Uint8Array(rawData.length)
+        for (let i = 0; i < rawData.length; ++i) {
+          outputArray[i] = rawData.charCodeAt(i)
         }
-        function updateSubscriptionOnServer(subscription) {
-            socket.emit('notifySubscription', subscription);
-        }
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/serviceWorker.js').then(reg => {
-                    swRegistration = reg;
-                    const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-                    swRegistration.pushManager.getSubscription().then(sub => {
-                        if (!sub) {
-                            swRegistration.pushManager.subscribe({
-                                userVisibleOnly: true,
-                                applicationServerKey: applicationServerKey
-                            }).then(subscription => {
-                                updateSubscriptionOnServer(subscription);
-                                isSubscribed = true;
-                            });
-                        }
-                    })
-                });
-            });
-        }
+        return outputArray
+      }
+      function updateSubscriptionOnServer(subscription) {
+        socket.emit('notifySubscription', subscription)
+      }
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/serviceWorker.js').then((reg) => {
+            swRegistration = reg
+            const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey)
+            swRegistration.pushManager.getSubscription().then((sub) => {
+              if (!sub) {
+                swRegistration.pushManager
+                  .subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: applicationServerKey
+                  })
+                  .then((subscription) => {
+                    updateSubscriptionOnServer(subscription)
+                    isSubscribed = true
+                  })
+              }
+            })
+          })
+        })
+      }
     </script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="loadingbar">
-        <div class="dot" id="dot1"></div>
-        <div class="dot" id="dot2"></div>
-        <div class="dot" id="dot3"></div>
-        <div class="dot" id="dot4"></div>
+      <div class="dot" id="dot1"></div>
+      <div class="dot" id="dot2"></div>
+      <div class="dot" id="dot3"></div>
+      <div class="dot" id="dot4"></div>
     </div>
     <div id="main">
-        <h1>int™ Manager</h1>
-        <p>Team int에 오신 것을 환영합니다!</p>
-        <a href="https://discord.gg/szYkjDKbuk">서버 참가하기</a>
+      <h1>int™ Manager</h1>
+      <p>Team int에 오신 것을 환영합니다!</p>
+      <a href="https://discord.gg/szYkjDKbuk">서버 참가하기</a>
     </div>
-</body>
-
+  </body>
 </html>

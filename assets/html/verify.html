@@ -1,86 +1,87 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Team int 인증</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Team int 인증">
-    <meta name="og:title" content="Team int 인증">
-    <meta name="description" content="Team int 인증을 완료하고 활동 권한을 얻어보세요.">
-    <meta name="og:description" content="Team int 인증을 완료하고 활동 권한을 얻어보세요.">
-    <meta name="og:url" content="manager.teamint.xyz">
-    <meta name="og:sitename" content="int™ manager">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="og:image" content="/static/image/static/image/inticon-512.png">
-    <meta name="twitter:image" content="/static/image/static/image/inticon-512.png">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Team int 인증">
-    <meta name="twitter:description" content="Team int 인증을 완료하고 활동 권한을 얻어보세요.">
-    <meta name="twitter:url" content="manager.teamint.xyz">
-    <link rel="shortcut icon" href="/static/image/static/image/inticon-512.png" type="image/png">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="icon" href="/static/image/static/image/inticon-512.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="apple-touch-icon" href="/static/image/inticon-512.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="Team int 인증" />
+    <meta name="og:title" content="Team int 인증" />
+    <meta name="description" content="Team int 인증을 완료하고 활동 권한을 얻어보세요." />
+    <meta name="og:description" content="Team int 인증을 완료하고 활동 권한을 얻어보세요." />
+    <meta name="og:url" content="manager.teamint.xyz" />
+    <meta name="og:sitename" content="int™ manager" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="og:image" content="/static/image/static/image/inticon-512.png" />
+    <meta name="twitter:image" content="/static/image/static/image/inticon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Team int 인증" />
+    <meta name="twitter:description" content="Team int 인증을 완료하고 활동 권한을 얻어보세요." />
+    <meta name="twitter:url" content="manager.teamint.xyz" />
+    <link rel="shortcut icon" href="/static/image/static/image/inticon-512.png" type="image/png" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="icon" href="/static/image/static/image/inticon-512.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/static/image/inticon-512.png" />
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/serviceWorker.js')
-            });
-        }
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/serviceWorker.js')
+        })
+      }
     </script>
     <script>
-        function getParam(sname) {
-            let params = location.search.substr(location.search.indexOf("?") + 1);
-            let sval = "";
-            params = params.split("&");
-            for (let i = 0; i < params.length; i++) {
-                temp = params[i].split("=");
-                if ([temp[0]] == sname) {
-                    sval = temp[1];
-                }
-            }
-            return sval;
+      function getParam(sname) {
+        let params = location.search.substr(location.search.indexOf('?') + 1)
+        let sval = ''
+        params = params.split('&')
+        for (let i = 0; i < params.length; i++) {
+          temp = params[i].split('=')
+          if ([temp[0]] == sname) {
+            sval = temp[1]
+          }
         }
-        function onloadCallback() {
-            grecaptcha.render('recaptcha', {
-                sitekey: '6Lf8Z0waAAAAACfQKkVX0dCQSolKPmg0qRabX7mT',
-                theme: 'dark',
-                callback: callback,
-                size: 'invisible',
-                badge: 'inline'
-            });
-        }
-        function callback() {
-            document.querySelector('#tkn').setAttribute('value', getParam('token'));
-            document.querySelector('#form').submit();
-        }
+        return sval
+      }
+      function onloadCallback() {
+        grecaptcha.render('recaptcha', {
+          sitekey: '6Lf8Z0waAAAAACfQKkVX0dCQSolKPmg0qRabX7mT',
+          theme: 'dark',
+          callback: callback,
+          size: 'invisible',
+          badge: 'inline'
+        })
+      }
+      function callback() {
+        document.querySelector('#tkn').setAttribute('value', getParam('token'))
+        document.querySelector('#form').submit()
+      }
     </script>
     <script src="/static/js/loadingbar.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-</head>
+    <script
+      src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+      async
+      defer
+    ></script>
+  </head>
 
-<body>
+  <body>
     <div id="loadingbar">
-        <div class="dot" id="dot1"></div>
-        <div class="dot" id="dot2"></div>
-        <div class="dot" id="dot3"></div>
-        <div class="dot" id="dot4"></div>
+      <div class="dot" id="dot1"></div>
+      <div class="dot" id="dot2"></div>
+      <div class="dot" id="dot3"></div>
+      <div class="dot" id="dot4"></div>
     </div>
     <div id="main">
-
-        <h1>Team int 인증하기</h1>
-        <div id="userinfo">
-            <img src="{user_profile}" alt="avatar" id="user_profile">
-            <p id="user_label">{tag}님 환영합니다!</p>
-        </div>
-        <p>Team int 규칙에 동의하신다면 아래 버튼을 눌러주세요.</p>
-        <form action="/subm" method="post" id="form">
-            <input type="hidden" name="token" value="" id="tkn">
-            <button id="recaptcha">인증하기</button>
-        </form>
+      <h1>Team int 인증하기</h1>
+      <div id="userinfo">
+        <img src="{user_profile}" alt="avatar" id="user_profile" />
+        <p id="user_label">{tag}님 환영합니다!</p>
+      </div>
+      <p>Team int 규칙에 동의하신다면 아래 버튼을 눌러주세요.</p>
+      <form action="/subm" method="post" id="form">
+        <input type="hidden" name="token" value="" id="tkn" />
+        <button id="recaptcha">인증하기</button>
+      </form>
     </div>
-</body>
-
+  </body>
 </html>
