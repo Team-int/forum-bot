@@ -9,7 +9,8 @@ import fs from 'fs'
 const table1 = new ascii()
 const table2 = new ascii()
 const client = new Discord.Client({
-  partials: ['MESSAGE', 'REACTION', 'GUILD_MEMBER', 'USER']
+  partials: ['MESSAGE', 'REACTION', 'GUILD_MEMBER', 'USER'],
+  intents: ["GUILDS", "GUILD_MESSAGES"]
 })
 
 client.verifyQueue = new Discord.Collection()
@@ -851,12 +852,12 @@ client.on('ready', () => {
     x.fetch()
   })
   setInterval(() => {
-    switch (Math.floor(Math.random() * 5)) {
+    switch (Math.floor(Math.random() * 3)) {
       case 0:
         client.user.setPresence({
           status: 'online',
           activity: {
-            name: `int 관리`,
+            name: `관리`,
             type: 'PLAYING'
           }
         })
@@ -865,7 +866,9 @@ client.on('ready', () => {
         client.user.setPresence({
           status: 'online',
           activity: {
-            name: `이 메시지는 10초마다 바뀝니다!`,
+            name: `${
+              client.guilds.cache.get(ops.guildId).members.cache.filter((x) => !x.user.bot).size
+            }명의 멤버와 함께하는 팀 인트 공식 커뮤니티 입니다!`,
             type: 'PLAYING'
           }
         })
@@ -874,29 +877,8 @@ client.on('ready', () => {
         client.user.setPresence({
           status: 'online',
           activity: {
-            name: `${
-              client.guilds.cache.get(ops.guildId).members.cache.filter((x) => !x.user.bot).size
-            }명의 멤버와 함께하는 int입니다!`,
+            name: `i.help 명령어를 통해 물어보세요!`,
             type: 'PLAYING'
-          }
-        })
-        break
-      case 3:
-        client.user.setPresence({
-          status: 'online',
-          activity: {
-            name: `i.help를 보내 물어보세요!`,
-            type: 'PLAYING'
-          }
-        })
-        break
-      case 4:
-        client.user.setPresence({
-          status: 'online',
-          activity: {
-            name: `int`,
-            type: 'STREAMING',
-            url: 'https://twitch.tv/int'
           }
         })
         break
@@ -923,7 +905,7 @@ client.on('raw', (data) => {
         client.users.cache.get(data.d.user.id).displayAvatarURL()
       )
       .setTimestamp()
-    client.channels.cache.get(ops.welcomeChannel).send(embed)
+    client.channels.cache.get(ops.welcomeChannel).send(`<@${data.d.user.id}>`, embed)
   }
 })
 require('./web.js').start(client, ops)
