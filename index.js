@@ -80,17 +80,17 @@ setInterval(() => {
     fs.writeFileSync('/home/azureuser/intmanager/data/work.json', JSON.stringify(workStat))
   }
 }, 2000)
-client.on('message', async (message) => {
+client.on('messageCreate', async (message) => {
   if (message.author.bot) return
-  if (message.channel.type != 'text' && message.channel.type != 'news') return
+  if (message.channel.type != 'GUILD_TEXT' && message.channel.type != 'GUILD_NEWS') return
   if (!message.content.startsWith(ops.prefix)) return
-  message.channel.startTyping(1)
+  
   let args = message.content.substr(ops.prefix.length).trim().split(' ')
   if (client.commands.get(args[0])) {
     client.commands.get(args[0]).run(client, message, args, ops)
   } else if (client.aliases.get(args[0])) {
     client.commands.get(client.aliases.get(args[0])).run(client, message, args, ops)
-  } else {
+  } /*else {
     let s = 0
     let sname = undefined
     let typed = args[0]
@@ -121,13 +121,13 @@ client.on('message', async (message) => {
       argsClone[0] = `${ops.prefix}${sname}`
       msgClone.content = message.content.replace(typed, sname)
       let m = await message.channel.send({
-        embed: new Discord.MessageEmbed()
+        embeds: [new Discord.MessageEmbed()
           .setTitle('명령어 자동 수정')
           .setColor('RANDOM')
           .setDescription('입력한 명령어는 존재하지 않아요.\n대신 아래 명령어를 대신 실행하까요?')
           .addField('실행할 명령어', msgClone.content)
           .setFooter(message.author.tag, message.author.displayAvatarURL())
-          .setTimestamp()
+          .setTimestamp()]
       })
       await m.react('✅')
       await m.react('❌')
@@ -148,8 +148,8 @@ client.on('message', async (message) => {
         }
       })
     }
-  }
-  message.channel.stopTyping(true)
+  }*/
+  
 })
 let defaultVerifyQueue = new Discord.Collection()
 client.on('guildMemberAdd', async (member) => {
@@ -166,7 +166,7 @@ client.on('guildMemberRemove', async (member) => {
     .setTimestamp()
   if (!member.user.bot)
     await client.channels.cache.get(ops.welcomeChannel).send({
-      embed: embed
+      embeds: [embed]
     })
 })
 client.on('messageReactionAdd', async (r, u) => {
@@ -202,7 +202,7 @@ client.on('messageReactionAdd', async (r, u) => {
     client.guilds.cache
       .get(ops.guildId)
       .channels.create(`티켓-${u.id}-${Math.floor(Math.random() * 10000000)}`, {
-        permissionOverwrites: [
+        permissionOverwrites: [ // ToDo Discord.Permissions.FLAGS 사용하기 아래 내용을 사용할시 오류가 발생할수 있음!
           {
             id: client.guilds.cache.get(ops.guildId).roles.everyone.id,
             deny: [
@@ -272,7 +272,7 @@ client.on('messageReactionAdd', async (r, u) => {
           .setFooter(u.tag, u.displayAvatarURL())
           .setTimestamp()
         let m = await tktCh.send(u.toString(), {
-          embed: embed
+          embeds: [embed]
         })
         const embed2 = new Discord.MessageEmbed()
           .setTitle('티켓이 열렸어요! 관리자는 일하세요!')
@@ -283,7 +283,7 @@ client.on('messageReactionAdd', async (r, u) => {
         await client.channels.cache
           .get(ops.confRoomChannel)
           .send(client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole).toString(), {
-            embed: embed2
+            embeds: [embed2]
           })
         await m.react('🔒')
       })
@@ -299,7 +299,7 @@ client.on('messageReactionAdd', async (r, u) => {
     let m = await r.message.channel.send(
       `${u} ${client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole)}`,
       {
-        embed: embed
+        embeds: [embed]
       }
     )
     await r.message.channel.setName(`닫힌-${r.message.channel.name}`)
@@ -374,7 +374,7 @@ client.on('messageReactionAdd', async (r, u) => {
     let m = await r.message.channel.send(
       `${u} ${client.guilds.cache.get(ops.guildId).roles.cache.get(ops.adminRole)}`,
       {
-        embed: embed
+        embeds: [embed]
       }
     )
     await r.message.channel.setName(r.message.channel.name.substr(3))
@@ -452,7 +452,7 @@ client.on('messageReactionAdd', async (r, u) => {
       .setFooter(u.tag, u.displayAvatarURL())
       .setTimestamp()
     let m = await r.message.channel.send({
-      embed: embed
+      embed: [embed]
     })
     await m.react('✅')
     await m.react('❌')
@@ -471,7 +471,7 @@ client.on('messageReactionAdd', async (r, u) => {
           .setColor('RANDOM')
           .setTimestamp()
         m.edit({
-          embed: embed
+          embed: [embed]
         })
       }
     })
@@ -489,9 +489,9 @@ client.on('messageReactionRemove', async (r, u) => {
     await r.message.guild.member(u).roles.remove(ops.animeRole)
   }
 })
-client.on('message', (message) => {
+client.on('messageCreate', (message) => {
   if (!message.system) return
-  if (message.channel.id != message.guild.systemChannelID) return
+  if (message.channel.id != message.guild.systemChannelId) return
   switch (message.type) {
     case 'USER_PREMIUM_GUILD_SUBSCRIPTION':
       message.delete()
@@ -511,53 +511,53 @@ client.on('message', (message) => {
       message.delete()
       client.channels.cache
         .get(ops.noticeChannel)
-        .send(
-          message.author.toString(),
-          new Discord.MessageEmbed()
+        .send({
+          content : message.author.toString(),
+          embeds : [new Discord.MessageEmbed()
             .setTitle(`새 부스트`)
             .setColor('RANDOM')
             .setDescription(
               `${message.author}님이 방금 이 서버를 부스트했어요! 이제 이 서버의 부스트 레벨은 **1레벨**이에요!`
             )
             .setFooter(message.author.tag, message.author.displayAvatarURL())
-            .setTimestamp()
-        )
+            .setTimestamp()]
+        })
       break
     case 'USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2':
       message.delete()
       client.channels.cache
         .get(ops.noticeChannel)
-        .send(
-          message.author.toString(),
-          new Discord.MessageEmbed()
+        .send({
+          content: message.author.toString(),
+          embeds : [new Discord.MessageEmbed()
             .setTitle(`새 부스트`)
             .setColor('RANDOM')
             .setDescription(
               `${message.author}님이 방금 이 서버를 부스트했어요! 이제 이 서버의 부스트 레벨은 **2레벨**이에요!`
             )
             .setFooter(message.author.tag, message.author.displayAvatarURL())
-            .setTimestamp()
-        )
+            .setTimestamp()]
+        })
       break
     case 'USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3':
       message.delete()
       client.channels.cache
         .get(ops.noticeChannel)
-        .send(
-          message.author.toString(),
-          new Discord.MessageEmbed()
+        .send({
+          content: message.author.toString(),
+          embeds : [new Discord.MessageEmbed()
             .setTitle(`새 부스트`)
             .setColor('RANDOM')
             .setDescription(
               `${message.author}님이 방금 이 서버를 부스트했어요! 이제 이 서버의 부스트 레벨은 **3레벨**이에요!`
             )
             .setFooter(message.author.tag, message.author.displayAvatarURL())
-            .setTimestamp()
-        )
+            .setTimestamp()]
+        })
       break
   }
 })
-client.on('message', (message) => {
+client.on('messageCreate', (message) => {
   if (message.author.id != ops.mee6Id) return
   if (!message.content.startsWith('GG ')) return
   const member = client.guilds.cache.get(ops.guildId).member(message.mentions.users.first())
@@ -572,7 +572,7 @@ client.on('message', (message) => {
     member.roles.add(ops.levelRoles.k)
   }
 })
-client.on('message', async (message) => {
+client.on('messageCreate', async (message) => {
   if (message.channel.id == ops.noticeChannel) {
     if (message.author.id != client.user.id) return message.delete()
     axios.post(
@@ -595,6 +595,7 @@ client.on('message', async (message) => {
     message.author.send('초대 링크는 보낼 수 없어요.')
   }
 })
+// todo Update Djs 13
 client.on('messageUpdate', async (old, message) => {
   if (!message.author || message.author.bot) return
   client.channels.cache.get(ops.logChannel).send({
