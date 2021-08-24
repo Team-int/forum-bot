@@ -34,10 +34,8 @@ module.exports = {
     httpServer.listen(8080, () => {
       console.log('http server started')
     })
-    const httpsServer = http2.createSecureServer(
+    const httpsServer = http2.createServer(
       {
-        cert: fs.readFileSync('/etc/letsencrypt/live/manager.teamint.xyz/fullchain.pem'),
-        key: fs.readFileSync('/etc/letsencrypt/live/manager.teamint.xyz/privkey.pem'),
         allowHTTP1: true
       },
       (req, res) => {
