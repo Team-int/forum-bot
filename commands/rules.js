@@ -17,6 +17,6 @@ module.exports = {
 				.setStyle('SUCCESS')
 				.setEmoji('✅')
 		);
-		message.channel.send({ embeds: [embed], components: [row, button] });
+		message.channel.send({ embeds: [embed], components: [row] });
 	}
 }

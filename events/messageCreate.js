@@ -27,9 +27,10 @@ module.exports = {
 				try {
 					await client.commands.get(args[0]).execute(client, message, args);
 				} catch (error) {
-					message.reply(
-						'저런... 개발자들이 이상한짓을 했는지 명령어가 실행도중에 충돌이 이러났어요...'
-					);
+					setTimeout(async () => {
+						message.reply(
+						'저런... 개발자들이 코드에 밥을 넣었는지 명령어가 실행도중에 충돌이 이러났어요... 잠시만 기다려주세요...')
+					}, 250)
 					let embed = new Discord.MessageEmbed()
 						.setTitle('Error!')
 						.setDescription('알수 없는 오류가 나타났어요...')
