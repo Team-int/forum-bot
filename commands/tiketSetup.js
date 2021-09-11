@@ -15,6 +15,11 @@ module.exports = {
 				.setPlaceholder('생성할 티켓을 선택해주세요')
 				.addOptions([
 					{
+						label: '📝 문의하기',
+						description: '문의사항이 있으면 이 옵션을 선택해주세요!',
+						value: 'support',
+					},
+					{
 						label: '🚨 신고하기',
 						description: '규칙을 어기는 유저를 신고하려면 이 옵션을 선택해주세요!',
 						value: 'report',
@@ -25,10 +30,11 @@ module.exports = {
 						value: 'suggest',
 					},
 					{
-						label: '📝 문의하기',
-						description: '문의사항이 있으면 이 옵션을 선택해주세요!',
-						value: 'support',
+						label: '🏢 팀원신청 하기',
+						description: '현재 팀원을 뽑고 있다면 이 옵션을 선택해주세요',
+						value: 'request',
 					},
+					
 				])
 		);
 		const button = new Discord.MessageActionRow().addComponents(
