@@ -1,13 +1,41 @@
-const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu, Interaction, Permissions, PermissionOverwrites } = require('discord.js')
-const { getSelectedMenuForTicket, removeSelectedMenuForTicket } = require('./TicketCallback-Selects.js')
+const {
+	MessageEmbed,
+	MessageActionRow,
+	MessageButton,
+	MessageSelectMenu,
+	Interaction,
+	Permissions,
+	PermissionOverwrites,
+} = require('discord.js');
+const {
+	getSelectedMenuForTicket,
+	removeSelectedMenuForTicket,
+} = require('./TicketCallback-Selects.js');
 const wait = require('util').promisify(setTimeout);
 
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
-		const { ticketCategory, translateValue} = client.config
+		const { ticketCategory, translateValue } = client.config;
 		if (!interaction.isButton()) return;
-		
+
+		if (interaction.customId === 'verify') {
+			const roleID = '751400015733194753';
+			const member = await interaction.guild.members.cache.find(
+				(member) => member.id === interaction.user.id
+			);
+			if (member.roles.cache.find((r) => r.id === roleID))
+				return interaction.reply({ content: '이미 인증되었습니다!', ephemeral: true });
+			
+			await member.roles.add(roleID)
+			interaction.reply({
+				content:
+					'성공적으로 인증되었습니다!' +
+					'\n' +
+					'이용규칙 위반되지 않게 활발한 활동해 주시기 바랍니다!',
+				ephemeral: true,
+			});
+		}
 		if (interaction.customId === 'openTicket') {
 			const selected = getSelectedMenuForTicket(interaction.user.id); // interaction.values[0]
 			if (!selected)

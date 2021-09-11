@@ -6,6 +6,8 @@ module.exports = {
 	isSlash: false,
 	async execute(client, message, args) {
 		if(!client.config.bot.owners.includes(message.author.id)) return
+		
+		message.delete()
 		const embed = new Discord.MessageEmbed()
 			.setDescription('생성하려는 티켓을 선택한 뒤 아래 버튼을 눌러서 생성할 수 있습니다!\n')
 			.setColor('ffffff');
