@@ -8,7 +8,7 @@ import (
 	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/diamondburned/arikawa/v3/state"
 	"github.com/diamondburned/arikawa/v3/utils/json/option"
-	"github.com/jcdea/discordbotthing/utils"
+	"github.com/team-int/Forum-bot/utils"
 )
 
 func HandleButton(s *state.State, e *gateway.InteractionCreateEvent, guildID discord.GuildID, data *discord.ButtonInteraction) api.InteractionResponse {

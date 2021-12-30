@@ -9,10 +9,10 @@ import (
 	"github.com/diamondburned/arikawa/v3/discord"
 	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/diamondburned/arikawa/v3/state"
-	"github.com/jcdea/discordbotthing/cmd"
-	"github.com/jcdea/discordbotthing/handler"
-	"github.com/jcdea/discordbotthing/utils"
 	"github.com/joho/godotenv"
+	"github.com/team-int/Forum-bot/cmd"
+	"github.com/team-int/Forum-bot/handler"
+	"github.com/team-int/Forum-bot/utils"
 )
 
 // To run, do `GUILD_ID="GUILD ID" BOT_TOKEN="TOKEN HERE" go run .`

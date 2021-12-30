@@ -7,7 +7,7 @@ import (
 	"github.com/diamondburned/arikawa/v3/discord"
 	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/diamondburned/arikawa/v3/state"
-	"github.com/jcdea/discordbotthing/utils"
+	"github.com/team-int/Forum-bot/utils"
 )
 
 func AdminButton(s *state.State, e *gateway.InteractionCreateEvent, data discord.CommandInteractionOption) api.InteractionResponse {

@@ -8,8 +8,8 @@ import (
 	"github.com/diamondburned/arikawa/v3/discord"
 	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/diamondburned/arikawa/v3/state"
-	"github.com/jcdea/discordbotthing/cmd"
-	"github.com/jcdea/discordbotthing/utils"
+	"github.com/team-int/Forum-bot/cmd"
+	"github.com/team-int/Forum-bot/utils"
 )
 
 func isAdmin(roles []discord.RoleID) bool {
