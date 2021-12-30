@@ -5,7 +5,7 @@ import (
 	"github.com/diamondburned/arikawa/v3/discord"
 	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/diamondburned/arikawa/v3/state"
-	"github.com/team-int/Forum-bot/cmd"
+	"github.com/team-int/forum-bot/cmd"
 )
 
 func HandleCommand(s *state.State, e *gateway.InteractionCreateEvent, data *discord.CommandInteraction) api.InteractionResponse {

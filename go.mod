@@ -1,4 +1,4 @@
-module github.com/team-int/Forum-bot
+module github.com/team-int/forum-bot
 
 go 1.17
 
