@@ -45,7 +45,7 @@ func HandleButton(s *state.State, e *gateway.InteractionCreateEvent, guildID dis
 		s.AddRole(guildID, e.Sender().ID, userRoleID, api.AddRoleData{})
 
 		welcomeEmbed := utils.MakeEmbed("환영합니다!",
-			fmt.Sprintf(`안녕하세요, <@%d>님! Team int에 오신걸 환영합니다!\n<a:playwithme2:927607561874726964> 모두 새로 온 유저를 환영해주세요! <a:playwithme:927607523358441473>`,
+			fmt.Sprintf(`안녕하세요, <@%d>님! Team int에 오신걸 환영합니다!\n<a:playwithme2:927607561874726964>**모두 새로 온 유저를 환영해주세요!**<a:playwithme:927607523358441473>`,
 				e.SenderID()),
 			utils.SuccessColor,
 		)
