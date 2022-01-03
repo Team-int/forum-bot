@@ -47,7 +47,6 @@ func main() {
 			}
 			break
 		case *discord.ButtonInteraction:
-
 			resp = handler.HandleButton(s, e, guildID, data)
 			log.Println("sending callback to button")
 			if err := s.RespondInteraction(e.ID, e.Token, resp); err != nil {
